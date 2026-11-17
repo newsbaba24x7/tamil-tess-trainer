@@ -229,6 +229,7 @@ footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line);
   <div class="actions">
     <a class="btn primary" href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/download/v2.0.0/tam_v2.traineddata">Download tam_v2 (6.5 MB)</a>
     <a class="btn" href="https://github.com/newsbaba24x7/tamil-tess-trainer">Source on GitHub</a>
+    <a class="btn" href="benchmarks/">Benchmark results</a>
     <a class="btn" href="https://github.com/newsbaba24x7/tamil-tess-trainer/blob/main/MODEL_CARD.md">Model card</a>
   </div>
   <div class="summary" aria-label="Results on 197 real scanned pages">
@@ -349,7 +350,8 @@ tesseract page.png out -l tam_v2 --tessdata-dir .     <span class="c"># writes o
   <h2>Benchmark results</h2>
   <p>CER is the character error rate and WER the word error rate: lower is better. BLEU, ANLS and METEOR measure
     text similarity from 0 to 1: higher is better. All scores were measured with Tesseract 5.5.0 on test data that no
-    model was trained on. Full tables: <a href="https://github.com/newsbaba24x7/tamil-tess-trainer/blob/main/benchmarks/BASELINE.md">benchmarks/BASELINE.md</a>.</p>
+    model was trained on. <b><a href="benchmarks/">All benchmark results</a></b> has every model on every test set, with
+    the measures explained and how to reproduce them.</p>
 
   <h3>197 real scanned pages from 186 Tamil Wikisource books</h3>
   <p class="cap">Whole pages read with Tesseract's default page mode. Random proofread pages, from clean modern print to badly damaged old books.</p>
