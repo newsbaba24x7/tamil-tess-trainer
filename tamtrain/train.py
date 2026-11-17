@@ -8,10 +8,12 @@ box files (WordStr) -> .lstmf -> unicharset (merged with the start model's)
 
 from __future__ import annotations
 
+import os
 import random
 import re
 import shutil
 import subprocess
+import time
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from pathlib import Path
@@ -47,6 +49,8 @@ class TrainOptions:
     extra_gt: list[Path] | None = None
     extra_gt_eval: list[Path] | None = None   # real lines used only to measure training (e.g. other books)
     real_repeat: int = 1                     # how many times each real training line is shown per epoch
+    eval_max: int = 500                      # at most this many lines in the evaluation run during training
+    train_threads: int | None = None         # CPU threads for lstmtraining (None: all)
     psm: int = 13
     jobs: int = 4
     fresh: bool = False
@@ -152,10 +156,14 @@ EVAL_RE = re.compile(r"At iteration (\d+), stage \d+, (?:Eval Char error rate=([
                      r"BCER eval=([\d.]+), BWER eval=([\d.]+))")
 
 
-def run_lstmtraining(cmd: list[str], log_file: Path, max_iter: int) -> None:
+def run_lstmtraining(cmd: list[str], log_file: Path, max_iter: int, threads: int | None = None) -> tuple[int, int]:
+    """Run lstmtraining; return the first and last training iteration it reported."""
     log("    " + " ".join(cmd))
+    env = {**os.environ, "OMP_THREAD_LIMIT": str(threads)} if threads else None
+    seen: list[int] = []
     with open(log_file, "a", encoding="utf-8") as lf, subprocess.Popen(
-        cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace", bufsize=1
+        cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace", bufsize=1,
+        env=env,
     ) as proc:
         tail: list[str] = []
         started = finished = False
@@ -164,6 +172,7 @@ def run_lstmtraining(cmd: list[str], log_file: Path, max_iter: int) -> None:
             tail = (tail + [line.rstrip()])[-30:]
             if m := LOSS_RE.search(line):
                 started = True
+                seen.append(int(m.group(2)))
                 # "At iteration L/T/S": L = lines learned from, T = training iterations (what
                 # --max_iterations counts), S = samples seen.
                 log(f"    iter {m.group(2):>6}/{max_iter}  train char error {m.group(4):>6}%  "
@@ -184,12 +193,13 @@ def run_lstmtraining(cmd: list[str], log_file: Path, max_iter: int) -> None:
                 # lstmtraining sometimes exits non-zero while its evaluation thread shuts down,
                 # after the final checkpoint has been written.
                 warn(f"lstmtraining exited with code {proc.returncode} after finishing; checkpoint is complete")
-                return
+                return (seen[0], seen[-1]) if seen else (0, 0)
             msg = "\n".join(tail)
             if not started:
                 msg += ("\nHint: fine-tuning needs a float model from tessdata_best, not tessdata_fast "
                         "or a distribution package.")
             raise TamTrainError(f"lstmtraining failed (see {log_file}):\n{msg}")
+    return (seen[0], seen[-1]) if seen else (0, 0)
 
 
 def train(work: Path, opts: TrainOptions) -> dict:
@@ -260,6 +270,11 @@ def train(work: Path, opts: TrainOptions) -> dict:
     rng.shuffle(train_list)
     if not eval_list:
         eval_list = train_list[: max(1, len(train_list) // 20)]
+    if opts.eval_max and len(eval_list) > opts.eval_max:
+        # lstmtraining re-reads the whole evaluation list in a second thread at every check, competing
+        # with training for the CPU; a few hundred lines measure progress just as well.
+        log(f"    evaluation during training uses {opts.eval_max} of {len(eval_list)} evaluation lines (--eval-max)")
+        eval_list = sorted(random.Random(opts.seed + 1).sample(eval_list, opts.eval_max))
     (model_dir / "list.train").write_text("\n".join(train_list) + "\n", encoding="utf-8")
     (model_dir / "list.eval").write_text("\n".join(eval_list) + "\n", encoding="utf-8")
     log(f"    {len(train_list)} training lines, {len(eval_list)} evaluation lines")
@@ -300,7 +315,19 @@ def train(work: Path, opts: TrainOptions) -> dict:
         cmd[3:3] = ["--net_spec", SCRATCH_NET_SPEC.format(n=n_chars)]
     if (ckpt_dir / f"{name}_checkpoint").exists():
         log("    resuming from existing checkpoint (use --fresh to start over)")
-    run_lstmtraining(cmd, log_file, opts.iterations)
+    load = os.getloadavg()[0] if hasattr(os, "getloadavg") else 0.0
+    if load > (os.cpu_count() or 2) / 2:
+        warn(f"other programs are keeping the CPU busy (load {load:.1f}); training slows down accordingly. "
+             "V2's training ran at half speed for this reason.")
+    t0 = time.monotonic()
+    first, last = run_lstmtraining(cmd, log_file, opts.iterations, opts.train_threads)
+    seconds = time.monotonic() - t0
+    steps = max(0, last - first + 100) if last else 0
+    timing = {"iterations_this_run": steps, "seconds": round(seconds), "load_at_start": round(load, 2),
+              "threads": opts.train_threads or os.cpu_count(),
+              "seconds_per_iteration": round(seconds / steps, 4) if steps else None}
+    if steps:
+        log(f"    trained {steps} iterations in {seconds / 60:.1f} min ({seconds / steps:.3f} s per iteration)")
 
     step("Writing final models")
     checkpoint = ckpt_dir / f"{name}_checkpoint"
@@ -314,4 +341,7 @@ def train(work: Path, opts: TrainOptions) -> dict:
         run(["lstmtraining", "--stop_training", "--continue_from", checkpoint, "--traineddata", proto,
              *extra, "--model_output", target], log_file=log_file)
         log(f"    {target}")
-    return {"best": str(best), "fast": str(fast), "start_model": str(start) if start else None}
+    settings = {k: (str(v) if isinstance(v, Path) else [str(x) for x in v] if isinstance(v, list) else v)
+                for k, v in vars(opts).items()}
+    return {"best": str(best), "fast": str(fast), "start_model": str(start) if start else None,
+            "settings": settings, "timing": timing}

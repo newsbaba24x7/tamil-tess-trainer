@@ -161,7 +161,28 @@ the numbers written with them are kept, which brings them from 4.8 to 0.5 per 1,
 | `--learning-rate` | 0.0001 (0.002 from scratch) | |
 | `--wordlist` | | Extra dictionary words, one per line, added to the stock `tam` dictionary |
 | `--extra-gt` | | Folders of **real scanned lines** (`x.png` + `x.gt.txt`) to train on alongside the fonts |
+| `--extra-gt-eval` | | Folders of real lines used only to measure progress during training (other books) |
+| `--real-repeat` | 1 | Show each real training line this many times |
+| `--eval-max` | 500 | At most this many lines in the progress check during training (0: all) |
+| `--train-threads` | all cores | CPU threads for `lstmtraining` |
 | `--fresh` | | Discard earlier checkpoints |
+
+**Training time.** Measured on 4 CPU cores, fine-tuning takes about 0.046 s per iteration (0.050 s
+with 2 threads, 0.068 s with 1), so 100,000 iterations take about 80 minutes. To keep it there:
+
+- **Run nothing else heavy while training.** V2's training ran at half that speed because other
+  jobs were using the CPU. `train` warns when the machine is busy, and records the time per
+  iteration and every setting in `work/config.json`.
+- **Start from the best model you have** (`--start-model path/to/model.traineddata`, a float
+  model). Fine-tuning a model that already reads most lines needs far fewer iterations.
+- **Give it lines it gets wrong.** When fine-tuning, a line the model already reads perfectly
+  costs time but teaches nothing: in V2's training only 27% of the iterations changed the
+  model. Real scans and new kinds of damage teach more than more of the same renders.
+- **Render only what training will use.** Each iteration reads one line, so render about as many
+  lines as iterations; V2 rendered twice as many as it used, and converting each line for
+  training takes about 25 ms.
+- **Keep the progress check small.** It runs in a second thread on every check; 500 lines
+  (`--eval-max`) measure progress as well as thousands.
 
 ### `evaluate`: before/after report
 

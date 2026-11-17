@@ -180,8 +180,8 @@ def train_options(args) -> TrainOptions:
     return TrainOptions(name=args.name, start_model=args.start_model, iterations=args.iterations,
                         learning_rate=args.learning_rate, target_error_rate=args.target_error_rate,
                         wordlist=args.wordlist, extra_gt=args.extra_gt, extra_gt_eval=args.extra_gt_eval,
-                        real_repeat=args.real_repeat, jobs=args.jobs, fresh=args.fresh,
-                        seed=args.seed)
+                        real_repeat=args.real_repeat, eval_max=args.eval_max, train_threads=args.train_threads,
+                        jobs=args.jobs, fresh=args.fresh, seed=args.seed)
 
 
 def cmd_train(args) -> None:
@@ -308,6 +308,12 @@ def build_parser() -> argparse.ArgumentParser:
                              "the training log's evaluation numbers then come from real scans")
         sp.add_argument("--real-repeat", type=int, default=1,
                         help="show each real training line this many times (real lines are fewer than rendered)")
+        sp.add_argument("--eval-max", type=int, default=500,
+                        help="at most this many lines in the evaluation that runs during training (0: all); "
+                             "it runs in a second thread and competes with training for the CPU")
+        sp.add_argument("--train-threads", type=int,
+                        help="CPU threads for lstmtraining (default: all). Two give about 92%% of the speed of "
+                             "four, leaving the other cores free")
         sp.add_argument("--extra-gt", type=Path, nargs="+",
                         help="dirs of real scanned lines: line.png + line.gt.txt (tesstrain layout)")
         sp.add_argument("--fresh", action="store_true", help="discard previous checkpoints")

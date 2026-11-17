@@ -9,7 +9,7 @@ CMP=(--compare "V1 (188 styles)=work-60/output/tessdata_best/tam_multifont.train
      --compare "V2-research=work-v2-research/output/tessdata_best/tam_v2_research.traineddata")
 T="python3 -m tamtrain"
 CMP+=(--no-installed)
-$T evaluate --work work-v2 --eval-lines 2000 "${CMP[@]}"                                   # rendered held-out lines
+$T lines benchmarks/rendered-heldout-v2 --work work-v2 --name rendered-heldout "${CMP[@]}"    # rendered held-out lines (fixed set)
 $T lines books-lines/dev --work work-v2 --name real-dev-lines "${CMP[@]}"                   # real lines, check books
 $T lines benchmarks/wikisource-test-lines --work work-v2 --name real-test-lines "${CMP[@]}" # real lines, test pages
 $T scans scans/wikisource --work work-v2 --name scans "${CMP[@]}"                          # 197 real pages
