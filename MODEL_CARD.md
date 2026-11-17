@@ -83,12 +83,16 @@ commands are in the [README](README.md#real-scanned-lines-the-v2-pipeline).
   for those are still being collected (`benchmarks/icon-style/`).
 - Not for handwriting, and not for legacy-encoded (TSCII, TAB/TAM, Bamini) PDF text layers.
 
-## Not included
+## Other models
 
-Two research models trained with this tool are **not released**, because some of their training
-fonts can't be used in a published model: V1 (`tam_multifont`) used Latha (proprietary);
-V2-research (`tam_v2_research`) also used the C-DAC GIST fonts (non-commercial licence) and
-uniAmma (unknown origin). Their evaluation reports are in [examples/](examples/).
+- **V1 (`tam_multifont`)** is released as a research model, for comparison: release
+  [v1.0.0](https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v1.0.0), model card
+  [models/tam_multifont](models/tam_multifont/README.md). It was trained on fonts only, and 4 of
+  its 188 font styles are not openly licensed: Latha (proprietary) and three uniAmma fonts
+  (unknown origin). It is no better than the stock model on real scans.
+- **V2-research (`tam_v2_research`)** is **not released**. It also used the C-DAC GIST fonts,
+  whose licence allows non-commercial use only. Its evaluation reports are in
+  [examples/](examples/).
 
 ## Checksums (SHA-256)
 

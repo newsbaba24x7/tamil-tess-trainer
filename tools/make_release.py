@@ -34,18 +34,29 @@ IA_WIDTH = 1920     # ia_book_pages.py default, used for the V2 books
 
 
 def font_licences(md: Path) -> list[tuple[str, dict]]:
-    """(family, source/licence/class) from the first table of the fonts page: the fonts used."""
-    rows, in_table = [], False
+    """(family, source/licence/class) from the first table of a fonts page: the fonts used."""
+    rows, cols = [], None
     for line in md.read_text(encoding="utf-8").splitlines():
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
         if line.startswith("| Family |"):
-            in_table = True
-        elif in_table:
+            cols = {name: i for i, name in enumerate(cells)}
+        elif cols is not None:
             if not line.startswith("|"):
                 break
-            cells = [c.strip() for c in line.strip().strip("|").split("|")]
             if not cells[0].startswith("---"):
-                rows.append((cells[0], {"source": cells[1], "licence": cells[2], "class": cells[3]}))
+                lic = cells[cols["Licence"]]
+                cls = cells[cols["Class"]] if "Class" in cols else licence_class(lic)
+                rows.append((cells[0], {"source": cells[cols["Source"]], "licence": lic, "class": cls}))
     return sorted(rows, key=lambda r: -len(r[0]))     # longest family name first
+
+
+def licence_class(lic: str) -> str:
+    low = lic.lower()
+    if low in ("proprietary", "unknown"):
+        return "restricted"
+    if low.startswith("non-commercial"):
+        return "non-commercial"
+    return "free-use" if low.startswith("free use") else "open"
 
 
 def portable_fonts(work: Path, md: Path) -> list[dict]:
@@ -116,19 +127,22 @@ def main() -> int:
     ap.add_argument("--test-pages", type=Path, default=ROOT / "scans" / "wikisource")
     ap.add_argument("--text", type=Path, default=ROOT / "corpus-v2.txt")
     ap.add_argument("--wordlist", type=Path, default=ROOT / "wordlist-v2.txt")
+    ap.add_argument("--model-only", action="store_true",
+                    help="only the model files (for models trained without real lines or own text, like V1)")
     args = ap.parse_args()
     args.dist.mkdir(parents=True, exist_ok=True)
     out = args.work / "output"
     shutil.copy2(out / "tessdata_best" / f"{args.name}.traineddata", args.dist / f"{args.name}.traineddata")
     shutil.copy2(out / "tessdata_fast" / f"{args.name}.traineddata", args.dist / f"{args.name}_fast.traineddata")
 
-    rows = real_lines(args.books, args.lines, args.test_lines, args.test_pages)
-    with gzip.open(args.dist / f"{args.name}-real-lines.jsonl.gz", "wt", encoding="utf-8", compresslevel=9) as f:
-        for r in rows:
-            f.write(json.dumps(r, ensure_ascii=False) + "\n")
-    for src_path, label in ((args.text, "training-text"), (args.wordlist, "wordlist")):
-        with open(src_path, "rb") as src, gzip.open(args.dist / f"{args.name}-{label}.txt.gz", "wb", compresslevel=9) as dst:
-            shutil.copyfileobj(src, dst)
+    rows = [] if args.model_only else real_lines(args.books, args.lines, args.test_lines, args.test_pages)
+    if not args.model_only:
+        with gzip.open(args.dist / f"{args.name}-real-lines.jsonl.gz", "wt", encoding="utf-8", compresslevel=9) as f:
+            for r in rows:
+                f.write(json.dumps(r, ensure_ascii=False) + "\n")
+        for src_path, label in ((args.text, "training-text"), (args.wordlist, "wordlist")):
+            with open(src_path, "rb") as src, gzip.open(args.dist / f"{args.name}-{label}.txt.gz", "wb", compresslevel=9) as dst:
+                shutil.copyfileobj(src, dst)
 
     sums = []
     for p in sorted(args.dist.iterdir()):
@@ -145,7 +159,7 @@ def main() -> int:
 
     counts = {s: sum(r["split"] == s for r in rows) for s in ("train", "dev", "test")}
     missing = [f["name"] for f in fonts if not f["licence"]]
-    print(f"{len(rows)} real lines {counts}; {len(fonts)} font styles"
+    print((f"{len(rows)} real lines {counts}; " if rows else "") + f"{len(fonts)} font styles"
           + (f"; NO LICENCE FOUND for {missing}" if missing else ""))
     for line in sums:
         print(" ", line)

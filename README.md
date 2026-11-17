@@ -21,6 +21,12 @@ Downloads, test results, training data and known limits are in the [model card](
 `tam_v2_fast.traineddata` is the smaller integer version; it scores within 0.1 points of the
 full one. Licence: Apache-2.0, like Tesseract's own models.
 
+The first model trained with this tool, **V1 (`tam_multifont`)**, is also available as a research
+model for comparison ([model card](models/tam_multifont/README.md),
+[release v1.0.0](https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v1.0.0)). It
+was trained on fonts only, including 4 styles without an open licence, and is no better than the
+stock model on real scans.
+
 The rest of this page is about **tamtrain**, the tool that trained tam_v2. Use it to train
 your own Tamil model or to test models on real scans.
 
@@ -317,8 +323,9 @@ The V2-research run took about 2 hours on 4 CPU cores. Its fonts are listed in
 [examples/fonts-v1-v2-research.md](examples/fonts-v1-v2-research.md).
 
 **V2-research is not for release.** It was trained with the 20 C-DAC GIST families (non-commercial
-licence), Latha (proprietary) and uniAmma (unknown origin). The open model, V2 (below), uses
-openly licensed fonts only.
+licence), Latha (proprietary) and uniAmma (unknown origin). V1 used Latha and uniAmma but no
+C-DAC fonts; it is released as a research model ([model card](models/tam_multifont/README.md)).
+The open model, V2 (below), uses openly licensed fonts only.
 
 What is still left:
 

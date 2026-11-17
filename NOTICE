@@ -22,9 +22,12 @@ Scanned page images
   redistributed here; the line list says where each one can be downloaded.
 
 Fonts
-- Text lines were rendered with 233 font styles. Their sources and licences are listed in
-  examples/fonts-v2-open.md and models/tam_v2/fonts.json. The fonts themselves are not
-  redistributed.
+- tam_v2: text lines were rendered with 233 font styles. Their sources and licences are listed
+  in examples/fonts-v2-open.md and models/tam_v2/fonts.json.
+- tam_multifont (V1, research model, also fine-tuned from "tam"): 188 font styles, listed in
+  models/tam_multifont/fonts.json. They include Latha (Microsoft, proprietary) and uniAmma-10,
+  -11 and -16 (origin unknown), which have no open licence.
+- The fonts themselves are not redistributed.
 
 Benchmarks
 - RANLP 2025 synthetic Tamil OCR (https://huggingface.co/datasets/Nevidu/tamil_synthetic_ocr)
