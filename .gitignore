@@ -15,6 +15,7 @@
 !/benchmarks/
 !/books/
 !/tests/
+!/docs/
 
 __pycache__/
 *.pyc
