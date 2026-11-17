@@ -21,11 +21,16 @@ Downloads, test results, training data and known limits are in the [model card](
 `tam_v2_fast.traineddata` is the smaller integer version; it scores within 0.1 points of the
 full one. Licence: Apache-2.0, like Tesseract's own models.
 
-The first model trained with this tool, **V1 (`tam_multifont`)**, is also available as a research
-model for comparison ([model card](models/tam_multifont/README.md),
-[release v1.0.0](https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v1.0.0)). It
-was trained on fonts only, including 4 styles without an open licence, and is no better than the
-stock model on real scans.
+The two earlier models trained with this tool are also available as research models, for
+comparison. Both were trained on fonts only.
+
+- **V1 (`tam_multifont`)** is no better than the stock model on real scans. 4 of its font styles
+  have no open licence. See its [model card](models/tam_multifont/README.md) and
+  [release v1.0.0](https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v1.0.0).
+- **V2-research (`tam_v2_research`)** beat the stock model on real scans (CER 5.27%), but less
+  than tam_v2. It is for **non-commercial use only** (CC BY-NC 4.0), because it was trained with
+  the C-DAC GIST fonts. See its [model card](models/tam_v2_research/README.md) and
+  [release v2.0.0-research](https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v2.0.0-research).
 
 The rest of this page is about **tamtrain**, the tool that trained tam_v2. Use it to train
 your own Tamil model or to test models on real scans.
@@ -257,7 +262,8 @@ The 22 **C-DAC GIST** families (Kumudam, Kalki, Kannadasan, Chanakya, Madhura, K
 others) are print and display faces, including outlined, striped and shadowed advertisement
 styles that the stock model can't read at all. Their licence allows **non-commercial use
 only**. The page marks them, and **Leave out non-commercial** unticks them. They are fine for
-experiments; ask C-DAC before publishing a model trained on them.
+experiments. A model trained on them should be published for non-commercial use only, as
+V2-research is, unless C-DAC agrees otherwise.
 
 ```bash
 python3 tools/collect_fonts.py --src ~/tamil-font-sources --out fonts
@@ -322,10 +328,11 @@ Full reports: [rendered lines](examples/report-v2-research-276-styles.md) and
 The V2-research run took about 2 hours on 4 CPU cores. Its fonts are listed in
 [examples/fonts-v1-v2-research.md](examples/fonts-v1-v2-research.md).
 
-**V2-research is not for release.** It was trained with the 20 C-DAC GIST families (non-commercial
-licence), Latha (proprietary) and uniAmma (unknown origin). V1 used Latha and uniAmma but no
-C-DAC fonts; it is released as a research model ([model card](models/tam_multifont/README.md)).
-The open model, V2 (below), uses openly licensed fonts only.
+**V2-research is for non-commercial use only.** It was trained with the 20 C-DAC GIST families
+(non-commercial licence), Latha (proprietary) and uniAmma (unknown origin), so it is released
+under CC BY-NC 4.0 ([model card](models/tam_v2_research/README.md)). V1 used Latha and uniAmma
+but no C-DAC fonts ([model card](models/tam_multifont/README.md)). The open model, V2 (below),
+uses openly licensed fonts only.
 
 What is still left:
 
@@ -579,7 +586,8 @@ owner agrees.
 
 ## Licence
 
-The code and the tam_v2 model are licensed under the [Apache License 2.0](LICENSE), like
-Tesseract and its `tam` model. Text from Tamil Wikisource, in the release's training text, word
+The code and the tam_v2 and V1 models are licensed under the [Apache License 2.0](LICENSE), like
+Tesseract and its `tam` model. The V2-research model files are licensed for non-commercial use
+only, under [CC BY-NC 4.0](models/tam_v2_research/LICENSE.md). Text from Tamil Wikisource, in the release's training text, word
 list and line list, is CC BY-SA 4.0 by the Wikisource contributors. Fonts, scanned images and
 third-party benchmarks are not redistributed. See [NOTICE](NOTICE).

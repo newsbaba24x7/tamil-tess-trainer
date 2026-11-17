@@ -90,9 +90,13 @@ commands are in the [README](README.md#real-scanned-lines-the-v2-pipeline).
   [models/tam_multifont](models/tam_multifont/README.md). It was trained on fonts only, and 4 of
   its 188 font styles are not openly licensed: Latha (proprietary) and three uniAmma fonts
   (unknown origin). It is no better than the stock model on real scans.
-- **V2-research (`tam_v2_research`)** is **not released**. It also used the C-DAC GIST fonts,
-  whose licence allows non-commercial use only. Its evaluation reports are in
-  [examples/](examples/).
+- **V2-research (`tam_v2_research`)** is released as a research model for **non-commercial use
+  only** (CC BY-NC 4.0): release
+  [v2.0.0-research](https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v2.0.0-research),
+  model card [models/tam_v2_research](models/tam_v2_research/README.md). Besides Latha and
+  uniAmma, it was trained with 45 styles of the C-DAC GIST fonts, whose licence allows
+  non-commercial use only. On real scans it is better than stock (CER 5.27%), but not as good
+  as tam_v2.
 
 ## Checksums (SHA-256)
 

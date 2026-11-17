@@ -1,6 +1,7 @@
-tamil-tess-trainer and the tam_v2 Tamil OCR model
+tamil-tess-trainer and its Tamil OCR models
 Copyright 2026 NewsBaba and contributors
-Licensed under the Apache License, Version 2.0 (see LICENSE).
+Licensed under the Apache License, Version 2.0 (see LICENSE), except the tam_v2_research model
+files, which are licensed CC BY-NC 4.0 (see Fonts below).
 
 The tam_v2 model is a fine-tuned version of Tesseract's Tamil model "tam" from
 https://github.com/tesseract-ocr/tessdata_best, licensed under the Apache License 2.0.
@@ -27,6 +28,12 @@ Fonts
 - tam_multifont (V1, research model, also fine-tuned from "tam"): 188 font styles, listed in
   models/tam_multifont/fonts.json. They include Latha (Microsoft, proprietary) and uniAmma-10,
   -11 and -16 (origin unknown), which have no open licence.
+- tam_v2_research (V2-research, research model, also fine-tuned from "tam"): 276 font styles,
+  listed in models/tam_v2_research/fonts.json. Besides Latha and uniAmma, they include 45 styles
+  of the C-DAC GIST fonts ("Copyright (c) 2005, C-DAC, GIST PUNE, INDIA. FOR NON-COMMERCIAL FREE
+  USAGE. For commercial license contact C-DAC, GIST, Pune."). The tam_v2_research model files
+  are therefore licensed CC BY-NC 4.0, for non-commercial use only
+  (models/tam_v2_research/LICENSE.md), not Apache-2.0.
 - The fonts themselves are not redistributed.
 
 Benchmarks

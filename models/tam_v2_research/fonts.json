@@ -1,0 +1,3146 @@
+[
+ {
+  "name": "Mukta Malar Regular",
+  "file": "1MuktaMalar-Regular.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss04"
+  ],
+  "old_letters_default": false,
+  "family": "Mukta Malar",
+  "source": "Ek Type (Google Fonts)",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Latha",
+  "file": "Latha.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Latha",
+  "source": "Microsoft (Windows font)",
+  "licence": "proprietary",
+  "licence_class": "restricted"
+ },
+ {
+  "name": "Mukta Malar Bold",
+  "file": "MuktaMalar-Bold.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss04"
+  ],
+  "old_letters_default": false,
+  "family": "Mukta Malar",
+  "source": "Ek Type (Google Fonts)",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Mukta Malar ExtraBold",
+  "file": "MuktaMalar-ExtraBold.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss04"
+  ],
+  "old_letters_default": false,
+  "family": "Mukta Malar",
+  "source": "Ek Type (Google Fonts)",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Mukta Malar ExtraLight",
+  "file": "MuktaMalar-ExtraLight.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss04"
+  ],
+  "old_letters_default": false,
+  "family": "Mukta Malar",
+  "source": "Ek Type (Google Fonts)",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Mukta Malar Light",
+  "file": "MuktaMalar-Light.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss04"
+  ],
+  "old_letters_default": false,
+  "family": "Mukta Malar",
+  "source": "Ek Type (Google Fonts)",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Mukta Malar Medium",
+  "file": "MuktaMalar-Medium.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss04"
+  ],
+  "old_letters_default": false,
+  "family": "Mukta Malar",
+  "source": "Ek Type (Google Fonts)",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Mukta Malar SemiBold",
+  "file": "MuktaMalar-SemiBold.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss04"
+  ],
+  "old_letters_default": false,
+  "family": "Mukta Malar",
+  "source": "Ek Type (Google Fonts)",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Neythal Bold",
+  "file": "Neythal Bold.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Neythal",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Neythal Italic",
+  "file": "Neythal Italic.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Neythal",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Neythal",
+  "file": "Neythal.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Neythal",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Sans Tamil Condensed Bold",
+  "file": "NotoSansTamil_Condensed-Bold.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Sans Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Sans Tamil Condensed Regular",
+  "file": "NotoSansTamil_Condensed-Regular.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Sans Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-01",
+  "file": "Uni Ila.Sundaram-01.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-02",
+  "file": "Uni Ila.Sundaram-02.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-03",
+  "file": "Uni Ila.Sundaram-03.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-04",
+  "file": "Uni Ila.Sundaram-04.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-05",
+  "file": "Uni Ila.Sundaram-05.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-06",
+  "file": "Uni Ila.Sundaram-06.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-07",
+  "file": "Uni Ila.Sundaram-07.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-08",
+  "file": "Uni Ila.Sundaram-08.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-09",
+  "file": "Uni Ila.Sundaram-09.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-10",
+  "file": "Uni Ila.Sundaram-10.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-11",
+  "file": "Uni Ila.Sundaram-11.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-12",
+  "file": "Uni Ila.Sundaram-12.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-13",
+  "file": "Uni Ila.Sundaram-13.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-14",
+  "file": "Uni Ila.Sundaram-14.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-15",
+  "file": "Uni Ila.Sundaram-15.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-16",
+  "file": "Uni Ila.Sundaram-16.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-17",
+  "file": "Uni Ila.Sundaram-17.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-18",
+  "file": "Uni Ila.Sundaram-18.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-19",
+  "file": "Uni Ila.Sundaram-19.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Uni Ila.Sundaram-20",
+  "file": "Uni Ila.Sundaram-20.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Uni Ila.Sundaram",
+  "source": "Uni Ila.Sundaram Fonts Project",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "uniAmma-10",
+  "file": "uniAmma-10.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "uniAmma",
+  "source": "installed by you (origin unknown)",
+  "licence": "unknown",
+  "licence_class": "restricted"
+ },
+ {
+  "name": "uniAmma-11",
+  "file": "uniAmma-11.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "uniAmma",
+  "source": "installed by you (origin unknown)",
+  "licence": "unknown",
+  "licence_class": "restricted"
+ },
+ {
+  "name": "uniAmma-16",
+  "file": "uniAmma-16.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "uniAmma",
+  "source": "installed by you (origin unknown)",
+  "licence": "unknown",
+  "licence_class": "restricted"
+ },
+ {
+  "name": "Noto Serif Tamil Slanted Bold",
+  "file": "NotoSerifTamilSlanted-Bold.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil Slanted Regular",
+  "file": "NotoSerifTamilSlanted-Regular.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Lohit Tamil",
+  "file": "Lohit-Tamil.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Lohit Tamil",
+  "source": "Lohit (Red Hat/Fedora)",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Lohit Tamil Classical",
+  "file": "Lohit-Tamil-Classical.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": true,
+  "family": "Lohit Tamil Classical",
+  "source": "Lohit (Red Hat/Fedora)",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Samyak Tamil",
+  "file": "Samyak-Tamil.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Samyak Tamil",
+  "source": "Samyak (Debian fonts-samyak)",
+  "licence": "GPL-3.0+ with font exception",
+  "licence_class": "open"
+ },
+ {
+  "name": "Anek Tamil Thin",
+  "file": "AnekTamil[wdth,wght].ttf",
+  "variation": "Thin",
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Anek Tamil",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Anek Tamil ExtraLight",
+  "file": "AnekTamil[wdth,wght].ttf",
+  "variation": "ExtraLight",
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Anek Tamil",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Anek Tamil Light",
+  "file": "AnekTamil[wdth,wght].ttf",
+  "variation": "Light",
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Anek Tamil",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Anek Tamil Regular",
+  "file": "AnekTamil[wdth,wght].ttf",
+  "variation": "Regular",
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Anek Tamil",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Anek Tamil Medium",
+  "file": "AnekTamil[wdth,wght].ttf",
+  "variation": "Medium",
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Anek Tamil",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Anek Tamil SemiBold",
+  "file": "AnekTamil[wdth,wght].ttf",
+  "variation": "SemiBold",
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Anek Tamil",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Anek Tamil Bold",
+  "file": "AnekTamil[wdth,wght].ttf",
+  "variation": "Bold",
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Anek Tamil",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Anek Tamil ExtraBold",
+  "file": "AnekTamil[wdth,wght].ttf",
+  "variation": "ExtraBold",
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Anek Tamil",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Anek Tamil SemiCondensed Regular",
+  "file": "AnekTamil[wdth,wght].ttf",
+  "variation": "@wdth=87.5,wght=400",
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Anek Tamil",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Anek Tamil SemiCondensed Bold",
+  "file": "AnekTamil[wdth,wght].ttf",
+  "variation": "@wdth=87.5,wght=700",
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Anek Tamil",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Anek Tamil Condensed Regular",
+  "file": "AnekTamil[wdth,wght].ttf",
+  "variation": "@wdth=75.0,wght=400",
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Anek Tamil",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Anek Tamil Condensed Bold",
+  "file": "AnekTamil[wdth,wght].ttf",
+  "variation": "@wdth=75.0,wght=700",
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Anek Tamil",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Arima Thin",
+  "file": "Arima[wght].ttf",
+  "variation": "Thin",
+  "old_letters": [
+   "ss02"
+  ],
+  "old_letters_default": false,
+  "family": "Arima",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Arima ExtraLight",
+  "file": "Arima[wght].ttf",
+  "variation": "ExtraLight",
+  "old_letters": [
+   "ss02"
+  ],
+  "old_letters_default": false,
+  "family": "Arima",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Arima Light",
+  "file": "Arima[wght].ttf",
+  "variation": "Light",
+  "old_letters": [
+   "ss02"
+  ],
+  "old_letters_default": false,
+  "family": "Arima",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Arima Regular",
+  "file": "Arima[wght].ttf",
+  "variation": "Regular",
+  "old_letters": [
+   "ss02"
+  ],
+  "old_letters_default": false,
+  "family": "Arima",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Arima Medium",
+  "file": "Arima[wght].ttf",
+  "variation": "Medium",
+  "old_letters": [
+   "ss02"
+  ],
+  "old_letters_default": false,
+  "family": "Arima",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Arima SemiBold",
+  "file": "Arima[wght].ttf",
+  "variation": "SemiBold",
+  "old_letters": [
+   "ss02"
+  ],
+  "old_letters_default": false,
+  "family": "Arima",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Arima Bold",
+  "file": "Arima[wght].ttf",
+  "variation": "Bold",
+  "old_letters": [
+   "ss02"
+  ],
+  "old_letters_default": false,
+  "family": "Arima",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Baloo Thambi 2 Regular",
+  "file": "BalooThambi2[wght].ttf",
+  "variation": "Regular",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Baloo Thambi 2",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Baloo Thambi 2 Medium",
+  "file": "BalooThambi2[wght].ttf",
+  "variation": "Medium",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Baloo Thambi 2",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Baloo Thambi 2 SemiBold",
+  "file": "BalooThambi2[wght].ttf",
+  "variation": "SemiBold",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Baloo Thambi 2",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Baloo Thambi 2 Bold",
+  "file": "BalooThambi2[wght].ttf",
+  "variation": "Bold",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Baloo Thambi 2",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Baloo Thambi 2 ExtraBold",
+  "file": "BalooThambi2[wght].ttf",
+  "variation": "ExtraBold",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Baloo Thambi 2",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Catamaran Thin",
+  "file": "Catamaran[wght].ttf",
+  "variation": "Thin",
+  "old_letters": [
+   "ss02"
+  ],
+  "old_letters_default": false,
+  "family": "Catamaran",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Catamaran ExtraLight",
+  "file": "Catamaran[wght].ttf",
+  "variation": "ExtraLight",
+  "old_letters": [
+   "ss02"
+  ],
+  "old_letters_default": false,
+  "family": "Catamaran",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Catamaran Light",
+  "file": "Catamaran[wght].ttf",
+  "variation": "Light",
+  "old_letters": [
+   "ss02"
+  ],
+  "old_letters_default": false,
+  "family": "Catamaran",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Catamaran Regular",
+  "file": "Catamaran[wght].ttf",
+  "variation": "Regular",
+  "old_letters": [
+   "ss02"
+  ],
+  "old_letters_default": false,
+  "family": "Catamaran",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Catamaran Medium",
+  "file": "Catamaran[wght].ttf",
+  "variation": "Medium",
+  "old_letters": [
+   "ss02"
+  ],
+  "old_letters_default": false,
+  "family": "Catamaran",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Catamaran SemiBold",
+  "file": "Catamaran[wght].ttf",
+  "variation": "SemiBold",
+  "old_letters": [
+   "ss02"
+  ],
+  "old_letters_default": false,
+  "family": "Catamaran",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Catamaran Bold",
+  "file": "Catamaran[wght].ttf",
+  "variation": "Bold",
+  "old_letters": [
+   "ss02"
+  ],
+  "old_letters_default": false,
+  "family": "Catamaran",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Catamaran ExtraBold",
+  "file": "Catamaran[wght].ttf",
+  "variation": "ExtraBold",
+  "old_letters": [
+   "ss02"
+  ],
+  "old_letters_default": false,
+  "family": "Catamaran",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Catamaran Black",
+  "file": "Catamaran[wght].ttf",
+  "variation": "Black",
+  "old_letters": [
+   "ss02"
+  ],
+  "old_letters_default": false,
+  "family": "Catamaran",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Coiny Regular",
+  "file": "Coiny-Regular.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Coiny",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Google Sans Italic",
+  "file": "GoogleSans-Italic[GRAD,opsz,wght].ttf",
+  "variation": "Italic",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Google Sans",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Google Sans Medium Italic",
+  "file": "GoogleSans-Italic[GRAD,opsz,wght].ttf",
+  "variation": "Medium Italic",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Google Sans",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Google Sans Bold Italic",
+  "file": "GoogleSans-Italic[GRAD,opsz,wght].ttf",
+  "variation": "Bold Italic",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Google Sans",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Google Sans Regular",
+  "file": "GoogleSans[GRAD,opsz,wght].ttf",
+  "variation": "Regular",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Google Sans",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Google Sans Medium",
+  "file": "GoogleSans[GRAD,opsz,wght].ttf",
+  "variation": "Medium",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Google Sans",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Google Sans Bold",
+  "file": "GoogleSans[GRAD,opsz,wght].ttf",
+  "variation": "Bold",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Google Sans",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Hind Madurai Bold",
+  "file": "HindMadurai-Bold.ttf",
+  "variation": null,
+  "old_letters": [
+   "hlig"
+  ],
+  "old_letters_default": false,
+  "family": "Hind Madurai",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Hind Madurai Light",
+  "file": "HindMadurai-Light.ttf",
+  "variation": null,
+  "old_letters": [
+   "hlig"
+  ],
+  "old_letters_default": false,
+  "family": "Hind Madurai",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Hind Madurai Medium",
+  "file": "HindMadurai-Medium.ttf",
+  "variation": null,
+  "old_letters": [
+   "hlig"
+  ],
+  "old_letters_default": false,
+  "family": "Hind Madurai",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Hind Madurai Regular",
+  "file": "HindMadurai-Regular.ttf",
+  "variation": null,
+  "old_letters": [
+   "hlig"
+  ],
+  "old_letters_default": false,
+  "family": "Hind Madurai",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Hind Madurai SemiBold",
+  "file": "HindMadurai-SemiBold.ttf",
+  "variation": null,
+  "old_letters": [
+   "hlig"
+  ],
+  "old_letters_default": false,
+  "family": "Hind Madurai",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Karla Tamil Inclined Bold",
+  "file": "KarlaTamilInclined-Bold.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": true,
+  "family": "Karla Tamil Inclined",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Karla Tamil Inclined",
+  "file": "KarlaTamilInclined-Regular.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": true,
+  "family": "Karla Tamil Inclined",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Karla Tamil Upright Bold",
+  "file": "KarlaTamilUpright-Bold.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": true,
+  "family": "Karla Tamil Upright",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Karla Tamil Upright",
+  "file": "KarlaTamilUpright-Regular.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": true,
+  "family": "Karla Tamil Upright",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Kavivanar Regular",
+  "file": "Kavivanar-Regular.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Kavivanar",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Meera Inimai Regular",
+  "file": "MeeraInimai-Regular.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Meera Inimai",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Sans Tamil Thin",
+  "file": "NotoSansTamil[wdth,wght].ttf",
+  "variation": "Thin",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Sans Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Sans Tamil ExtraLight",
+  "file": "NotoSansTamil[wdth,wght].ttf",
+  "variation": "ExtraLight",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Sans Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Sans Tamil Light",
+  "file": "NotoSansTamil[wdth,wght].ttf",
+  "variation": "Light",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Sans Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Sans Tamil Regular",
+  "file": "NotoSansTamil[wdth,wght].ttf",
+  "variation": "Regular",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Sans Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Sans Tamil Medium",
+  "file": "NotoSansTamil[wdth,wght].ttf",
+  "variation": "Medium",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Sans Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Sans Tamil SemiBold",
+  "file": "NotoSansTamil[wdth,wght].ttf",
+  "variation": "SemiBold",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Sans Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Sans Tamil Bold",
+  "file": "NotoSansTamil[wdth,wght].ttf",
+  "variation": "Bold",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Sans Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Sans Tamil ExtraBold",
+  "file": "NotoSansTamil[wdth,wght].ttf",
+  "variation": "ExtraBold",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Sans Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Sans Tamil Black",
+  "file": "NotoSansTamil[wdth,wght].ttf",
+  "variation": "Black",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Sans Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Sans Tamil SemiCondensed Regular",
+  "file": "NotoSansTamil[wdth,wght].ttf",
+  "variation": "@wdth=87.5,wght=400",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Sans Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Sans Tamil SemiCondensed Bold",
+  "file": "NotoSansTamil[wdth,wght].ttf",
+  "variation": "@wdth=87.5,wght=700",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Sans Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Sans Tamil ExtraCondensed Regular",
+  "file": "NotoSansTamil[wdth,wght].ttf",
+  "variation": "@wdth=62.5,wght=400",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Sans Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Sans Tamil ExtraCondensed Bold",
+  "file": "NotoSansTamil[wdth,wght].ttf",
+  "variation": "@wdth=62.5,wght=700",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Sans Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil Thin Italic",
+  "file": "NotoSerifTamil-Italic[wdth,wght].ttf",
+  "variation": "Thin Italic",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil ExtraLight Italic",
+  "file": "NotoSerifTamil-Italic[wdth,wght].ttf",
+  "variation": "ExtraLight Italic",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil Light Italic",
+  "file": "NotoSerifTamil-Italic[wdth,wght].ttf",
+  "variation": "Light Italic",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil Italic",
+  "file": "NotoSerifTamil-Italic[wdth,wght].ttf",
+  "variation": "Italic",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil Medium Italic",
+  "file": "NotoSerifTamil-Italic[wdth,wght].ttf",
+  "variation": "Medium Italic",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil SemiBold Italic",
+  "file": "NotoSerifTamil-Italic[wdth,wght].ttf",
+  "variation": "SemiBold Italic",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil Bold Italic",
+  "file": "NotoSerifTamil-Italic[wdth,wght].ttf",
+  "variation": "Bold Italic",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil ExtraBold Italic",
+  "file": "NotoSerifTamil-Italic[wdth,wght].ttf",
+  "variation": "ExtraBold Italic",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil Black Italic",
+  "file": "NotoSerifTamil-Italic[wdth,wght].ttf",
+  "variation": "Black Italic",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil Thin",
+  "file": "NotoSerifTamil[wdth,wght].ttf",
+  "variation": "Thin",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil ExtraLight",
+  "file": "NotoSerifTamil[wdth,wght].ttf",
+  "variation": "ExtraLight",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil Light",
+  "file": "NotoSerifTamil[wdth,wght].ttf",
+  "variation": "Light",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil Regular",
+  "file": "NotoSerifTamil[wdth,wght].ttf",
+  "variation": "Regular",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil Medium",
+  "file": "NotoSerifTamil[wdth,wght].ttf",
+  "variation": "Medium",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil SemiBold",
+  "file": "NotoSerifTamil[wdth,wght].ttf",
+  "variation": "SemiBold",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil Bold",
+  "file": "NotoSerifTamil[wdth,wght].ttf",
+  "variation": "Bold",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil ExtraBold",
+  "file": "NotoSerifTamil[wdth,wght].ttf",
+  "variation": "ExtraBold",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil Black",
+  "file": "NotoSerifTamil[wdth,wght].ttf",
+  "variation": "Black",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil SemiCondensed Regular",
+  "file": "NotoSerifTamil[wdth,wght].ttf",
+  "variation": "@wdth=87.5,wght=400",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil SemiCondensed Bold",
+  "file": "NotoSerifTamil[wdth,wght].ttf",
+  "variation": "@wdth=87.5,wght=700",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil Condensed Regular",
+  "file": "NotoSerifTamil[wdth,wght].ttf",
+  "variation": "@wdth=75.0,wght=400",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil Condensed Bold",
+  "file": "NotoSerifTamil[wdth,wght].ttf",
+  "variation": "@wdth=75.0,wght=700",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil ExtraCondensed Regular",
+  "file": "NotoSerifTamil[wdth,wght].ttf",
+  "variation": "@wdth=62.5,wght=400",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Noto Serif Tamil ExtraCondensed Bold",
+  "file": "NotoSerifTamil[wdth,wght].ttf",
+  "variation": "@wdth=62.5,wght=700",
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Noto Serif Tamil",
+  "source": "Google Noto",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Oi Regular",
+  "file": "Oi-Regular.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Oi",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Pavanam Regular",
+  "file": "Pavanam-Regular.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Pavanam",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "PostNoBillsJaffna Bold",
+  "file": "PostNoBillsJaffna-Bold.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Post No Bills Jaffna",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "PostNoBillsJaffna ExtraBold",
+  "file": "PostNoBillsJaffna-ExtraBold.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Post No Bills Jaffna",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "PostNoBillsJaffna Light",
+  "file": "PostNoBillsJaffna-Light.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Post No Bills Jaffna",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "PostNoBillsJaffna Medium",
+  "file": "PostNoBillsJaffna-Medium.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Post No Bills Jaffna",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "PostNoBillsJaffna Regular",
+  "file": "PostNoBillsJaffna-Regular.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Post No Bills Jaffna",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "PostNoBillsJaffna SemiBold",
+  "file": "PostNoBillsJaffna-SemiBold.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Post No Bills Jaffna",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Tiro Tamil Italic",
+  "file": "TiroTamil-Italic.ttf",
+  "variation": null,
+  "old_letters": [
+   "dlig"
+  ],
+  "old_letters_default": false,
+  "family": "Tiro Tamil",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Tiro Tamil Regular",
+  "file": "TiroTamil-Regular.ttf",
+  "variation": null,
+  "old_letters": [
+   "dlig"
+  ],
+  "old_letters_default": false,
+  "family": "Tiro Tamil",
+  "source": "Google Fonts",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Aaram Regular",
+  "file": "Aaram-Regular.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Aaram",
+  "source": "Enathu (Tharique Azeez)",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "AkrutiTml1 Normal",
+  "file": "akruti1.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "AkrutiTml1",
+  "source": "Akruti",
+  "licence": "GPL",
+  "licence_class": "open"
+ },
+ {
+  "name": "AkrutiTml1 Bold",
+  "file": "akruti1b.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "AkrutiTml1",
+  "source": "Akruti",
+  "licence": "GPL",
+  "licence_class": "open"
+ },
+ {
+  "name": "AkrutiTml2 Normal",
+  "file": "akruti2.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "AkrutiTml2",
+  "source": "Akruti",
+  "licence": "GPL",
+  "licence_class": "open"
+ },
+ {
+  "name": "AkrutiTml2 Bold",
+  "file": "akruti2b.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "AkrutiTml2",
+  "source": "Akruti",
+  "licence": "GPL",
+  "licence_class": "open"
+ },
+ {
+  "name": "Auvaiyar Bold",
+  "file": "Auvaiyar-Bold.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Auvaiyar",
+  "source": "NLCI",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Auvaiyar Bold Italic",
+  "file": "Auvaiyar-BoldItalic.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Auvaiyar",
+  "source": "NLCI",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Auvaiyar Italic",
+  "file": "Auvaiyar-Italic.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Auvaiyar",
+  "source": "NLCI",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Auvaiyar Regular",
+  "file": "Auvaiyar-Regular.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Auvaiyar",
+  "source": "NLCI",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "Chemmozhi Comic",
+  "file": "1094_ChemmozhiComic.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Chemmozhi Comic",
+  "source": "Chemmozhi (ICTA.lk)",
+  "licence": "GPL-2.0",
+  "licence_class": "open"
+ },
+ {
+  "name": "Chemmozhi Paranar",
+  "file": "1094_ChemmozhiParanar.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Chemmozhi Paranar",
+  "source": "Chemmozhi (ICTA.lk)",
+  "licence": "GPL-2.0",
+  "licence_class": "open"
+ },
+ {
+  "name": "Chemmozhi Thendral",
+  "file": "1094_ChemmozhiThendral.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Chemmozhi Thendral",
+  "source": "Chemmozhi (ICTA.lk)",
+  "licence": "GPL-2.0",
+  "licence_class": "open"
+ },
+ {
+  "name": "Chemmozhi Thenee",
+  "file": "1094_ChemmozhiThenee.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Chemmozhi Thenee",
+  "source": "Chemmozhi (ICTA.lk)",
+  "licence": "GPL-2.0",
+  "licence_class": "open"
+ },
+ {
+  "name": "Chemmozhi Times",
+  "file": "1094_ChemmozhiTimes.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Chemmozhi Times",
+  "source": "Chemmozhi (ICTA.lk)",
+  "licence": "GPL-2.0",
+  "licence_class": "open"
+ },
+ {
+  "name": "Chemmozhi Vaigai",
+  "file": "1094_ChemmozhiVaigai.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Chemmozhi Vaigai",
+  "source": "Chemmozhi (ICTA.lk)",
+  "licence": "GPL-2.0",
+  "licence_class": "open"
+ },
+ {
+  "name": "Droid Sans Tamil Bold",
+  "file": "DroidSansTamil-Bold.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Droid Sans Tamil",
+  "source": "Android (Droid)",
+  "licence": "Apache-2.0",
+  "licence_class": "open"
+ },
+ {
+  "name": "Droid Sans Tamil",
+  "file": "DroidSansTamil-Regular.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Droid Sans Tamil",
+  "source": "Android (Droid)",
+  "licence": "Apache-2.0",
+  "licence_class": "open"
+ },
+ {
+  "name": "GIST-TMOTAbhirami BoldItalic",
+  "file": "TMOTABBI_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTAbhirami",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTAbhirami Bold",
+  "file": "TMOTABB_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTAbhirami",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTAmala BoldItalic",
+  "file": "TMOTAMBI_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTAmala",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTAmala Bold",
+  "file": "TMOTAMB_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTAmala",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTAppar BoldItalic",
+  "file": "TMOTAPBI_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTAppar",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTAppar Bold",
+  "file": "TMOTAPB_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTAppar",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTChanakya BoldItalic",
+  "file": "TMOTCHBI_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTChanakya",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTChanakya Bold",
+  "file": "TMOTCHB_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTChanakya",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTChanakya Italic",
+  "file": "TMOTCHI_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTChanakya",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTChanakya Normal",
+  "file": "TMOTCHN_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTChanakya",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTChandra BoldItalic",
+  "file": "TMOTCNBI_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTChandra",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTChandra Bold",
+  "file": "TMOTCNB_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTChandra",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTHeena BoldItalic",
+  "file": "TMOTHNBI_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTHeena",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTHeena Bold",
+  "file": "TMOTHNB_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTHeena",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTKalyani BoldItalic",
+  "file": "TMOTKLBI_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTKalyani",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTKalyani Bold",
+  "file": "TMOTKLB_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTKalyani",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTKamal BoldItalic",
+  "file": "TMOTKMBI_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTKamal",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTKamal Bold",
+  "file": "TMOTKMB_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTKamal",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTKamal Italic",
+  "file": "TMOTKMI_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTKamal",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTKamal Normal",
+  "file": "TMOTKMN_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTKamal",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTKannadasan Italic",
+  "file": "TMOTKDI_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTKannadasan",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTKannadasan Normal",
+  "file": "TMOTKDN_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTKannadasan",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTKannagi BoldItalic",
+  "file": "TMOTKGBI_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTKannagi",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTKannagi Bold",
+  "file": "TMOTKGB_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTKannagi",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTKomala BoldItalic",
+  "file": "TMOTKOBI_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTKomala",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTKomala Bold",
+  "file": "TMOTKOB_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTKomala",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTKrishnan Bold",
+  "file": "TMOTKRB_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTKrishnan",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTKumudam Normal",
+  "file": "TMOTKUN_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTKumudam",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTLalitha BoldItalic",
+  "file": "TMOTLLBI_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTLalitha",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTLalitha Bold",
+  "file": "TMOTLLB_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTLalitha",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTLalitha Italic",
+  "file": "TMOTLLI_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTLalitha",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTLalitha Normal",
+  "file": "TMOTLLN_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTLalitha",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTMadhura Bold",
+  "file": "TMOTMDB_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTMadhura",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTMina Bold",
+  "file": "TMOTMNB_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTMina",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTNambi BoldItalic",
+  "file": "TMOTNMBI_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTNambi",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTNambi Bold",
+  "file": "TMOTNMB_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTNambi",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTNambi Italic",
+  "file": "TMOTNMI_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTNambi",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTNambi Normal",
+  "file": "TMOTNMN_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTNambi",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTPadma Bold",
+  "file": "TMOTPDB_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTPadma",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTPadma Normal",
+  "file": "TMOTPDN_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTPadma",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTParvathi BoldItalic",
+  "file": "TMOTPRBI_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTParvathi",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTPattinathar BoldItalic",
+  "file": "TMOTPTBI_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTPattinathar",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTPattinathar Bold",
+  "file": "TMOTPTB_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTPattinathar",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTPattinathar Italic",
+  "file": "TMOTPTI_Ship.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTPattinathar",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "GIST-TMOTPattinathar Normal",
+  "file": "TMOTPTN_Ship.TTF",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "GIST-TMOTPattinathar",
+  "source": "C-DAC GIST",
+  "licence": "Non-commercial use only (C-DAC)",
+  "licence_class": "non-commercial"
+ },
+ {
+  "name": "Madurai Bold",
+  "file": "Madurai-Bold.otf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Madurai",
+  "source": "Agam Type Foundry",
+  "licence": "CC-BY-4.0",
+  "licence_class": "open"
+ },
+ {
+  "name": "Madurai Regular",
+  "file": "Madurai-Regular.otf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Madurai",
+  "source": "Agam Type Foundry",
+  "licence": "CC-BY-4.0",
+  "licence_class": "open"
+ },
+ {
+  "name": "Madurai Thin",
+  "file": "Madurai-Thin.otf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Madurai",
+  "source": "Agam Type Foundry",
+  "licence": "CC-BY-4.0",
+  "licence_class": "open"
+ },
+ {
+  "name": "Neythal Regular",
+  "file": "neythal-regular.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "Neythal",
+  "source": "Enathu (Tharique Azeez)",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "TABUni-Tamil021",
+  "file": "TABUni-Tamil021.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TABUni-Tamil021",
+  "source": "Gopi (higopi.com)",
+  "licence": "GPL",
+  "licence_class": "open"
+ },
+ {
+  "name": "TABUni-Tamil032",
+  "file": "TABUni-Tamil032.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TABUni-Tamil032",
+  "source": "Gopi (higopi.com)",
+  "licence": "GPL",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAMu_Kadambri Regular",
+  "file": "TAMu_Kadampari.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAMu_Kadambri",
+  "source": "TAMu (Kamban Software)",
+  "licence": "GPL-2.0",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAMu_Kalyani",
+  "file": "TAMu_Kalyani.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAMu_Kalyani",
+  "source": "TAMu (Kamban Software)",
+  "licence": "GPL-2.0",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAMu_Maduram",
+  "file": "TAMu_Maduram.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAMu_Maduram",
+  "source": "TAMu (Kamban Software)",
+  "licence": "GPL-2.0",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAMUni-Tamil042",
+  "file": "TAMUni-Tamil042.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAMUni-Tamil042",
+  "source": "Gopi (higopi.com)",
+  "licence": "GPL",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAMUni-Tamil046",
+  "file": "TAMUni-Tamil046.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAMUni-Tamil046",
+  "source": "Gopi (higopi.com)",
+  "licence": "GPL",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAMUni-Tamil150",
+  "file": "TAMUni-Tamil150.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAMUni-Tamil150",
+  "source": "Gopi (higopi.com)",
+  "licence": "GPL",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAMUni-Tamil195",
+  "file": "TAMUni-Tamil195.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAMUni-Tamil195",
+  "source": "Gopi (higopi.com)",
+  "licence": "GPL",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Achu Italic",
+  "file": "TAU-Achu Italic.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Achu",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Achu",
+  "file": "TAU-Achu.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Achu",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Barathi Bold",
+  "file": "TAU-Barathi-B.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Barathi",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Barathi BoldItalic",
+  "file": "TAU-Barathi-BI.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Barathi",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Barathi Italic",
+  "file": "TAU-Barathi-I.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Barathi",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Barathi",
+  "file": "TAU-Barathi.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Barathi",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Ezhil Bold",
+  "file": "TAU-Ezhil Bold.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Ezhil",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Ezhil Italic",
+  "file": "TAU-Ezhil Italic.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Ezhil",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Ezhil",
+  "file": "TAU-Ezhil.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Ezhil",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Kabilar Bold",
+  "file": "TAU-Kabilar-B.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Kabilar",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Kabilar BoldItalic",
+  "file": "TAU-Kabilar-BI.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Kabilar",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Kabilar Italic",
+  "file": "TAU-Kabilar-I.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Kabilar",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Kabilar",
+  "file": "TAU-Kabilar.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Kabilar",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Kambar Bold",
+  "file": "TAU-Kambar-B.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Kambar",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Kambar BoldItalic",
+  "file": "TAU-Kambar-BI.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Kambar",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Kambar Italic",
+  "file": "TAU-Kambar-I.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Kambar",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Kambar",
+  "file": "TAU-Kambar.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Kambar",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Kaveri Bold",
+  "file": "TAU-Kaveri-B.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Kaveri",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Kaveri BoldItalic",
+  "file": "TAU-Kaveri-BI.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Kaveri",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Kaveri Italic",
+  "file": "TAU-Kaveri-I.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Kaveri",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Kaveri",
+  "file": "TAU-Kaveri.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Kaveri",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-kaviri",
+  "file": "TAU-kaviri.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-kaviri",
+  "source": "Kadugu (P S Ranganathan)",
+  "licence": "Free use and distribution",
+  "licence_class": "free-use"
+ },
+ {
+  "name": "TAU-kollidam",
+  "file": "TAU-kollidam.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-kollidam",
+  "source": "Kadugu (P S Ranganathan)",
+  "licence": "Free use and distribution",
+  "licence_class": "free-use"
+ },
+ {
+  "name": "TAU-Kurinji Bold",
+  "file": "TAU-Kurinji Bold.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Kurinji",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Kurinji Italic",
+  "file": "TAU-Kurinji Italic.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Kurinji",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Kurinji",
+  "file": "TAU-Kurinji.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Kurinji",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Malar Bold",
+  "file": "TAU-Malar Bold.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Malar",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Malar Italic",
+  "file": "TAU-Malar Italic.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Malar",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Malar",
+  "file": "TAU-Malar.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Malar",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Marutham Bold",
+  "file": "TAU-Marutham Bold.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Marutham",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Marutham Italic",
+  "file": "TAU-Marutham Italic.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Marutham",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Marutham",
+  "file": "TAU-Marutham.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Marutham",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Mullai Bold",
+  "file": "TAU-Mullai Bold.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Mullai",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Mullai Italic",
+  "file": "TAU-Mullai Italic.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Mullai",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Mullai",
+  "file": "TAU-Mullai.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Mullai",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Nilavu Bold",
+  "file": "TAU-Nilavu Bold.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Nilavu",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Nilavu Italic",
+  "file": "TAU-Nilavu Italic.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Nilavu",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Nilavu",
+  "file": "TAU-Nilavu.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Nilavu",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Paalai Bold",
+  "file": "TAU-Paalai Bold.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Paalai",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Paalai Italic",
+  "file": "TAU-Paalai Italic.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Paalai",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-palar",
+  "file": "TAU-palar.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-palar",
+  "source": "Kadugu (P S Ranganathan)",
+  "licence": "Free use and distribution",
+  "licence_class": "free-use"
+ },
+ {
+  "name": "TAU-ponni",
+  "file": "TAU-Ponni.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-ponni",
+  "source": "Kadugu (P S Ranganathan)",
+  "licence": "Free use and distribution",
+  "licence_class": "free-use"
+ },
+ {
+  "name": "TAU-porunai",
+  "file": "TAU-porunai.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-porunai",
+  "source": "Kadugu (P S Ranganathan)",
+  "licence": "Free use and distribution",
+  "licence_class": "free-use"
+ },
+ {
+  "name": "TAU-pothigai",
+  "file": "TAU-pothigai.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-pothigai",
+  "source": "Kadugu (P S Ranganathan)",
+  "licence": "Free use and distribution",
+  "licence_class": "free-use"
+ },
+ {
+  "name": "TAU-thamirabarani",
+  "file": "TAU-thamirabarani.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-thamirabarani",
+  "source": "Kadugu (P S Ranganathan)",
+  "licence": "Free use and distribution",
+  "licence_class": "free-use"
+ },
+ {
+  "name": "TAU-Urai Bold",
+  "file": "TAU-Urai Bold.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Urai",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Urai Italic",
+  "file": "TAU-Urai Italic.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Urai",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Valluvar Bold",
+  "file": "TAU-Valluvar-B.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Valluvar",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Valluvar BoldItalic",
+  "file": "TAU-Valluvar-BI.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Valluvar",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Valluvar Italic",
+  "file": "TAU-Valluvar-I.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Valluvar",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "TAU-Valluvar",
+  "file": "TAU-Valluvar.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TAU-Valluvar",
+  "source": "Tamil Virtual Academy",
+  "licence": "GPL-2.0+ (TVA)",
+  "licence_class": "open"
+ },
+ {
+  "name": "ThiruValluvar Bold",
+  "file": "ThiruValluvar-Bold.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "ThiruValluvar",
+  "source": "NLCI",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "ThiruValluvar Bold Italic",
+  "file": "ThiruValluvar-BoldItalic.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "ThiruValluvar",
+  "source": "NLCI",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "ThiruValluvar Italic",
+  "file": "ThiruValluvar-Italic.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "ThiruValluvar",
+  "source": "NLCI",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "ThiruValluvar Regular",
+  "file": "ThiruValluvar-Regular.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "ThiruValluvar",
+  "source": "NLCI",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "TSCu_Times",
+  "file": "TSCu_Times.ttf",
+  "variation": null,
+  "old_letters": [],
+  "old_letters_default": false,
+  "family": "TSCu_Times",
+  "source": "TSCu",
+  "licence": "GPL-2.0",
+  "licence_class": "open"
+ },
+ {
+  "name": "YaldeviJaffna Bold",
+  "file": "YaldeviJaffna-Bold.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Yaldevi Jaffna",
+  "source": "Mooniak",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "YaldeviJaffna ExtraLight",
+  "file": "YaldeviJaffna-ExtraLight.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Yaldevi Jaffna",
+  "source": "Mooniak",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "YaldeviJaffna Light",
+  "file": "YaldeviJaffna-Light.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Yaldevi Jaffna",
+  "source": "Mooniak",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "YaldeviJaffna Medium",
+  "file": "YaldeviJaffna-Medium.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Yaldevi Jaffna",
+  "source": "Mooniak",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "YaldeviJaffna Regular",
+  "file": "YaldeviJaffna-Regular.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Yaldevi Jaffna",
+  "source": "Mooniak",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ },
+ {
+  "name": "YaldeviJaffna SemiBold",
+  "file": "YaldeviJaffna-SemiBold.ttf",
+  "variation": null,
+  "old_letters": [
+   "ss01"
+  ],
+  "old_letters_default": false,
+  "family": "Yaldevi Jaffna",
+  "source": "Mooniak",
+  "licence": "OFL-1.1",
+  "licence_class": "open"
+ }
+]
