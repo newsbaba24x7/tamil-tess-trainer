@@ -1,0 +1,37 @@
+# Only code, page/line lists and reports are published. Fonts, scanned images, third-party
+# benchmark data, training work folders, downloads and logs stay local. Model files and data
+# lists go to GitHub releases (built into dist/ by tools/make_release.py).
+/*
+!/.gitignore
+!/README.md
+!/MODEL_CARD.md
+!/LICENSE
+!/NOTICE
+!/pyproject.toml
+!/tamtrain/
+!/tools/
+!/examples/
+!/models/
+!/benchmarks/
+!/books/
+
+__pycache__/
+*.pyc
+
+# book lists only (books.json, ia.json), not the page images and text
+/books/*/
+
+# benchmarks: scripts and lists only
+/benchmarks/**/*.png
+/benchmarks/**/*.jpg
+/benchmarks/**/*.tif
+/benchmarks/**/*.gt.txt
+/benchmarks/**/*.wikitext
+/benchmarks/**/*.arrow
+/benchmarks/**/raw/
+/benchmarks/**/*-more/
+/benchmarks/wait_then_download.sh
+/benchmarks/icon-style/wait_and_fetch.sh
+
+# early demo, superseded by the V2 reports
+/examples/demo-report.md

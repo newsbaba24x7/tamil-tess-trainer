@@ -1,0 +1,33 @@
+tamil-tess-trainer and the tam_v2 Tamil OCR model
+Copyright 2026 NewsBaba and contributors
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The tam_v2 model is a fine-tuned version of Tesseract's Tamil model "tam" from
+https://github.com/tesseract-ocr/tessdata_best, licensed under the Apache License 2.0.
+
+Training text and ground truth
+- Proofread page text from Tamil Wikisource (https://ta.wikisource.org), by the Tamil
+  Wikisource contributors, licensed CC BY-SA 4.0
+  (https://creativecommons.org/licenses/by-sa/4.0/). The release files
+  tam_v2-training-text.txt.gz, tam_v2-wordlist.txt.gz and tam_v2-real-lines.jsonl.gz contain
+  this text and are shared under the same licence. Page links are in examples/wikisource-pages.json,
+  books/books.json and the line list.
+- tam.training_text from https://github.com/tesseract-ocr/langdata_lstm (Apache License 2.0),
+  part of tam_v2-training-text.txt.gz.
+
+Scanned page images
+- Training lines were cut from page images held by the Internet Archive (https://archive.org),
+  mostly copies of the Tamil Virtual Academy / Tamil Digital Library and the Digital Library of
+  India. Test pages are Tamil Wikisource scans hosted by Wikimedia Commons. The images are not
+  redistributed here; the line list says where each one can be downloaded.
+
+Fonts
+- Text lines were rendered with 233 font styles. Their sources and licences are listed in
+  examples/fonts-v2-open.md and models/tam_v2/fonts.json. The fonts themselves are not
+  redistributed.
+
+Benchmarks
+- RANLP 2025 synthetic Tamil OCR (https://huggingface.co/datasets/Nevidu/tamil_synthetic_ocr)
+  and the Tamil OCR Benchmark (https://huggingface.co/datasets/mvbalaji/tamil-ocr-benchmark)
+  were used for testing only. Only their scores, and line-group labels computed here, are
+  included.

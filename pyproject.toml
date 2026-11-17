@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tamil-tess-trainer"
+version = "2.0.0"
+description = "Open Tesseract OCR model for printed Tamil (tam_v2), and the tool that trains it"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = ["Pillow>=9.2"]
+
+[project.scripts]
+tamtrain = "tamtrain.cli:main"
+
+[tool.setuptools]
+packages = ["tamtrain"]
