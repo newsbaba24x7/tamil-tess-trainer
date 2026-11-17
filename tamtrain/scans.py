@@ -106,7 +106,11 @@ def load_page_info(dirs: list[Path]) -> dict[str, dict]:
 
 
 def evaluate_scans(dirs: list[Path], models: list[ModelSpec], report_dir: Path, *, psm: int = 3,
-                   jobs: int = 4, limit: int | None = None, name: str = "scans") -> dict:
+                   jobs: int = 4, limit: int | None = None, name: str = "scans",
+                   exclude_from: Path | None = None) -> dict:
+    """exclude_from: a scans report of the same pages at full resolution. Its excluded pages are
+    left out here, and no page is excluded for scoring badly: on a rescaled (low-resolution) copy,
+    a page every model fails is a real failure, not a page with another page's text."""
     step("Evaluating on real scanned pages")
     for m in models:
         if not (m.tessdata_dir / f"{m.lang}.traineddata").exists():
@@ -146,8 +150,13 @@ def evaluate_scans(dirs: list[Path], models: list[ModelSpec], report_dir: Path, 
 
     # A page that every model gets mostly wrong almost always has text that belongs to another
     # page (Wikisource scans and texts are sometimes offset by a page). Those are listed, not counted.
-    excluded = [p for p in ids if p in crashed
-                or min(results["per_page"][p][m.label]["cer"] for m in models) > MISMATCH_CER]
+    if exclude_from:
+        wrong_text = set(json.loads(exclude_from.read_text(encoding="utf-8")).get("excluded", []))
+        excluded = [p for p in ids if p in crashed or p in wrong_text]
+        results["exclusions_from"] = str(exclude_from)
+    else:
+        excluded = [p for p in ids if p in crashed
+                    or min(results["per_page"][p][m.label]["cer"] for m in models) > MISMATCH_CER]
     results["crashed"] = sorted(crashed)
     kept = [p for p in ids if p not in excluded]
     results["excluded"] = excluded

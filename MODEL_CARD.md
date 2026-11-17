@@ -45,6 +45,8 @@ rate; lower is better.
 By page difficulty, real-page CER fell from 2.80% to 1.63% on easy pages, 8.90% to 5.28% on
 medium pages and 23.5% to 18.1% on hard ones. The full reports are in [examples/](examples/), and
 the [README](README.md#v2-results) compares tam_v2 with the two research models trained before it.
+Scores of all models on every test set, including BLEU, ANLS and METEOR and pages rescaled to
+72, 96 and 300 DPI, are in [benchmarks/BASELINE.md](benchmarks/BASELINE.md).
 
 ## Training data
 
@@ -79,8 +81,10 @@ commands are in the [README](README.md#real-scanned-lines-the-v2-pipeline).
 - **English words inside Tamil lines** are often misread.
 - **Hard pages stay hard:** tables, text in several columns, very faded or damaged print
   (18.1% CER).
-- **Not tested yet:** old newspapers and very low-resolution scans (72–96 DPI). The test sets
-  for those are still being collected (`benchmarks/icon-style/`).
+- **Very low-resolution scans are read poorly.** Old-book pages that tam_v2 reads with 7.3% CER
+  at full resolution give 22.3% at 72 DPI, where it is no better than the stock model (21.6%).
+  Contemporary pages go from 5.1% to 19.2% at 96 DPI. Scan at 300 DPI where you can.
+- **Not tested yet:** old and contemporary newspapers.
 - Not for handwriting, and not for legacy-encoded (TSCII, TAB/TAM, Bamini) PDF text layers.
 
 ## Other models

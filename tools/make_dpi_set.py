@@ -67,8 +67,8 @@ def main() -> int:
         if not img:
             continue
         line_px, n = body_line_height(img, args.tessdata)
-        if not line_px:
-            print(f"  {stem}: no text lines found, skipped")
+        if n < 5:      # a picture page or a page with a few lines can't be measured reliably
+            print(f"  {stem}: only {n} text lines found, skipped")
             continue
         src_dpi = line_px / LINE_PER_EM * 72 / args.font_pt
         scale = args.dpi / src_dpi

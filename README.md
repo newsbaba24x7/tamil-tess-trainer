@@ -205,7 +205,20 @@ image downloads; Wikimedia blocks clients that fetch page images too fast.
 `tools/make_dpi_set.py` rescales a page set to a chosen scanning resolution, for example old
 books at 72 DPI. A scan's physical size is unknown, so the tool measures the body-text line
 height and scales each page so its text is as large as 12-pt print (`--font-pt`) scanned at
-that resolution. The estimate for one page is accurate to about ±20%.
+that resolution. The estimate for one page is accurate to about ±20%. Pages with fewer than 5
+text lines, such as full-page pictures, can't be measured and are skipped.
+
+Score a rescaled set with `scans --exclude-from`, giving the report of the same pages at full
+resolution. Pages that report found to carry another page's text are left out, and every other
+page counts, however badly it reads at low resolution. Without it, pages that only fail because
+of the low resolution would be left out too, and the scores would look better than they are.
+
+```bash
+python3 -m tamtrain scans benchmarks/icon-style/source/old-books --name icon-source-old-books
+python3 tools/make_dpi_set.py benchmarks/icon-style/source/old-books --out benchmarks/icon-style/old-books-72dpi --dpi 72
+python3 -m tamtrain scans benchmarks/icon-style/old-books-72dpi --name icon-old-books-72dpi \
+    --exclude-from work/report/icon-source-old-books.json
+```
 
 ### `lines`: test on any line-image benchmark
 
@@ -219,6 +232,12 @@ python3 -m tamtrain lines benchmarks/ranlp2025/lines --name ranlp2025
 `--raw` compares text exactly as published benchmarks usually do, so invisible characters count
 as errors. `tools/hf_arrow_to_lines.py` turns a Hugging Face dataset file (`.arrow`) with an
 image and a text column into that layout, without needing pyarrow.
+
+Besides CER and WER, the report gives **BLEU, ANLS and METEOR**, the text-similarity measures of
+the RANLP 2025 OCR comparison, computed as NLTK computes them (`tamtrain/metrics.py`; checked
+against NLTK 3.9.1). Every line's OCR text is saved in `<name>.ocr.json`, so other measures can be
+computed later without reading the images again. The scores of all current models on every test
+set are in [benchmarks/BASELINE.md](benchmarks/BASELINE.md).
 
 ## What happens to your fonts
 
@@ -354,20 +373,28 @@ pages with `tools/fetch_wikisource.py --from-list examples/wikisource-pages.json
 [Nevidu/tamil_synthetic_ocr](https://huggingface.co/datasets/Nevidu/tamil_synthetic_ocr) has 7,000
 clean single-line images from Jayatilleke & de Silva,
 [*Zero-shot OCR Accuracy of Low-Resourced Languages*](https://aclanthology.org/2025.ranlp-1.56/)
-(RANLP 2025). The paper compares six OCR systems on it. Below are the paper's figures (Table 1),
-and this tool's models measured the same way: text compared as is, and each image read with
-Tesseract's default page mode (`--raw --psm 3`).
+(RANLP 2025). The paper compares five OCR systems on its Tamil part. Below are the paper's figures
+(Table 1), and this tool's models measured the same way: text compared as is, and each image read
+with Tesseract's default page mode (`--raw --psm 3`). CER and WER: lower is better; BLEU, ANLS and
+METEOR: higher is better.
 
-| System | CER | WER |
-|---|---:|---:|
-| Document AI (Google, commercial), paper | 0.78% | 11.98% |
-| Cloud Vision API (Google, commercial), paper | 0.79% | 12.04% |
-| **V2-research (`tam_v2_research`)** | **1.07%** | **11.16%** |
-| V2-research, fast | 1.12% | 11.54% |
-| Tesseract 5.5.0, paper | 7.80% | 61.45% |
-| Stock `tam` best, measured here | 7.36% | 57.98% |
-| EasyOCR, paper | 11.72% | 28.76% |
-| Surya, paper | 13.92% | 65.00% |
+| System | CER | WER | BLEU | ANLS | METEOR |
+|---|---:|---:|---:|---:|---:|
+| Document AI (Google, commercial), paper | **0.78%** | 11.98% | **0.5803** | **0.9923** | **0.8762** |
+| Cloud Vision API (Google, commercial), paper | 0.79% | 12.04% | 0.5790 | 0.9922 | 0.8751 |
+| V1 (`tam_multifont`) | 0.97% | 14.15% | 0.5587 | 0.9905 | 0.8600 |
+| V2-research (`tam_v2_research`) | 1.07% | **11.16%** | 0.5514 | 0.9893 | 0.8560 |
+| V2 (`tam_v2`) | 1.15% | 17.94% | 0.4994 | 0.9887 | 0.8214 |
+| Tesseract 5.5.0, paper | 7.80% | 61.45% | 0.0493 | 0.9264 | 0.3201 |
+| Stock `tam`, Ubuntu package, measured here | 7.73% | 58.35% | 0.0507 | 0.9270 | 0.3226 |
+| Stock `tam`, tessdata_best, measured here | 7.36% | 57.98% | 0.0501 | 0.9303 | 0.3258 |
+| EasyOCR, paper | 11.72% | 28.76% | 0.3461 | 0.8828 | 0.6744 |
+| Surya, paper | 13.92% | 65.00% | 0.1487 | 0.8672 | 0.3359 |
+
+- **This tool scores the way the paper does.** The stock model from the Ubuntu package gets
+  within 0.1 points of the paper's Tesseract CER and within 0.003 of its BLEU, ANLS and METEOR.
+- **Document AI leads on four of the five measures.** V2-research has the lowest word error rate;
+  V1 comes closest on the other four.
 
 - **The paper's poor Tesseract result is mostly one invisible character.** The stock `tam`
   model writes U+200C after many pullis, which a plain comparison counts as an error and which
@@ -583,6 +610,12 @@ the settings (`work/config.json`), both evaluation reports (rendered lines and r
 license of every font and text source. A model should beat the stock one on real scans before
 it is proposed. Leave out fonts with a non-commercial licence (the C-DAC GIST set) unless their
 owner agrees.
+
+## Tests
+
+```bash
+python3 -m unittest discover tests
+```
 
 ## Licence
 

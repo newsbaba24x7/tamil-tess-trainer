@@ -11,6 +11,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 from .evaluate import ModelSpec, _show, ocr_parallel
+from .metrics import similarity
 from .scans import IMAGE_EXTS, confusions, levenshtein, prepare
 from .util import TamTrainError, log, save_json, step
 
@@ -57,10 +58,13 @@ def evaluate_lines(dirs: list[Path], models: list[ModelSpec], report_dir: Path, 
     keep = [i for i in range(len(pairs)) if i not in crashed]
     results: dict = {"name": name, "lines": len(keep), "psm": psm, "raw": raw,
                      "crashed": [ids[i] for i in sorted(crashed)], "models": {}}
+    saved = {"truth": {ids[i]: truths[i] for i in keep}, "models": {}}
     for m in models:
         texts = [norm(t or "") for t in ocr_out[m.label]]
+        saved["models"][m.label] = {ids[i]: texts[i] for i in keep}
         tot: dict[str, Counter] = defaultdict(Counter)
         per_line: dict[str, list[float]] = defaultdict(list)
+        pairs_by_group: dict[str, list[tuple[str, str]]] = defaultdict(list)
         conf: Counter = Counter()
         samples = []
         for i in keep:
@@ -78,6 +82,7 @@ def evaluate_lines(dirs: list[Path], models: list[ModelSpec], report_dir: Path, 
                 c["lines"] += 1
                 c["exact"] += e == 0
                 per_line[g].append(e / max(len(gt), 1))
+                pairs_by_group[g].append((gt, ocr))
             conf.update(confusions(gt, ocr))
             if e and len(samples) < 12:
                 samples.append({"id": ids[i], "truth": gt, "ocr": ocr})
@@ -86,11 +91,13 @@ def evaluate_lines(dirs: list[Path], models: list[ModelSpec], report_dir: Path, 
             "groups": {g: {"lines": c["lines"], "cer": _rate(c["errors"], c["chars"]),
                            "mean_line_cer": round(100 * statistics.mean(per_line[g]), 2),
                            "wer": _rate(c["word_errors"], c["words"]),
-                           "exact_lines": _rate(c["exact"], c["lines"])} for g, c in tot.items()},
+                           "exact_lines": _rate(c["exact"], c["lines"]),
+                           **similarity(*map(list, zip(*pairs_by_group[g])))} for g, c in tot.items()},
             "top_confusions": [{"truth": a, "ocr": b, "count": n} for (a, b), n in conf.most_common(20)],
             "error_samples": samples,
         }
     write_lines_report(report_dir, results)
+    save_json(report_dir / f"{name}.ocr.json", saved)     # every line's text, to recompute any measure later
     return results
 
 
@@ -105,6 +112,8 @@ def write_lines_report(out: Path, results: dict) -> None:
           "- **CER**: character errors / characters, over all lines together.",
           "- **Mean line CER**: CER of each line, averaged (some benchmarks report this one).",
           "- **WER**: word error rate. **Exact**: share of lines read without any error.",
+          "- **BLEU, ANLS, METEOR** (0–1, higher is better): text similarity as in the RANLP 2025 OCR "
+          "comparison; BLEU is the mean of per-line BLEU (NLTK defaults). See `tamtrain/metrics.py`.",
           ("- Text is compared as is (`--raw`): NFC normalisation and single spaces only, so invisible "
            "characters such as U+200C count as errors, as in most published benchmarks.\n" if results.get("raw") else
            "- Text is compared after NFC normalisation, with zero-width characters removed and quote/dash "
@@ -114,10 +123,12 @@ def write_lines_report(out: Path, results: dict) -> None:
     for g in groups:
         n = results["models"][labels[0]]["groups"][g]["lines"]
         md += [f"\n## {'All lines' if g == 'all' else 'Group: ' + g} ({n} lines)\n",
-               "| Model | CER | Mean line CER | WER | Exact lines |", "|---|---:|---:|---:|---:|"]
+               "| Model | CER | Mean line CER | WER | Exact lines | BLEU | ANLS | METEOR |",
+               "|---|---:|---:|---:|---:|---:|---:|---:|"]
         for lab in labels:
             x = results["models"][lab]["groups"][g]
-            md.append(f"| {lab} | {x['cer']}% | {x['mean_line_cer']}% | {x['wer']}% | {x['exact_lines']}% |")
+            md.append(f"| {lab} | {x['cer']}% | {x['mean_line_cer']}% | {x['wer']}% | {x['exact_lines']}% "
+                      f"| {x.get('bleu', '–')} | {x.get('anls', '–')} | {x.get('meteor', '–')} |")
     for lab in labels:
         md += [f"\n## Top confusions: {lab}\n", "| Truth | OCR | Count |", "|---|---|---:|"]
         for c in results["models"][lab]["top_confusions"]:
@@ -126,8 +137,9 @@ def write_lines_report(out: Path, results: dict) -> None:
     log("")
     for g in groups:
         log(f"    [{g}]")
-        log(f"    {'model':<26} {'CER':>8} {'line CER':>9} {'WER':>8}")
+        log(f"    {'model':<26} {'CER':>8} {'line CER':>9} {'WER':>8} {'BLEU':>7} {'ANLS':>7} {'METEOR':>7}")
         for lab in labels:
             x = results["models"][lab]["groups"][g]
-            log(f"    {lab:<26} {x['cer']:>7}% {x['mean_line_cer']:>8}% {x['wer']:>7}%")
+            log(f"    {lab:<26} {x['cer']:>7}% {x['mean_line_cer']:>8}% {x['wer']:>7}% "
+                f"{x.get('bleu', 0):>7} {x.get('anls', 0):>7} {x.get('meteor', 0):>7}")
     log(f"    full report: {out / (name + '.md')}")

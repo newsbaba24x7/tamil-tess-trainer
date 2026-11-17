@@ -234,7 +234,7 @@ def cmd_lines(args) -> None:
 def cmd_scans(args) -> None:
     check_tools(["tesseract"])
     evaluate_scans(args.pages, models_to_compare(args), args.work / "report", psm=args.psm, jobs=args.jobs,
-                   limit=args.limit, name=args.name)
+                   limit=args.limit, name=args.name, exclude_from=args.exclude_from)
 
 
 def cmd_all(args) -> None:
@@ -350,6 +350,9 @@ def build_parser() -> argparse.ArgumentParser:
                     help="folders with page images (.png/.jpg/.tif) and matching .gt.txt files")
     sp.add_argument("--psm", type=int, default=3, help="page segmentation mode (3 = automatic layout)")
     sp.add_argument("--name", default="scans", help="report name (<work>/report/<name>.md)")
+    sp.add_argument("--exclude-from", type=Path, metavar="REPORT.json",
+                    help="for rescaled copies of a page set: leave out the pages that the full-resolution "
+                         "report found to have another page's text, and keep every other page")
     sp.add_argument("--limit", type=int, help="only the first N pages")
     sp.add_argument("--compare", action="append", metavar="LABEL=PATH",
                     help="also evaluate another .traineddata (repeatable)")
