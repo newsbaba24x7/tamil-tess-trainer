@@ -192,9 +192,32 @@ footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line);
   th, td { padding: 8px 10px; }
   table { font-size: 13.5px; }
 }
+
+/* Site menu, shared with newsbaba24x7.github.io */
+.sitebar { background: var(--surface); border-bottom: 1px solid var(--line); }
+.sitebar .bar { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; gap: 8px 20px; min-height: 54px; flex-wrap: wrap;
+  padding: 6px max(16px, env(safe-area-inset-right, 0px)) 6px max(16px, env(safe-area-inset-left, 0px)); }
+.brand { font-family: var(--display); font-weight: 800; font-size: 20px; color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
+.brand span { color: var(--accent); }
+.sitebar ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px 6px; flex-wrap: wrap; }
+.sitebar ul a { display: block; padding: 6px 10px; border-radius: 6px; color: var(--muted); text-decoration: none; font-size: 15px; font-weight: 500; }
+.sitebar ul a:hover { color: var(--ink); background: var(--accent-soft); }
+.sitebar ul a[aria-current="page"] { color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+@media (max-width: 640px) { .sitebar .bar { gap: 2px 12px; } .sitebar ul a { padding: 5px 8px; font-size: 14px; } }
 </style>
 </head>
 <body>
+<nav class="sitebar" aria-label="Site">
+  <div class="bar">
+    <a class="brand" href="/">News<span>Baba</span></a>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/tamil-tess-trainer/" aria-current="page">Tamil OCR</a></li>
+      <li><a href="/artcraft-tamil/">ArtCraft in Tamil</a></li>
+      <li><a href="https://github.com/newsbaba24x7">GitHub ↗</a></li>
+    </ul>
+  </div>
+</nav>
 <div class="wrap">
 
 <header>

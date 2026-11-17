@@ -17,6 +17,9 @@ tesseract page.png out -l tam_v2 --tessdata-dir .
 | Word errors (WER) | 31.1% | **20.8%** |
 | Clean pages: word errors | 19.1% | **12.6%** |
 
+**Project page: [newsbaba24x7.github.io/tamil-tess-trainer](https://newsbaba24x7.github.io/tamil-tess-trainer/)**,
+an overview with features, every benchmark result, the models and references.
+
 Downloads, test results, training data and known limits are in the [model card](MODEL_CARD.md).
 `tam_v2_fast.traineddata` is the smaller integer version; it scores within 0.1 points of the
 full one. Licence: Apache-2.0, like Tesseract's own models.
