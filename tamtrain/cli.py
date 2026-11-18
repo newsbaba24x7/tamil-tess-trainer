@@ -181,6 +181,7 @@ def train_options(args) -> TrainOptions:
                         learning_rate=args.learning_rate, target_error_rate=args.target_error_rate,
                         wordlist=args.wordlist, extra_gt=args.extra_gt, extra_gt_eval=args.extra_gt_eval,
                         real_repeat=args.real_repeat, eval_max=args.eval_max, train_threads=args.train_threads,
+                        segment_iterations=args.segment_iterations,
                         jobs=args.jobs, fresh=args.fresh, seed=args.seed)
 
 
@@ -316,6 +317,10 @@ def build_parser() -> argparse.ArgumentParser:
                              "four, leaving the other cores free")
         sp.add_argument("--extra-gt", type=Path, nargs="+",
                         help="dirs of real scanned lines: line.png + line.gt.txt (tesstrain layout)")
+        sp.add_argument("--segment-iterations", type=int, metavar="N",
+                        help="fine-tuning only: train in fresh sessions of N iterations, each on the next slice of "
+                             "the training list. Stops lstmtraining from throwing progress away when an early, "
+                             "lucky training error stays its 'best' (keep N below about 30000)")
         sp.add_argument("--fresh", action="store_true", help="discard previous checkpoints")
 
     def eval_args(sp):

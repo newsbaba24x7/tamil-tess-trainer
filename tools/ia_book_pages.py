@@ -25,6 +25,7 @@ import io
 import json
 import re
 import sys
+import threading
 import time
 import urllib.error
 import urllib.parse
@@ -38,7 +39,7 @@ from PIL import Image
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from tamtrain.tamil import normalize  # noqa: E402
 
-UA = {"User-Agent": "tamtrain/0.1 (Tesseract Tamil OCR training; python urllib)"}
+UA = {"User-Agent": "tamtrain/2.0 (https://github.com/newsbaba24x7/tamil-tess-trainer; Tamil OCR training data) python-urllib"}
 
 
 def get(url: str, tries: int = 4, binary: bool = True):
@@ -153,7 +154,10 @@ def main() -> int:
     ap.add_argument("--min-share", type=float, default=0.6, help="share of chosen pages that must match")
     ap.add_argument("--delay", type=float, default=1.0)
     ap.add_argument("--limit", type=int, help="only the first N books (for testing)")
-    ap.add_argument("--workers", type=int, default=4, help="pages downloaded at the same time")
+    ap.add_argument("--workers", type=int, default=4, help="pages of one book downloaded at the same time")
+    ap.add_argument("--book-workers", type=int, default=1,
+                    help="books worked on at the same time; archive.org renders each page image on request "
+                         "(4-10 s), so a few books at once mostly waits in parallel")
     args = ap.parse_args()
     sys.stdout.reconfigure(line_buffering=True)
     if args.pages:
@@ -163,16 +167,16 @@ def main() -> int:
     books = books[: args.limit] if args.limit else books
     state_f = args.books / "ia.json"
     state = json.loads(state_f.read_text(encoding="utf-8")) if state_f.exists() else {}
-    for n, b in enumerate(books, 1):
-        if b["id"] in state:
-            continue
+    lock = threading.Lock()
+
+    def one_book(n: int, b: dict) -> None:
         d = args.books / b["split"] / b["id"]
         gt_pages = {int(f.name[1:5]): grams(f.read_text(encoding="utf-8")) for f in d.glob("p*.gt.txt")}
         result = {"book": b["book"], "status": "no archive.org copy found"}
         try:
             cands = search(b["book"])
         except Exception as exc:  # noqa: BLE001
-            print(f"  {n}/{len(books)} {b['book'][:45]}: search failed ({exc})"); continue
+            print(f"  {n}/{len(books)} {b['book'][:45]}: search failed ({exc})"); return
         for c in cands:
             try:
                 got = ia_pages(c["identifier"])
@@ -202,7 +206,9 @@ def main() -> int:
                         continue
                     if im.width > args.width:      # the page service sometimes ignores the width
                         im = im.resize((args.width, round(im.height * args.width / im.width)), Image.LANCZOS)
-                    im.save(out)
+                    part = out.with_name(f".{out.name}.part")     # a stopped run never leaves half an image
+                    im.save(part, format="PNG")
+                    part.replace(out)
                     time.sleep(args.delay)
                     return 1
                 print(f"     page {p}: download failed ({err})")
@@ -213,10 +219,16 @@ def main() -> int:
             result = {"book": b["book"], "status": "ok", "identifier": c["identifier"], "matched": len(m),
                       "chosen": len(gt_pages), "saved": saved, "pages": {str(p): v for p, v in m.items()}}
             break
-        state[b["id"]] = result
-        state_f.write_text(json.dumps(state, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        with lock:
+            state[b["id"]] = result
+            state_f.write_text(json.dumps(state, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         extra = f"{result['identifier']}: {result['saved']}/{result['chosen']} pages" if result["status"] == "ok" else result["status"]
         print(f"  {n}/{len(books)} {b['split']:5} {b['book'][:45]}: {extra}")
+
+    todo = [(n, b) for n, b in enumerate(books, 1) if b["id"] not in state]
+    with ThreadPoolExecutor(args.book_workers) as ex:
+        for f in [ex.submit(one_book, n, b) for n, b in todo]:
+            f.result()
     ok = [v for v in state.values() if v["status"] == "ok"]
     print(f"{len(ok)} of {len(state)} books found on archive.org; {sum(v['saved'] for v in ok)} page images")
     return 0

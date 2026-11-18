@@ -8,6 +8,7 @@ box files (WordStr) -> .lstmf -> unicharset (merged with the start model's)
 
 from __future__ import annotations
 
+import math
 import os
 import random
 import re
@@ -51,6 +52,7 @@ class TrainOptions:
     real_repeat: int = 1                     # how many times each real training line is shown per epoch
     eval_max: int = 500                      # at most this many lines in the evaluation run during training
     train_threads: int | None = None         # CPU threads for lstmtraining (None: all)
+    segment_iterations: int | None = None    # train in fresh sessions of this many iterations (see train_in_segments)
     psm: int = 13
     jobs: int = 4
     fresh: bool = False
@@ -100,7 +102,17 @@ def import_extra_gt(dirs: list[Path], work: Path, seed: int, all_eval: bool = Fa
                 continue
             base = dest_root / tag / f"{tag}_{i:06d}"
             base.parent.mkdir(parents=True, exist_ok=True)
-            Image.open(img).convert("L").save(str(base) + ".png")
+            dest = Path(str(base) + ".png")
+            with Image.open(img) as im:
+                grey_png = im.format == "PNG" and im.mode == "L"
+                if not grey_png:
+                    im.convert("L").save(dest)
+            if grey_png:              # already a greyscale PNG: link it instead of a second copy
+                dest.unlink(missing_ok=True)
+                try:
+                    os.link(img, dest)
+                except OSError:       # another file system, or links not allowed
+                    shutil.copyfile(img, dest)
             text = gt.read_text(encoding="utf-8").strip()
             (base.parent / (base.name + ".gt.txt")).write_text(normalize(text) + "\n", encoding="utf-8")
             split = "eval" if all_eval or random.Random(f"{seed}:{gt}").random() < holdout else "train"
@@ -156,12 +168,14 @@ EVAL_RE = re.compile(r"At iteration (\d+), stage \d+, (?:Eval Char error rate=([
                      r"BCER eval=([\d.]+), BWER eval=([\d.]+))")
 
 
-def run_lstmtraining(cmd: list[str], log_file: Path, max_iter: int, threads: int | None = None) -> tuple[int, int]:
-    """Run lstmtraining; return the first and last training iteration it reported."""
+def run_lstmtraining(cmd: list[str], log_file: Path, max_iter: int, threads: int | None = None,
+                     offset: int = 0, total: int | None = None) -> tuple[int, int]:
+    """Run lstmtraining; return the first and last training iteration it reported.
+    offset/total: for a session of a longer run, progress is shown as offset + iteration of total."""
     log("    " + " ".join(cmd))
     env = {**os.environ, "OMP_THREAD_LIMIT": str(threads)} if threads else None
     seen: list[int] = []
-    with open(log_file, "a", encoding="utf-8") as lf, subprocess.Popen(
+    with open(log_file, "a", encoding="utf-8", buffering=1) as lf, subprocess.Popen(
         cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace", bufsize=1,
         env=env,
     ) as proc:
@@ -175,7 +189,7 @@ def run_lstmtraining(cmd: list[str], log_file: Path, max_iter: int, threads: int
                 seen.append(int(m.group(2)))
                 # "At iteration L/T/S": L = lines learned from, T = training iterations (what
                 # --max_iterations counts), S = samples seen.
-                log(f"    iter {m.group(2):>6}/{max_iter}  train char error {m.group(4):>6}%  "
+                log(f"    iter {offset + int(m.group(2)):>6}/{total or max_iter}  train char error {m.group(4):>6}%  "
                     f"word error {m.group(5):>6}%")
             # The evaluation thread can print in the middle of another line, so check separately.
             if m := EVAL_RE.search(line):
@@ -200,6 +214,53 @@ def run_lstmtraining(cmd: list[str], log_file: Path, max_iter: int, threads: int
                         "or a distribution package.")
             raise TamTrainError(f"lstmtraining failed (see {log_file}):\n{msg}")
     return (seen[0], seen[-1]) if seen else (0, 0)
+
+
+def train_in_segments(base_cmd: list[str], opts: TrainOptions, model_dir: Path, start: Path, start_lstm: Path,
+                      proto: Path, log_file: Path) -> tuple[Path, int]:
+    """Train in fresh lstmtraining sessions of opts.segment_iterations each.
+
+    lstmtraining keeps the lowest training error it has seen as its "best". Fine-tuning a good
+    model on harder lines, an early lucky reading (a 100-line average) can stay the best for
+    good. After 10,000 learning iterations without a new best, lstmtraining starts a sub-trainer
+    from that early model and lets it replace the main run when its short average dips below
+    the old best, throwing the progress away (once: 52,000 iterations). A fresh session that is
+    shorter never gets there. Each session continues from the previous session's network, on
+    the next slice of the shuffled training list, so every line is still seen once per pass.
+    Finished sessions are skipped when the command is run again.
+    Returns the last session's checkpoint and the number of iterations trained."""
+    seg_dir = model_dir / "segments"
+    seg_dir.mkdir(exist_ok=True)
+    lines = (model_dir / "list.train").read_text(encoding="utf-8").splitlines()
+    size, total = int(opts.segment_iterations), opts.iterations
+    n_seg = math.ceil(total / size)
+    prev: Path | None = None
+    checkpoint = seg_dir / "seg01_checkpoint"
+    for i in range(1, n_seg + 1):
+        lo, hi = (i - 1) * size, min(total, i * size)
+        tag = f"seg{i:02d}"
+        net, checkpoint = seg_dir / f"{tag}.lstm", seg_dir / f"{tag}_checkpoint"
+        if net.exists() and checkpoint.exists():
+            prev = net
+            continue
+        listing = seg_dir / f"list.train.{tag}"
+        listing.write_text("\n".join(lines[j % len(lines)] for j in range(lo, hi)) + "\n", encoding="utf-8")
+        cmd = base_cmd + ["--model_output", str(seg_dir / tag), "--train_listfile", str(listing),
+                          "--max_iterations", str(hi - lo)]
+        cmd += (["--old_traineddata", str(start), "--continue_from", str(start_lstm)] if prev is None
+                else ["--continue_from", str(prev)])
+        log(f"    session {i}/{n_seg}: training lines {lo + 1}-{hi}")
+        run_lstmtraining(cmd, log_file, hi - lo, opts.train_threads, offset=lo, total=total)
+        whole = seg_dir / f"{tag}.traineddata"
+        run(["lstmtraining", "--stop_training", "--continue_from", checkpoint, "--traineddata", proto,
+             "--model_output", whole], log_file=log_file)
+        run(["combine_tessdata", "-e", whole, net], log_file=log_file)
+        whole.unlink(missing_ok=True)
+        if prev is not None:      # the previous session's network is kept; its checkpoints are not needed
+            for f in seg_dir.glob(f"{prev.stem}_*checkpoint"):
+                f.unlink()
+        prev = net
+    return checkpoint, total
 
 
 def train(work: Path, opts: TrainOptions) -> dict:
@@ -300,7 +361,11 @@ def train(work: Path, opts: TrainOptions) -> dict:
     if not proto.exists():
         raise TamTrainError(f"combine_lang_model did not create {proto}; see {log_file}")
 
-    step(f"Training ({opts.iterations} iterations; progress every 100)")
+    segmented = bool(start and opts.segment_iterations and opts.segment_iterations < opts.iterations)
+    if opts.segment_iterations and not start:
+        warn("--segment-iterations needs a start model; training in one session")
+    step(f"Training ({opts.iterations} iterations"
+         + (f" in sessions of {opts.segment_iterations}" if segmented else "") + "; progress every 100)")
     ckpt_dir = model_dir / "checkpoints"
     ckpt_dir.mkdir(exist_ok=True)
     lr = opts.learning_rate if opts.learning_rate is not None else (0.0001 if start else 0.002)
@@ -313,16 +378,23 @@ def train(work: Path, opts: TrainOptions) -> dict:
     else:
         n_chars = unicharset.read_text(encoding="utf-8").split("\n", 1)[0].strip()
         cmd[3:3] = ["--net_spec", SCRATCH_NET_SPEC.format(n=n_chars)]
-    if (ckpt_dir / f"{name}_checkpoint").exists():
+    if not segmented and (ckpt_dir / f"{name}_checkpoint").exists():
         log("    resuming from existing checkpoint (use --fresh to start over)")
     load = os.getloadavg()[0] if hasattr(os, "getloadavg") else 0.0
     if load > (os.cpu_count() or 2) / 2:
         warn(f"other programs are keeping the CPU busy (load {load:.1f}); training slows down accordingly. "
              "V2's training ran at half speed for this reason.")
     t0 = time.monotonic()
-    first, last = run_lstmtraining(cmd, log_file, opts.iterations, opts.train_threads)
+    if segmented:
+        base = ["lstmtraining", "--debug_interval", "0", "--traineddata", str(proto), "--learning_rate", str(lr),
+                "--eval_listfile", str(model_dir / "list.eval"), "--target_error_rate", str(opts.target_error_rate)]
+        checkpoint, steps = train_in_segments(base, opts, model_dir, start, start_dir / f"{name}.lstm", proto,
+                                              log_file)
+    else:
+        first, last = run_lstmtraining(cmd, log_file, opts.iterations, opts.train_threads)
+        steps = max(0, last - first + 100) if last else 0
+        checkpoint = ckpt_dir / f"{name}_checkpoint"
     seconds = time.monotonic() - t0
-    steps = max(0, last - first + 100) if last else 0
     timing = {"iterations_this_run": steps, "seconds": round(seconds), "load_at_start": round(load, 2),
               "threads": opts.train_threads or os.cpu_count(),
               "seconds_per_iteration": round(seconds / steps, 4) if steps else None}
@@ -330,7 +402,6 @@ def train(work: Path, opts: TrainOptions) -> dict:
         log(f"    trained {steps} iterations in {seconds / 60:.1f} min ({seconds / steps:.3f} s per iteration)")
 
     step("Writing final models")
-    checkpoint = ckpt_dir / f"{name}_checkpoint"
     if not checkpoint.exists():
         raise TamTrainError(f"No checkpoint written; see {log_file}")
     out = work / "output"

@@ -40,7 +40,7 @@ from tamtrain.tamil import normalize  # noqa: E402
 
 API = "https://ta.wikisource.org/w/api.php"
 SITE = "https://ta.wikisource.org/wiki/"
-UA = "tamtrain-fetch/0.1 (Tesseract Tamil OCR evaluation; python urllib)"
+UA = "tamtrain/2.0 (https://github.com/newsbaba24x7/tamil-tess-trainer; Tamil OCR training data) python-urllib"
 PAGE_NS = 250
 INDEX_NS = 252
 WIDTHS = (1280, 1920, 3840)   # Wikimedia only serves standard thumbnail widths
@@ -88,14 +88,16 @@ DROP_TEMPLATES = {
 }
 SIZE_TEMPLATES = {"fs", "font-size", "font size", "fine", "span", "x-larger", "larger", "smaller"}
 SIZE_ARG = re.compile(r"^\s*\d+(\.\d+)?\s*(%|em|px|pt)?\s*$")
+SIZE_WITH_UNIT = re.compile(r"^\s*\d+(\.\d+)?\s*(%|em|px|pt)\s*$")   # never printed text, in any template
+SPACE_TEMPLATES = {"dhr", "dhr2", "***", "asterism", "custom rule"}       # vertical space and ornaments
 FIRST_ARG_ONLY = {"hws", "hwe", "hyphenated word start", "hyphenated word end", "lang", "nowrap"}
 
 
 def _template(match: re.Match) -> str:
     parts = match.group(1).split("|")
     name = parts[0].strip().lower().replace("_", " ")
-    args = [a for a in parts[1:] if not re.match(r"^\s*[\w -]+\s*=", a)]
-    if name in DROP_TEMPLATES or name.startswith(("dotted", "rule", "gap")):
+    args = [a for a in parts[1:] if not re.match(r"^\s*[\w -]+\s*=", a) and not SIZE_WITH_UNIT.match(a)]
+    if name in DROP_TEMPLATES or name in SPACE_TEMPLATES or name.startswith(("dotted", "rule", "gap")):
         return ""
     if name in ("hws", "hyphenated word start", "hwe", "hyphenated word end"):
         return args[0] if args else ""
@@ -286,21 +288,28 @@ def fetch_texts(entries: list[dict]) -> None:
         time.sleep(0.3)
 
 
-def file_urls(books: list[str]) -> dict[str, str]:
-    """Book file name -> original upload URL (the file may live on Commons or on ta.wikisource)."""
-    urls = {}
+def file_info(books: list[str]) -> dict[str, dict]:
+    """Book file name -> {"url": original upload URL, "size": bytes} (the file may live on Commons
+    or on ta.wikisource)."""
+    info = {}
     for i in range(0, len(books), 50):
         chunk = books[i:i + 50]
-        data = api(action="query", prop="imageinfo", iiprop="url", titles="|".join("File:" + b for b in chunk))
+        data = api(action="query", prop="imageinfo", iiprop="url|size", titles="|".join("File:" + b for b in chunk))
         norm = {x["from"]: x["to"] for x in data["query"].get("normalized", [])}
         pages = {p["title"]: p for p in data["query"]["pages"]}
         for b in chunk:
             t = "File:" + b
             p = pages.get(norm.get(t, t))
             if p and p.get("imageinfo"):
-                urls[b] = p["imageinfo"][0]["url"].split("?")[0]
+                ii = p["imageinfo"][0]
+                info[b] = {"url": ii["url"].split("?")[0], "size": ii.get("size", 0)}
         time.sleep(0.3)
-    return urls
+    return info
+
+
+def file_urls(books: list[str]) -> dict[str, str]:
+    """Book file name -> original upload URL."""
+    return {b: i["url"] for b, i in file_info(books).items()}
 
 
 def thumb_url(original: str, page: int, width: int) -> str:

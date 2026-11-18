@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import io
 import json
 import random
 import re
@@ -35,6 +36,8 @@ import time
 import urllib.error
 from collections import defaultdict
 from pathlib import Path
+
+from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import fetch_wikisource as fw  # noqa: E402
@@ -213,35 +216,72 @@ def cmd_texts(args) -> None:
 
 # ----------------------------------------------------------------------------- pdfs
 
+def page_thumbs(b: dict, d: Path, url: str, args) -> None:
+    """Single page images rendered by Wikimedia: for DjVu files (pdftoppm reads only PDF) and for
+    very large PDFs, where downloading the whole file for a couple of dozen pages is wasteful."""
+    for p in b["pages_chosen"]:
+        out = d / f"p{p['page']:04d}.png"
+        if out.exists():
+            continue
+        try:
+            data = fw.http_get(fw.thumb_url(url, p["page"], args.width), binary=True, tries=args.tries)
+        except urllib.error.HTTPError as exc:
+            if exc.code == 429:
+                raise
+            print(f"     page {p['page']}: download failed ({exc.code})"); continue
+        im = Image.open(io.BytesIO(data)).convert("L")
+        part = out.with_name(f".{out.name}.part")
+        im.save(part, format="PNG")
+        part.replace(out)
+        time.sleep(args.page_delay)
+
+
 def cmd_pdfs(args) -> None:
     if not shutil.which("pdftoppm"):
         raise SystemExit("pdftoppm is needed (Debian/Ubuntu: sudo apt install poppler-utils)")
     books = load(args.out)
-    urls = fw.file_urls([b["book"] for b in books if b["split"] in ("train", "dev") and not b.get("rendered")])
-    for n, b in enumerate(books, 1):
-        if b.get("rendered") or not b.get("pages_chosen") or b["split"] not in ("train", "dev"):
-            continue
-        url = urls.get(b["book"])
-        if not url:
+
+    def has_images(b: dict) -> bool:
+        return any((args.out / b["split"] / b["id"]).glob("p*.png"))
+
+    todo = [b for b in books if b["split"] in ("train", "dev") and b.get("pages_chosen") and not b.get("rendered")
+            and not (args.missing_only and has_images(b))]
+    info = fw.file_info([b["book"] for b in todo])
+    print(f"{len(todo)} books to render"
+          + (" (books that already have page images, e.g. from archive.org, are left alone)" if args.missing_only else ""))
+    for n, b in enumerate(todo, 1):
+        f = info.get(b["book"])
+        if not f:
             print(f"  {b['book']}: no file URL"); continue
+        url = f["url"]
         d = args.out / b["split"] / b["id"]
-        with tempfile.TemporaryDirectory() as tmp:
-            pdf = Path(tmp) / "book.pdf"
+        whole = url.lower().endswith(".pdf") and f["size"] <= args.max_mb * 1e6
+        if not whole:
             try:
-                pdf.write_bytes(fw.http_get(url, binary=True, tries=args.tries))
+                page_thumbs(b, d, url, args)
             except urllib.error.HTTPError as exc:
-                print(f"  {b['book'][:50]}: download failed ({exc.code}); run again later", flush=True)
-                if exc.code == 429:
-                    break           # Wikimedia is rate-limiting this computer: stop instead of hammering
-                continue
-            for p in b["pages_chosen"]:
-                target = d / f"p{p['page']:04d}"
-                subprocess.run(["pdftoppm", "-f", str(p["page"]), "-l", str(p["page"]), "-scale-to-x", str(args.width),
-                                "-scale-to-y", "-1", "-gray", "-png", "-singlefile", str(pdf), str(target)],
-                               capture_output=True)
+                print(f"  {b['book'][:50]}: Wikimedia is rate-limiting ({exc.code}); run again later", flush=True)
+                break
+        else:
+            with tempfile.TemporaryDirectory() as tmp:
+                pdf = Path(tmp) / "book.pdf"
+                try:
+                    pdf.write_bytes(fw.http_get(url, binary=True, tries=args.tries))
+                except urllib.error.HTTPError as exc:
+                    print(f"  {b['book'][:50]}: download failed ({exc.code}); run again later", flush=True)
+                    if exc.code == 429:
+                        break           # Wikimedia is rate-limiting this computer: stop instead of hammering
+                    continue
+                for p in b["pages_chosen"]:
+                    target = d / f"p{p['page']:04d}"
+                    if target.with_suffix(".png").exists():
+                        continue
+                    subprocess.run(["pdftoppm", "-f", str(p["page"]), "-l", str(p["page"]), "-scale-to-x", str(args.width),
+                                    "-scale-to-y", "-1", "-gray", "-png", "-singlefile", str(pdf), str(target)],
+                                   capture_output=True)
         b["rendered"] = sum((d / f"p{p['page']:04d}.png").exists() for p in b["pages_chosen"])
         save(args.out, books)
-        print(f"  {n}/{len(books)} {b['book'][:50]}: {b['rendered']} pages rendered", flush=True)
+        print(f"  {n}/{len(todo)} {b['book'][:50]}: {b['rendered']} pages rendered", flush=True)
         time.sleep(args.delay)
 
 
@@ -265,6 +305,11 @@ def main() -> int:
     p.add_argument("--width", type=int, default=1920)
     p.add_argument("--delay", type=float, default=20, help="seconds between books")
     p.add_argument("--tries", type=int, default=4)
+    p.add_argument("--missing-only", action="store_true",
+                   help="only books with no page image yet (for example none found on archive.org)")
+    p.add_argument("--max-mb", type=float, default=100,
+                   help="for larger PDFs, and for DjVu files, fetch single page images instead of the whole file")
+    p.add_argument("--page-delay", type=float, default=1.0, help="seconds between single page images")
     for sp in (s, t, p):
         sp.add_argument("--out", type=Path, default=Path("books"))
     args = ap.parse_args()

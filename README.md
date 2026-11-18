@@ -165,7 +165,15 @@ the numbers written with them are kept, which brings them from 4.8 to 0.5 per 1,
 | `--real-repeat` | 1 | Show each real training line this many times |
 | `--eval-max` | 500 | At most this many lines in the progress check during training (0: all) |
 | `--train-threads` | all cores | CPU threads for `lstmtraining` |
+| `--segment-iterations` | | Fine-tuning: train in fresh sessions of this many iterations (for example 20000), each on the next part of the training list. Use it when the start model already reads the training lines well (see below) |
 | `--fresh` | | Discard earlier checkpoints |
+
+**Why sessions.** `lstmtraining` remembers the lowest training error it has seen as its best.
+When a good model is fine-tuned on harder lines, an early reading over the first 100 lines can
+be lower than anything the run reaches later. After 10,000 learning iterations without a new
+best, `lstmtraining` restarts a copy from that early model and lets the copy replace the run,
+which throws away everything learned since. In one run this cost 52,000 iterations. Sessions
+shorter than that never get there; each continues from the previous session's model.
 
 **Training time.** Measured on 4 CPU cores, fine-tuning takes about 0.046 s per iteration (0.050 s
 with 2 threads, 0.068 s with 1), so 100,000 iterations take about 80 minutes. To keep it there:
@@ -597,6 +605,39 @@ works too; it keeps fewer lines.
   log's evaluation set. Progress is then measured on real scans, not on rendered lines.
 - **`--real-repeat`:** shows each real training line that many times, because rendered lines
   far outnumber them.
+
+### Collecting many more real lines
+
+A book does not need to be fully proofread to be useful, only enough of its pages.
+`tools/wikisource_pool.py` lists every page volunteers have proofread (about 217,000), counts them
+per book and picks books with enough of them; `tools/get_more_books.sh` runs the whole chain and
+can be stopped and started again.
+
+```bash
+tools/get_more_books.sh                     # OUT=books-more BOOKS=400 by default
+python3 tools/fetch_wikisource_books.py pdfs --out books-more --missing-only --delay 3
+python3 tools/page_lines.py books-more/train/* --out books-lines-more/train \
+    --model-dir work-v2/output/tessdata_best --lang tam_v2
+```
+
+- **Test material stays out.** Test books are excluded by name, and a share of periodical titles
+  (`--reserve-periodicals`) is kept for testing only. The one newspaper, Dravida Nadu, is split
+  by year instead, so training and test issues cover the same decades.
+- **Page images:** `ia_book_pages.py --book-workers 3` works on several books at once (archive.org
+  builds each page image on request, which takes 4–10 s). Books without an archive.org copy get
+  their pages from Wikimedia with `fetch_wikisource_books.py pdfs --missing-only`: whole PDFs up
+  to `--max-mb`, single page images for DjVu files and larger PDFs.
+- **Text with English words:** `tools/fetch_wikipedia_text.py` samples Tamil Wikipedia openings,
+  which often give an English name in brackets after the Tamil one. Any sentence that shares a
+  run of four words with a test set is dropped.
+- **Rendering text:** `build_corpus.py` takes several book folders, files to include whole
+  (`--whole`) and a size cap (`--max-chars`), so each source gets a known share.
+- **Low-resolution copies:** `tools/lowres_lines.py` shrinks line images as if scanned at
+  72–100 DPI. Tried once: it fixed 72-DPI pages but taught the model to insert spaces into words
+  elsewhere, so use only a small share of such lines, if any.
+- **Long runs and heat:** `tools/cool_guard.py --pid <job> --off-file <path>` pauses a job (and
+  everything it started) when the CPU gets hot, plus a short break every hour; creating the off
+  file switches it off without touching the job.
 
 ## Getting a model that helps everyone
 
