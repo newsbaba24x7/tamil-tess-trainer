@@ -29,6 +29,9 @@ from pathlib import Path
 
 from PIL import Image
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import fetch_wikisource as fw  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 IA_WIDTH = 1920     # ia_book_pages.py default, used for the V2 books
 
@@ -83,27 +86,43 @@ def strip_paths(obj):
     return obj
 
 
-def real_lines(books: Path, lines_root: Path, test_lines: Path, test_pages: Path) -> list[dict]:
-    meta = {b["id"]: b for b in json.loads((books / "books.json").read_text(encoding="utf-8"))}
-    ia = json.loads((books / "ia.json").read_text(encoding="utf-8"))
+def real_lines(sources: list[tuple[Path, Path]], test_lines: Path, test_pages: Path) -> list[dict]:
+    """sources: (books folder, lines folder) pairs. A book's pages come from archive.org when
+    ia.json found a copy, otherwise from its scan on Wikimedia (fetch_wikisource_books.py pdfs)."""
     rows = []
-    for split in ("train", "dev"):
-        for ln in json.loads((lines_root / split / "lines.json").read_text(encoding="utf-8")):
-            book_id, page = ln["page"].split("/")
-            b, src = meta[book_id], ia[book_id]
-            n = int(page[1:])
-            idx = src["pages"][str(n)][0]
-            img = next(books / d / book_id / f"{page}.png" for d in ("train", "dev")
-                       if (books / d / book_id / f"{page}.png").exists())
-            ident = urllib.parse.quote(src["identifier"])
-            rev = next((p.get("revid") for p in b.get("pages_chosen", []) if p["page"] == n), None)
-            rows.append({"split": split, "id": ln["id"], "page": f"{book_id}_{page}",
-                         "text": (lines_root / split / f"{ln['id']}.gt.txt").read_text(encoding="utf-8").strip(),
-                         "box": ln["box"], "page_size": list(Image.open(img).size),
-                         "image_urls": [f"https://archive.org/download/{ident}/page/n{idx}_w{IA_WIDTH}.jpg",
-                                        f"https://iiif.archive.org/iiif/{ident}%24{idx}/full/{IA_WIDTH},/0/default.jpg"],
-                         "wikisource": {"page": f"பக்கம்:{b['book']}/{n}", "revid": rev, "year": b.get("year")},
-                         "archive_org": {"identifier": src["identifier"], "page_index": idx}})
+    for books, lines_root in sources:
+        meta = {b["id"]: b for b in json.loads((books / "books.json").read_text(encoding="utf-8"))}
+        ia_f = books / "ia.json"
+        ia = json.loads(ia_f.read_text(encoding="utf-8")) if ia_f.exists() else {}
+        on_ia = {i for i, s in ia.items() if s.get("status") == "ok"}
+        wm = fw.file_info(sorted({meta[i]["book"] for i in meta if i not in on_ia and meta[i].get("rendered")}))
+        for split in ("train", "dev"):
+            listing = lines_root / split / "lines.json"
+            if not listing.exists():
+                continue
+            for ln in json.loads(listing.read_text(encoding="utf-8")):
+                book_id, page = ln["page"].split("/")
+                b = meta[book_id]
+                n = int(page[1:])
+                img = next(books / d / book_id / f"{page}.png" for d in ("train", "dev")
+                           if (books / d / book_id / f"{page}.png").exists())
+                rev = next((p.get("revid") for p in b.get("pages_chosen", []) if p["page"] == n), None)
+                row = {"split": split, "id": ln["id"], "page": f"{book_id}_{page}",
+                       "text": (lines_root / split / f"{ln['id']}.gt.txt").read_text(encoding="utf-8").strip(),
+                       "box": ln["box"], "page_size": list(Image.open(img).size),
+                       "wikisource": {"page": f"பக்கம்:{b['book']}/{n}", "revid": rev, "year": b.get("year")}}
+                if book_id in on_ia:
+                    src = ia[book_id]
+                    idx = src["pages"][str(n)][0]
+                    ident = urllib.parse.quote(src["identifier"])
+                    row["image_urls"] = [f"https://archive.org/download/{ident}/page/n{idx}_w{IA_WIDTH}.jpg",
+                                         f"https://iiif.archive.org/iiif/{ident}%24{idx}/full/{IA_WIDTH},/0/default.jpg"]
+                    row["archive_org"] = {"identifier": src["identifier"], "page_index": idx}
+                else:
+                    f = wm[b["book"]]
+                    row["image_urls"] = [fw.thumb_url(f["url"], n, IA_WIDTH)]
+                    row["wikimedia_file"] = {"url": f["url"], "page": n, "bytes": f["size"]}
+                rows.append(row)
     pages = {p["id"]: p for p in json.loads((test_pages / "pages.json").read_text(encoding="utf-8"))}
     for ln in json.loads((test_lines / "lines.json").read_text(encoding="utf-8")):
         p = pages[ln["page"]]
@@ -121,8 +140,8 @@ def main() -> int:
     ap.add_argument("--name", default="tam_v2")
     ap.add_argument("--dist", type=Path, default=ROOT / "dist")
     ap.add_argument("--fonts-md", type=Path, default=ROOT / "examples" / "fonts-v2-open.md")
-    ap.add_argument("--books", type=Path, default=ROOT / "books")
-    ap.add_argument("--lines", type=Path, default=ROOT / "books-lines")
+    ap.add_argument("--sources", nargs="+", default=["books:books-lines"], metavar="BOOKS:LINES",
+                    help="book folder and line folder pairs, e.g. books:books-lines books-more:books-lines-more")
     ap.add_argument("--test-lines", type=Path, default=ROOT / "benchmarks" / "wikisource-test-lines")
     ap.add_argument("--test-pages", type=Path, default=ROOT / "scans" / "wikisource")
     ap.add_argument("--text", type=Path, default=ROOT / "corpus-v2.txt")
@@ -135,7 +154,8 @@ def main() -> int:
     shutil.copy2(out / "tessdata_best" / f"{args.name}.traineddata", args.dist / f"{args.name}.traineddata")
     shutil.copy2(out / "tessdata_fast" / f"{args.name}.traineddata", args.dist / f"{args.name}_fast.traineddata")
 
-    rows = [] if args.model_only else real_lines(args.books, args.lines, args.test_lines, args.test_pages)
+    sources = [tuple(ROOT / p for p in s.split(":", 1)) for s in args.sources]
+    rows = [] if args.model_only else real_lines(sources, args.test_lines, args.test_pages)
     if not args.model_only:
         with gzip.open(args.dist / f"{args.name}-real-lines.jsonl.gz", "wt", encoding="utf-8", compresslevel=9) as f:
             for r in rows:

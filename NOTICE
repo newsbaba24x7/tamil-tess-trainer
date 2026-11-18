@@ -4,27 +4,33 @@ Licensed under the Apache License, Version 2.0 (see LICENSE), except the tam_v2_
 files, which are licensed CC BY-NC 4.0 (see Fonts below).
 
 The tam_v2 model is a fine-tuned version of Tesseract's Tamil model "tam" from
-https://github.com/tesseract-ocr/tessdata_best, licensed under the Apache License 2.0.
+https://github.com/tesseract-ocr/tessdata_best, licensed under the Apache License 2.0. The
+tam_v3 model is a fine-tuned version of tam_v2.
 
 Training text and ground truth
 - Proofread page text from Tamil Wikisource (https://ta.wikisource.org), by the Tamil
   Wikisource contributors, licensed CC BY-SA 4.0
   (https://creativecommons.org/licenses/by-sa/4.0/). The release files
-  tam_v2-training-text.txt.gz, tam_v2-wordlist.txt.gz and tam_v2-real-lines.jsonl.gz contain
+  tam_v2-training-text.txt.gz, tam_v2-wordlist.txt.gz, tam_v2-real-lines.jsonl.gz,
+  tam_v3-training-text.txt.gz, tam_v3-wordlist.txt.gz and tam_v3-real-lines.jsonl.gz contain
   this text and are shared under the same licence. Page links are in examples/wikisource-pages.json,
-  books/books.json and the line list.
+  books/books.json and the line lists.
+- Sentences from Tamil Wikipedia (https://ta.wikipedia.org), by the Tamil Wikipedia
+  contributors, licensed CC BY-SA 4.0, part of tam_v3-training-text.txt.gz.
 - tam.training_text from https://github.com/tesseract-ocr/langdata_lstm (Apache License 2.0),
-  part of tam_v2-training-text.txt.gz.
+  part of tam_v2-training-text.txt.gz and tam_v3-training-text.txt.gz.
 
 Scanned page images
 - Training lines were cut from page images held by the Internet Archive (https://archive.org),
   mostly copies of the Tamil Virtual Academy / Tamil Digital Library and the Digital Library of
-  India. Test pages are Tamil Wikisource scans hosted by Wikimedia Commons. The images are not
-  redistributed here; the line list says where each one can be downloaded.
+  India, and (for tam_v3) from the Tamil Wikisource scans hosted by Wikimedia. Test pages are
+  Tamil Wikisource scans hosted by Wikimedia Commons. The images are not redistributed here;
+  the line lists say where each one can be downloaded.
 
 Fonts
-- tam_v2: text lines were rendered with 233 font styles. Their sources and licences are listed
-  in examples/fonts-v2-open.md and models/tam_v2/fonts.json.
+- tam_v2 and tam_v3: text lines were rendered with the same 233 font styles. Their sources and
+  licences are listed in examples/fonts-v2-open.md, models/tam_v2/fonts.json and
+  models/tam_v3/fonts.json.
 - tam_multifont (V1, research model, also fine-tuned from "tam"): 188 font styles, listed in
   models/tam_multifont/fonts.json. They include Latha (Microsoft, proprietary) and uniAmma-10,
   -11 and -16 (origin unknown), which have no open licence.

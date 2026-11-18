@@ -1,28 +1,38 @@
-# Tamil OCR for Tesseract: the open tam_v2 model and its trainer
+# Tamil OCR for Tesseract: the open tam_v3 model and its trainer
 
-**tam_v2** is an open Tesseract model for printed Tamil. It was fine-tuned from Tesseract's own
-`tam` model with openly licensed fonts and 24,445 real scanned book lines whose text was
-proofread on Tamil Wikisource. On 197 real scanned pages it never saw, it makes 36% fewer
-character errors than the stock model, and it is better on 173 of the pages and worse on one.
+**tam_v3** is an open Tesseract model for printed Tamil. It was fine-tuned from tam_v2 with
+openly licensed fonts and 174,624 real scanned lines from 394 books and periodical issues whose
+text was proofread on Tamil Wikisource. On 197 real scanned pages it never saw, it makes 46% fewer
+character errors than the stock model and 16% fewer than tam_v2, and it is better than stock on
+179 of the pages and worse on none.
 
 ```bash
-curl -LO https://github.com/newsbaba24x7/tamil-tess-trainer/releases/download/v2.0.0/tam_v2.traineddata
-tesseract page.png out -l tam_v2 --tessdata-dir .
+curl -LO https://github.com/newsbaba24x7/tamil-tess-trainer/releases/download/v3.0.0/tam_v3.traineddata
+tesseract page.png out -l tam_v3 --tessdata-dir .
 ```
 
-| 197 real scanned pages | Stock `tam` | **tam_v2** |
-|---|---:|---:|
-| Character errors (CER) | 6.33% | **4.07%** |
-| Tamil characters only | 4.34% | **2.60%** |
-| Word errors (WER) | 31.1% | **20.8%** |
-| Clean pages: word errors | 19.1% | **12.6%** |
+| Test | Stock `tam` | tam_v2 | **tam_v3** |
+|---|---:|---:|---:|
+| 197 real pages: character errors (CER) | 6.33% | 4.07% | **3.41%** |
+| the same, Tamil characters only | 4.34% | 2.60% | **2.07%** |
+| the same, word errors (WER) | 31.1% | 20.8% | **19.1%** |
+| 3,968 real lines: CER / WER | 3.56% / 21.2% | 1.49% / 10.1% | **1.13% / 7.9%** |
+| Tamil OCR Benchmark (English words in Tamil): CER | 5.44% | 3.25% | **1.54%** |
+| RANLP 2025: CER (Google Document AI: 0.78%) | 7.36% | 1.15% | **0.80%** |
+
+At very low resolution (72–96 DPI) tam_v3 is about level with tam_v2 and the stock model, and
+slightly behind both on old books at 72 DPI; scan at 300 DPI where you can.
 
 **Project page: [newsbaba24x7.github.io/tamil-tess-trainer](https://newsbaba24x7.github.io/tamil-tess-trainer/)**,
 an overview with features, every benchmark result, the models and references.
 
 Downloads, test results, training data and known limits are in the [model card](MODEL_CARD.md).
-`tam_v2_fast.traineddata` is the smaller integer version; it scores within 0.1 points of the
+`tam_v3_fast.traineddata` is the smaller integer version; it scores within 0.3 points of the
 full one. Licence: Apache-2.0, like Tesseract's own models.
+
+The previous open model, **tam_v2**, stays available: [model card](models/tam_v2/README.md),
+[release v2.0.0](https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v2.0.0). It is
+slightly better on very low-resolution scans.
 
 The two earlier models trained with this tool are also available as research models, for
 comparison. Both were trained on fonts only.
@@ -35,8 +45,8 @@ comparison. Both were trained on fonts only.
   the C-DAC GIST fonts. See its [model card](models/tam_v2_research/README.md) and
   [release v2.0.0-research](https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v2.0.0-research).
 
-The rest of this page is about **tamtrain**, the tool that trained tam_v2. Use it to train
-your own Tamil model or to test models on real scans.
+The rest of this page is about **tamtrain**, the tool that trained tam_v2 and tam_v3. Use it to
+train your own Tamil model or to test models on real scans.
 
 ## tamtrain: train Tesseract's Tamil model
 
@@ -454,8 +464,9 @@ redistributed.
 
 ## V2: the open model
 
-V2 is the model meant for publishing, trained only on fonts that allow it. The earlier
-276-style model is kept as **V2-research** for comparison.
+V2 was the first model meant for publishing, trained only on fonts that allow it; tam_v3
+(below) continues its training. The earlier 276-style model is kept as **V2-research** for
+comparison.
 
 **Fonts:** 233 styles from 71 families, listed with their licences in
 [examples/fonts-v2-open.md](examples/fonts-v2-open.md). Compared with V2-research, it
@@ -606,6 +617,54 @@ works too; it keeps fewer lines.
 - **`--real-repeat`:** shows each real training line that many times, because rendered lines
   far outnumber them.
 
+## V3: more real lines
+
+tam_v3 continues tam_v2's training with seven times as many real lines: 174,624 lines from 394
+books and periodical issues (tam_v2: 24,445 from 37 books), shown once each, and 91,530 rendered
+lines in the same 233 open font styles. The rendering text adds sentences from Tamil Wikipedia,
+which often write an English name after the Tamil one. Results, training data and limits are in
+the [model card](MODEL_CARD.md).
+
+| Test (never trained on) | Stock `tam` | tam_v2 | **tam_v3** |
+|---|---:|---:|---:|
+| 197 real pages: CER / WER | 6.33% / 31.1% | 4.07% / 20.8% | **3.41% / 19.1%** |
+| pages better / worse than stock | – | 173 / 1 | **179 / 0** |
+| 3,968 real lines: CER / WER | 3.56% / 21.2% | 1.49% / 10.1% | **1.13% / 7.9%** |
+| Tamil OCR Benchmark: CER / WER | 5.44% / 9.9% | 3.25% / 10.3% | **1.54% / 8.4%** |
+| RANLP 2025: CER / WER | 7.36% / 58.0% | 1.15% / 17.9% | **0.80% / 12.8%** |
+| rendered held-out lines: CER | 5.82% | 2.30% | **2.25%** |
+| old-book pages at 72 DPI: CER | **21.6%** | 22.3% | 23.5% |
+| contemporary pages at 300 / 96 DPI: CER | 2.60% / 19.6% | 2.02% / **19.2%** | **1.68%** / 19.3% |
+
+```bash
+# 1. more proofread books, their page images and lines (details below)
+tools/get_more_books.sh
+python3 tools/fetch_wikisource_books.py pdfs --out books-more --missing-only --delay 3
+python3 tools/page_lines.py books-more/train/* --out books-lines-more/train \
+    --model-dir work-v2/output/tessdata_best --lang tam_v2
+
+# 2. Wikipedia sentences; rendering text and dictionary from all training books
+python3 tools/fetch_wikipedia_text.py --out text-sources/tawiki-sample.txt --articles 5000 \
+    --exclude-text scans/wikisource benchmarks/wikisource-test-lines benchmarks/tamil-ocr-benchmark \
+    benchmarks/ranlp2025/lines benchmarks/icon-style/source
+python3 tools/build_corpus.py books books-more --corpus corpus-v3.txt --wordlist wordlist-v3.txt \
+    --mix ~/.cache/tamtrain/langdata/tam.training_text --whole text-sources/tawiki-sample.txt \
+    --max-chars 26e6
+
+# 3. render 450 lines per font style, then train from tam_v2 in sessions of 20,000
+python3 -m tamtrain render --work work-v3 --fonts fonts/v2 --text corpus-v3.txt \
+    --lines-per-font 450 --holdout-font "Tiro Tamil" "TAU-Kambar" "Sundaram-20"
+python3 -m tamtrain train --work work-v3 --name tam_v3 --start-model tam_v2.traineddata \
+    --iterations 270000 --segment-iterations 20000 --train-threads 2 \
+    --extra-gt books-lines/train books-lines-more/train --extra-gt-eval books-lines/dev \
+    --wordlist wordlist-v3.txt
+```
+
+Lines and text paragraphs that share a run of four words with any test set were removed before
+training. **Shortcut:** the release has every real line tam_v3 used (`tam_v3-real-lines.jsonl.gz`),
+the rendering text and the dictionary words; `tools/crop_lines.py` rebuilds the line images,
+downloading each Wikimedia scan once instead of page by page.
+
 ### Collecting many more real lines
 
 A book does not need to be fully proofread to be useful, only enough of its pages.
@@ -684,8 +743,9 @@ python3 -m unittest discover tests
 
 ## Licence
 
-The code and the tam_v2 and V1 models are licensed under the [Apache License 2.0](LICENSE), like
-Tesseract and its `tam` model. The V2-research model files are licensed for non-commercial use
-only, under [CC BY-NC 4.0](models/tam_v2_research/LICENSE.md). Text from Tamil Wikisource, in the release's training text, word
-list and line list, is CC BY-SA 4.0 by the Wikisource contributors. Fonts, scanned images and
+The code and the tam_v3, tam_v2 and V1 models are licensed under the [Apache License 2.0](LICENSE),
+like Tesseract and its `tam` model. The V2-research model files are licensed for non-commercial
+use only, under [CC BY-NC 4.0](models/tam_v2_research/LICENSE.md). Text from Tamil Wikisource and
+Tamil Wikipedia, in the releases' training text, word list and line list, is CC BY-SA 4.0 by
+their contributors. Fonts, scanned images and
 third-party benchmarks are not redistributed. See [NOTICE](NOTICE).

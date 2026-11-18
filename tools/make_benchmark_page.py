@@ -4,9 +4,12 @@
 Every number on the page comes from the JSON reports that `tamtrain lines` and `tamtrain scans`
 write, so the page can be rebuilt after new runs (maintainers only; the reports are not published):
 
-    python3 tools/make_benchmark_page.py --reports work-v2/report --date "17 November 2026"
+    python3 tools/make_benchmark_page.py --reports work-v2/report \\
+        --extra-reports work-v3/report work-v3/report-extra --date "17–18 November 2026"
 
-The page reuses the stylesheet of docs/index.html, so both pages always look the same.
+--extra-reports add the models a report in --reports does not have (for example a newer model,
+scored later against the same test sets). The page reuses the stylesheet of docs/index.html, so
+both pages always look the same.
 """
 
 from __future__ import annotations
@@ -22,20 +25,30 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 from tamtrain.scans import levenshtein, prepare  # noqa: E402
 
-ORDER = ["start (tam, best)", "installed tam", "V1 (188 styles)", "V2-research", "tam_v2 (best)", "tam_v2 (fast)"]
+ORDER = ["start (tam, best)", "installed tam", "V1 (188 styles)", "V2-research", "tam_v2 (best)", "tam_v2 (fast)",
+         "tam_v3 (best)", "tam_v3 (fast)"]
 NAME = {"start (tam, best)": "Stock <code>tam</code> (tessdata_best)",
         "installed tam": "Stock <code>tam</code> (Ubuntu package)",
         "V1 (188 styles)": "V1 <span class=\"small muted\">tam_multifont</span>",
         "V2-research": "V2-research <span class=\"small muted\">tam_v2_research</span>",
-        "tam_v2 (best)": "tam_v2", "tam_v2 (fast)": "tam_v2_fast"}
-OURS = "tam_v2 (best)"
+        "tam_v2 (best)": "tam_v2", "tam_v2 (fast)": "tam_v2_fast",
+        "tam_v3 (best)": "tam_v3", "tam_v3 (fast)": "tam_v3_fast"}
+OURS = "tam_v3 (best)"
 PAPER = [("Google Document AI (commercial), paper", 0.78, 11.98, 0.5803, 0.9923, 0.8762),
          ("Google Cloud Vision API (commercial), paper", 0.79, 12.04, 0.5790, 0.9922, 0.8751),
          ("Tesseract 5.5.0, paper", 7.80, 61.45, 0.0493, 0.9264, 0.3201),
          ("EasyOCR, paper", 11.72, 28.76, 0.3461, 0.8828, 0.6744),
          ("Surya, paper", 13.92, 65.00, 0.1487, 0.8672, 0.3359)]
-SPEED = [("start (tam, best)", 1.49, 95, "6.0 MB"), ("installed tam", 1.05, 88, "3.2 MB"),
-         ("tam_v2 (best)", 1.59, 105, "6.5 MB"), ("tam_v2 (fast)", 1.15, 97, "3.7 MB")]
+# seconds per page and peak MB on one thread, 8 pages; measured together on 18 November 2026,
+# except the Ubuntu package (17 November: by the 18th this machine's packaged tam had been replaced)
+SPEED = [("start (tam, best)", 1.50, 95, "6.0 MB"), ("installed tam", 1.05, 88, "3.2 MB"),
+         ("tam_v2 (best)", 1.58, 105, "6.5 MB"), ("tam_v2 (fast)", 1.16, 97, "3.7 MB"),
+         ("tam_v3 (best)", 1.49, 108, "8.5 MB"), ("tam_v3 (fast)", 1.12, 100, "5.7 MB")]
+
+
+def fast_gain() -> str:
+    speed = {m: sec for m, sec, _, _ in SPEED}
+    return f"{round(100 * (1 - speed['tam_v3 (fast)'] / speed['tam_v3 (best)']))}%"
 
 
 def pct(x: float) -> str:
@@ -103,12 +116,26 @@ def page_details(rep: dict, pages_dir: Path) -> dict:
             "easy_wer": {m: 100 * e / n for m, (e, n) in easy_words.items()}, "better_worse": bw}
 
 
-def build(reports: Path, pages_dir: Path, date: str) -> str:
-    load = lambda n: json.loads((reports / f"{n}.json").read_text(encoding="utf-8"))  # noqa: E731
+def build(reports: Path, extra: list[Path], pages_dir: Path, date: str) -> str:
+    def load(n: str) -> dict:
+        rep = json.loads((reports / f"{n}.json").read_text(encoding="utf-8"))
+        for d in extra:
+            f = d / f"{n}.json"
+            if not f.exists():
+                continue
+            more = json.loads(f.read_text(encoding="utf-8"))
+            for m in ORDER:
+                if m in more["models"] and m not in rep["models"]:
+                    rep["models"][m] = more["models"][m]
+                    for pid, pm in (more.get("per_page") or {}).items():
+                        if m in pm and pid in rep["per_page"]:
+                            rep["per_page"][pid][m] = pm[m]
+        return rep
+
     style = re.search(r"<style>(.*?)</style>", (ROOT / "docs" / "index.html").read_text(encoding="utf-8"), re.S).group(1)
     scans, ranlp = load("scans"), load("ranlp2025-raw-psm3")
     test_lines, dev_lines, tob = load("real-test-lines-psm13"), load("real-dev-lines-psm13"), load("tamil-ocr-benchmark")
-    rendered = load("report")
+    rendered = load("rendered-heldout")
     det = page_details(scans, pages_dir)
     smodels = [m for m in ORDER if m in scans["models"]]
 
@@ -159,10 +186,10 @@ def build(reports: Path, pages_dir: Path, date: str) -> str:
         head += [(f"{g} ({n:,}): CER", True), ("WER", True)]
     ranlp_groups_tbl = table(head, rows, ["low"] * (2 * len(groups)))
 
-    # rendered held-out lines
+    # rendered held-out lines (the fixed set in benchmarks/rendered-heldout-v2)
     rows = []
     for m in [m for m in ORDER if m in rendered["models"]]:
-        x = rendered["models"][m]
+        x = rendered["models"][m]["groups"]["all"]
         rows.append(("ours" if m == OURS else "", NAME[m], [(x["cer"], pct(x["cer"])), (x["wer"], pct(x["wer"]))]))
     rendered_tbl = table([("Model", False), ("CER", True), ("WER", True)], rows, ["low", "low"])
 
@@ -192,7 +219,7 @@ def build(reports: Path, pages_dir: Path, date: str) -> str:
                      "TEST_LINES_TBL": lines_table(test_lines), "DEV_LINES_TBL": lines_table(dev_lines),
                      "RANLP_TBL": ranlp_tbl, "RANLP_GROUPS_TBL": ranlp_groups_tbl, "TOB_TBL": lines_table(tob),
                      "RENDERED_TBL": rendered_tbl, "SPEED_TBL": speed_tbl, "N_LINES": f"{n_lines:,}",
-                     "N_RENDERED": f"{rendered['lines']:,}",
+                     "N_RENDERED": f"{rendered['lines']:,}", "FAST_GAIN": fast_gain(),
                      "RES_TBLS": "\n".join(f"<h3>{t}</h3>\n{tb}" for t, _, _, tb in res_tbls)}.items():
         tpl = tpl.replace("{{" + key + "}}", val)
     assert "{{" not in tpl, re.findall(r"\{\{\w+\}\}", tpl)
@@ -205,9 +232,9 @@ TEMPLATE = """<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tamil OCR benchmark results</title>
-<meta name="description" content="Every benchmark result for the open Tamil Tesseract model tam_v2 and the models it is compared with: real scanned pages and lines, RANLP 2025, the Tamil OCR Benchmark, rendered lines, scanning resolution and speed.">
+<meta name="description" content="Every benchmark result for the open Tamil Tesseract model tam_v3 and the models it is compared with: real scanned pages and lines, RANLP 2025, the Tamil OCR Benchmark, rendered lines, scanning resolution and speed.">
 <meta property="og:title" content="Tamil OCR benchmark results">
-<meta property="og:description" content="tam_v2 against stock Tesseract and earlier models on real scans, RANLP 2025 and more, with CER, WER, BLEU, ANLS and METEOR.">
+<meta property="og:description" content="tam_v3 against stock Tesseract, tam_v2 and earlier models on real scans, RANLP 2025 and more, with CER, WER, BLEU, ANLS and METEOR.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://newsbaba24x7.github.io/tamil-tess-trainer/benchmarks/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -240,11 +267,12 @@ dl.measures dd { margin: 0; color: var(--muted); }
   <div class="crumbs"><a href="/tamil-tess-trainer/">Tamil OCR for Tesseract</a> › Benchmark results</div>
   <div class="eyebrow">Measured {{DATE}} · Tesseract 5.5.0 · 4 CPU cores</div>
   <h1>Benchmark results <span class="ta" lang="ta">அளவீட்டு முடிவுகள்</span></h1>
-  <p class="lede">Every test of <b>tam_v2</b>, the open Tesseract model for printed Tamil, against Tesseract's stock Tamil
-    model and the two research models trained before it. No model was trained on any of these test sets.</p>
+  <p class="lede">Every test of <b>tam_v3</b>, the open Tesseract model for printed Tamil, against Tesseract's stock Tamil
+    model, the previous open model tam_v2 and the two research models trained before them. No model was trained on any of
+    these test sets.</p>
   <div class="summary" aria-label="What was tested">
     <span class="chip"><b>7</b> test sets</span>
-    <span class="chip"><b>6</b> models compared</span>
+    <span class="chip"><b>8</b> models compared</span>
     <span class="chip"><b>{{N_LINES}}</b> text lines</span>
     <span class="chip"><b>250</b> scanned pages</span>
   </div>
@@ -272,18 +300,21 @@ dl.measures dd { margin: 0; color: var(--muted); }
 <section id="summary">
   <h2>Summary</h2>
   <ul class="list">
-    <li><b>On real scanned books tam_v2 is the most accurate model tested.</b> On 197 real pages it makes 36% fewer
-      character errors and 33% fewer word errors than the stock model, and is better on 173 pages and worse on 1.</li>
+    <li><b>On real scanned books tam_v3 is the most accurate model tested.</b> On 197 real pages it makes 46% fewer
+      character errors and 39% fewer word errors than the stock model (16% and 8% fewer than tam_v2), and is better than
+      stock on 179 pages and worse on none.</li>
     <li><b>At normal scanning resolution the gain holds on every kind of page:</b> easy, medium and hard pages, old print
-      with pre-1978 letter shapes, and real lines read one at a time.</li>
-    <li><b>RANLP 2025:</b> Google Document AI still leads on four of the five measures. V2-research has the lowest
-      word error rate; V1 comes closest on the others. The set is mostly Tamil with its vowel signs stripped, so
-      tam_v2's knowledge of real Tamil word boundaries costs it words here; on the natural-Tamil lines its CER is 0.07%.</li>
+      with pre-1978 letter shapes, and real lines read one at a time (CER 1.13%, tam_v2 1.49%).</li>
+    <li><b>RANLP 2025:</b> tam_v3 beats Google Document AI on BLEU (0.5825 against 0.5803), ties it on ANLS (0.9923) and
+      comes close on CER (0.80% against 0.78%); Document AI still leads on WER and METEOR, and V2-research has the lowest
+      WER. The set is mostly Tamil with its vowel signs stripped; on its natural-Tamil lines tam_v3's CER is 0.02%.</li>
+    <li><b>English words inside Tamil:</b> on the Tamil OCR Benchmark tam_v3 halves tam_v2's character errors (1.54%
+      against 3.25%).</li>
     <li><b>Our scoring reproduces the paper's:</b> the stock Ubuntu model scores within 0.1 points of the paper's Tesseract
       CER and within 0.003 of its BLEU, ANLS and METEOR.</li>
-    <li><b>Weak spots:</b> very low resolution (72–96 DPI), where every model's errors roughly triple, and English words
-      inside Tamil lines.</li>
-    <li><b>tam_v2_fast</b> scores within about 0.4 points of tam_v2 everywhere and is 28% faster.</li>
+    <li><b>Weak spot:</b> very low resolution (72–96 DPI), where every model's errors roughly triple; on old books at
+      72 DPI tam_v3 is slightly behind tam_v2 and the stock model.</li>
+    <li><b>tam_v3_fast</b> scores within about 0.3 points of tam_v3 everywhere and is {{FAST_GAIN}} faster.</li>
   </ul>
 </section>
 
@@ -296,11 +327,13 @@ dl.measures dd { margin: 0; color: var(--muted); }
       <tr><td>Stock <code>tam</code> (Ubuntu package)</td><td>The Tamil model installed by <code>apt install tesseract-ocr-tam</code>: a smaller, faster version</td><td>Apache-2.0</td></tr>
       <tr><td>V1 <span class="small muted">tam_multifont</span></td><td>Research model: 188 font styles, fonts only</td><td>Apache-2.0</td></tr>
       <tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td>Research model: 276 font styles with fixes for old letters, spacing and digits, fonts only</td><td>CC BY-NC 4.0</td></tr>
-      <tr class="ours"><td>tam_v2</td><td>The released model: 233 openly licensed font styles and 24,445 real scanned lines</td><td>Apache-2.0</td></tr>
+      <tr><td>tam_v2</td><td>The previous open model: 233 openly licensed font styles and 24,445 real scanned lines</td><td>Apache-2.0</td></tr>
       <tr><td>tam_v2_fast</td><td>Integer version of tam_v2</td><td>Apache-2.0</td></tr>
+      <tr class="ours"><td>tam_v3</td><td>The released model: tam_v2 trained further on 174,624 real scanned lines from 394 books and the same fonts</td><td>Apache-2.0</td></tr>
+      <tr><td>tam_v3_fast</td><td>Integer version of tam_v3</td><td>Apache-2.0</td></tr>
     </tbody>
   </table></div>
-  <p class="note">The best value in each column is marked in green. The tam_v2 row is highlighted. Downloads and model cards: <a href="/tamil-tess-trainer/#models">Models</a>.</p>
+  <p class="note">The best value in each column is marked in green. The tam_v3 row is highlighted. Downloads and model cards: <a href="/tamil-tess-trainer/#models">Models</a>.</p>
 </section>
 
 <section id="measures">
@@ -323,10 +356,10 @@ dl.measures dd { margin: 0; color: var(--muted); }
     <tbody>
       <tr><td><a href="#pages">Real pages</a></td><td class="n">197 pages</td><td>Random pages proofread on Tamil Wikisource, from 186 books; never used for training</td><td>Default page mode</td></tr>
       <tr><td><a href="#lines">Real test lines</a></td><td class="n">3,968 lines</td><td>Lines cut from those pages, matched to the proofread text</td><td><code>--psm 13</code></td></tr>
-      <tr><td><a href="#lines">Real check lines</a></td><td class="n">2,854 lines</td><td>Lines from 5 other books; tam_v2's training watched its progress on them</td><td><code>--psm 13</code></td></tr>
+      <tr><td><a href="#lines">Real check lines</a></td><td class="n">2,854 lines</td><td>Lines from 5 other books; the training of tam_v2 and tam_v3 watched its progress on them</td><td><code>--psm 13</code></td></tr>
       <tr><td><a href="#ranlp">RANLP 2025</a></td><td class="n">7,000 lines</td><td>Synthetic lines from the RANLP 2025 OCR comparison (Jayatilleke &amp; de Silva)</td><td>Default page mode, raw text</td></tr>
       <tr><td><a href="#tob">Tamil OCR Benchmark</a></td><td class="n">200 lines</td><td>Real lines, many with English words (mvbalaji/tamil-ocr-benchmark)</td><td><code>--psm 7</code></td></tr>
-      <tr><td><a href="#rendered">Rendered lines</a></td><td class="n">{{N_RENDERED}} lines</td><td>tam_v2's held-out rendered lines, with text and fonts never used in training</td><td><code>--psm 7</code></td></tr>
+      <tr><td><a href="#rendered">Rendered lines</a></td><td class="n">{{N_RENDERED}} lines</td><td>A fixed set of held-out rendered lines, including three font families never used in training</td><td><code>--psm 7</code></td></tr>
       <tr><td><a href="#resolution">Scanning resolution</a></td><td class="n">53 pages</td><td>Proofread pages rescaled to 72, 96 and 300 DPI, after an ICON 2024 test design</td><td>Default page mode</td></tr>
     </tbody>
   </table></div>
@@ -350,7 +383,7 @@ dl.measures dd { margin: 0; color: var(--muted); }
   {{TEST_LINES_TBL}}
   <h3>2,854 check lines from 5 other books</h3>
   {{DEV_LINES_TBL}}
-  <p class="note">tam_v2's training measured its progress on the check lines, so they are not fully independent for tam_v2 and tam_v2_fast.</p>
+  <p class="note">The training of tam_v2 and tam_v3 measured its progress on the check lines, so they are not fully independent for those models.</p>
 </section>
 
 <section id="ranlp">
@@ -368,14 +401,14 @@ dl.measures dd { margin: 0; color: var(--muted); }
   <h2>Tamil OCR Benchmark</h2>
   <p>200 real lines from <a href="https://huggingface.co/datasets/mvbalaji/tamil-ocr-benchmark">mvbalaji/tamil-ocr-benchmark</a>, many with English words inside Tamil text.</p>
   {{TOB_TBL}}
-  <p class="note">tam_v2 makes the fewest character errors, but English words still cost it whole words.</p>
+  <p class="note">tam_v3 makes the fewest character errors and word errors; English words still cost some whole words.</p>
 </section>
 
 <section id="rendered">
   <h2>Rendered lines</h2>
-  <p>tam_v2's held-out rendered lines: the same kind of scan-like lines it was trained on, with text it never saw, including lines in three font families it was never trained on.</p>
+  <p>2,051 held-out rendered lines kept from tam_v2's training: the same kind of scan-like lines the models were trained on, including lines in three font families that none of our models was trained on.</p>
   {{RENDERED_TBL}}
-  <p class="note">Rendered lines are easier than real scans; a model can improve a lot here and not at all on real pages, as V1 did.</p>
+  <p class="note">Rendered lines are easier than real scans; a model can improve a lot here and not at all on real pages, as V1 did. tam_v3's rendering text includes the books this set's text was drawn from, so for tam_v3 only the three held-out font families are fully unseen.</p>
 </section>
 
 <section id="resolution">
@@ -384,13 +417,13 @@ dl.measures dd { margin: 0; color: var(--muted); }
     given scanning resolution. Pages whose text belongs to another page are found at full resolution and left out of
     both; every other page counts, however badly it reads at low resolution.</p>
   {{RES_TBLS}}
-  <p class="note">At 72–96 DPI every model's errors roughly triple, and tam_v2 is no better than stock on old books. Scan at 300 DPI where you can.</p>
+  <p class="note">At 72–96 DPI every model's errors roughly triple, and on old books tam_v3 is slightly behind tam_v2 and stock. Scan at 300 DPI where you can.</p>
 </section>
 
 <section id="speed">
   <h2>Speed and memory</h2>
   <p>One page at a time on one CPU thread, 8 real pages, on the machine that ran all tests. V1 and V2-research have the
-    same network size as tessdata_best and were not timed.</p>
+    same network size as tessdata_best and were not timed. Differences under about 0.1 s are within the run-to-run variation.</p>
   {{SPEED_TBL}}
 </section>
 
@@ -399,17 +432,17 @@ dl.measures dd { margin: 0; color: var(--muted); }
   <p>All test lists, the scoring code and the commands are in the repository; the full tables with every line set are in
     <a href="https://github.com/newsbaba24x7/tamil-tess-trainer/blob/main/benchmarks/BASELINE.md">benchmarks/BASELINE.md</a>.</p>
 <pre><button class="copy" type="button">Copy</button><code>git clone https://github.com/newsbaba24x7/tamil-tess-trainer && cd tamil-tess-trainer
-R=https://github.com/newsbaba24x7/tamil-tess-trainer/releases/download/v2.0.0
-mkdir -p models && curl -L -o models/tam_v2.traineddata $R/tam_v2.traineddata
-C="--compare tam_v2=models/tam_v2.traineddata"
+R=https://github.com/newsbaba24x7/tamil-tess-trainer/releases/download/v3.0.0
+mkdir -p models && curl -L -o models/tam_v3.traineddata $R/tam_v3.traineddata
+C="--compare tam_v3=models/tam_v3.traineddata"
 
 <span class="c"># 197 real pages (slow: Wikimedia limits image downloads)</span>
 python3 tools/fetch_wikisource.py --from-list examples/wikisource-pages.json --out scans/wikisource
 python3 -m tamtrain scans scans/wikisource --name scans $C
 
 <span class="c"># real lines, rebuilt from the release's line list</span>
-curl -LO $R/tam_v2-real-lines.jsonl.gz
-python3 tools/crop_lines.py tam_v2-real-lines.jsonl.gz --out real-lines
+curl -LO $R/tam_v3-real-lines.jsonl.gz
+python3 tools/crop_lines.py tam_v3-real-lines.jsonl.gz --out real-lines --split test
 python3 -m tamtrain lines real-lines/test --name real-test-lines --psm 13 $C
 
 <span class="c"># RANLP 2025, scored as in the paper</span>
@@ -445,12 +478,13 @@ for (const btn of document.querySelectorAll("pre .copy")) {
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--reports", type=Path, default=ROOT / "work-v2" / "report")
+    ap.add_argument("--extra-reports", type=Path, nargs="*", default=[ROOT / "work-v3" / "report", ROOT / "work-v3" / "report-extra"])
     ap.add_argument("--pages", type=Path, default=ROOT / "scans" / "wikisource", help="the real test pages (.gt.txt)")
-    ap.add_argument("--date", default="17 November 2026")
+    ap.add_argument("--date", default="17–18 November 2026")
     ap.add_argument("--out", type=Path, default=ROOT / "docs" / "benchmarks" / "index.html")
     args = ap.parse_args()
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(build(args.reports, args.pages, args.date), encoding="utf-8")
+    args.out.write_text(build(args.reports, args.extra_reports, args.pages, args.date), encoding="utf-8")
     print(f"wrote {args.out}")
     return 0
 

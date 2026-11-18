@@ -19,8 +19,11 @@ from __future__ import annotations
 
 import argparse
 import gzip
+import hashlib
 import io
 import json
+import shutil
+import subprocess
 import sys
 import time
 from collections import Counter, defaultdict
@@ -31,6 +34,32 @@ from PIL import Image
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from ia_book_pages import get  # noqa: E402
 from page_lines import crop_line  # noqa: E402
+
+
+def page_from_file(info: dict, width: int, dest: Path, files: Path, max_mb: float, delay: float) -> Image.Image | None:
+    """Render one page of a book's scan on Wikimedia (downloaded once per book) with pdftoppm,
+    as fetch_wikisource_books.py pdfs did. None if that is not possible (DjVu, too large, no pdftoppm)."""
+    url = info["url"]
+    if not url.lower().endswith(".pdf") or info.get("bytes", 0) > max_mb * 1e6 or not shutil.which("pdftoppm"):
+        return None
+    pdf = files / (hashlib.sha1(url.encode()).hexdigest()[:16] + ".pdf")
+    if not pdf.exists():
+        try:
+            data = get(url)
+        except Exception as exc:  # noqa: BLE001
+            print(f"  {url[:90]}: {exc}")
+            return None
+        finally:
+            time.sleep(delay)
+        files.mkdir(parents=True, exist_ok=True)
+        part = pdf.with_suffix(".part")
+        part.write_bytes(data)
+        part.replace(pdf)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    subprocess.run(["pdftoppm", "-f", str(info["page"]), "-l", str(info["page"]), "-scale-to-x", str(width),
+                    "-scale-to-y", "-1", "-gray", "-png", "-singlefile", str(pdf), str(dest.with_suffix(""))],
+                   capture_output=True)
+    return Image.open(dest).convert("L") if dest.exists() else None
 
 
 def fetch_page(urls: list[str], width: int, dest: Path, delay: float) -> Image.Image | None:
@@ -58,7 +87,10 @@ def main() -> int:
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--split", nargs="*", help="only these splits (train, dev, test)")
     ap.add_argument("--delay", type=float, default=1.0, help="seconds between archive.org downloads")
-    ap.add_argument("--wikimedia-delay", type=float, default=15.0, help="seconds between Wikimedia downloads")
+    ap.add_argument("--wikimedia-delay", type=float, default=15.0, help="seconds between Wikimedia page images")
+    ap.add_argument("--max-mb", type=float, default=100,
+                    help="lines whose page is in a book scan on Wikimedia: download PDFs up to this size once "
+                         "per book and render the pages with pdftoppm; larger files and DjVu: page images")
     args = ap.parse_args()
     sys.stdout.reconfigure(line_buffering=True)
     opener = gzip.open if args.list.suffix == ".gz" else open
@@ -74,8 +106,12 @@ def main() -> int:
         first = lines[0]
         w0, h0 = first["page_size"]
         slow = any("wikimedia.org" in u for u in first["image_urls"])
-        page = fetch_page(first["image_urls"], w0, args.out / "pages" / f"{page_id}.png",
-                          args.wikimedia_delay if slow else args.delay)
+        dest = args.out / "pages" / f"{page_id}.png"
+        page = None
+        if "wikimedia_file" in first and not dest.exists():
+            page = page_from_file(first["wikimedia_file"], w0, dest, args.out / "files", args.max_mb, args.delay)
+        if page is None:
+            page = fetch_page(first["image_urls"], w0, dest, args.wikimedia_delay if slow else args.delay)
         if page is None:
             stats["lines on missing pages"] += len(lines)
             continue
