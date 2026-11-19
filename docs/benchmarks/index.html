@@ -229,14 +229,14 @@ dl.measures dd { margin: 0; color: var(--muted); }
 
 <header>
   <div class="crumbs"><a href="/tamil-tess-trainer/">Tamil OCR for Tesseract</a> › Benchmark results</div>
-  <div class="eyebrow">Measured 17–18 November 2026 · Tesseract 5.5.0 · 4 CPU cores</div>
+  <div class="eyebrow">Measured 17–19 November 2026 · Tesseract 5.5.0 · 4 CPU cores</div>
   <h1>Benchmark results <span class="ta" lang="ta">அளவீட்டு முடிவுகள்</span></h1>
   <p class="lede">Every test of <b>tam_v3</b>, the open Tesseract model for printed Tamil, against Tesseract's stock Tamil
-    model, the previous open model tam_v2 and the two research models trained before them. No model was trained on any of
-    these test sets.</p>
+    model, the previous open model tam_v2, the two research models trained before them, and a third-party Tamil model from
+    Project Anuvaad. None of our models was trained on any of these test sets; for the Anuvaad model this cannot be checked.</p>
   <div class="summary" aria-label="What was tested">
     <span class="chip"><b>7</b> test sets</span>
-    <span class="chip"><b>8</b> models compared</span>
+    <span class="chip"><b>9</b> models compared</span>
     <span class="chip"><b>16,073</b> text lines</span>
     <span class="chip"><b>250</b> scanned pages</span>
   </div>
@@ -279,6 +279,9 @@ dl.measures dd { margin: 0; color: var(--muted); }
     <li><b>Weak spot:</b> very low resolution (72–96 DPI), where every model's errors roughly triple; on old books at
       72 DPI tam_v3 is slightly behind tam_v2 and the stock model.</li>
     <li><b>tam_v3_fast</b> scores within about 0.3 points of tam_v3 everywhere and is 25% faster.</li>
+    <li><b>Anuvaad <code>tam</code></b>, a third-party model, is weaker than the stock model on real book pages and lines
+      but better on RANLP 2025. It leads the Tamil OCR Benchmark by a wide margin, which suggests that benchmark resembles its
+      training data (see that section).</li>
   </ul>
 </section>
 
@@ -289,6 +292,7 @@ dl.measures dd { margin: 0; color: var(--muted); }
     <tbody>
       <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td><a href="https://github.com/tesseract-ocr/tessdata_best/tree/4.1.0">tessdata_best 4.1.0</a>; model <code>4.00.00alpha:tam:synth20170629</code></td><td>Tesseract's official Tamil model, the most accurate version; the starting point of all our models</td><td>Apache-2.0</td></tr>
       <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td>Ubuntu 26.04 <code>tesseract-ocr-tam</code> 1:4.1.0-2build1, which is <a href="https://github.com/tesseract-ocr/tessdata_fast/tree/4.1.0">tessdata_fast 4.1.0</a>; model <code>4.00.00alpha:tam:synth20170629</code></td><td>The Tamil model installed by <code>apt install tesseract-ocr-tam</code>: a smaller, faster version</td><td>Apache-2.0</td></tr>
+      <tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td><a href="https://github.com/project-anuvaad/anuvaad-ocr-model">anuvaad-ocr-model</a>, <code>anuvaad_tam.traineddata</code> of 18 May 2024; version tag 4.1.1</td><td>Tamil Tesseract model from Project Anuvaad (EkStep Foundation and Tarento); no dictionary, training data not documented</td><td>MIT</td></tr>
       <tr><td>V1 <span class="small muted">tam_multifont</span></td><td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v1.0.0">1.0.0</a></td><td>Research model: 188 font styles, fonts only</td><td>Apache-2.0</td></tr>
       <tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v2.0.0-research">2.0.0-research</a></td><td>Research model: 276 font styles with fixes for old letters, spacing and digits, fonts only</td><td>CC BY-NC 4.0</td></tr>
       <tr><td>tam_v2</td><td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v2.0.0">2.0.0</a></td><td>The previous open model: 233 openly licensed font styles and 24,445 real scanned lines</td><td>Apache-2.0</td></tr>
@@ -337,6 +341,7 @@ dl.measures dd { margin: 0; color: var(--muted); }
   <div class="table-wrap"><table>
 <thead><tr><th>Model</th><th class="n">CER</th><th class="n">Tamil letters only</th><th class="n">WER</th><th class="n">Pages better / worse than stock</th><th class="n">Pre-1978 letter words exact</th><th class="n">Extra words (spurious spaces)</th><th class="n">Stray Tamil digits (truth: 6)</th></tr></thead><tbody>
 <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">6.33%</td><td class="n">4.34%</td><td class="n">31.10%</td><td class="n">–</td><td class="n">80.69%</td><td class="n">+5.9%</td><td class="n">173</td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">9.40%</td><td class="n">7.53%</td><td class="n">48.19%</td><td class="n">14 / 154</td><td class="n">52.14%</td><td class="n">+8.9%</td><td class="n">61</td></tr>
 <tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">6.34%</td><td class="n">4.19%</td><td class="n">32.01%</td><td class="n">62 / 57</td><td class="n">77.59%</td><td class="n">+7.5%</td><td class="n">227</td></tr>
 <tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">5.27%</td><td class="n">3.63%</td><td class="n">25.95%</td><td class="n">136 / 5</td><td class="n">82.46%</td><td class="n">+4.5%</td><td class="n">40</td></tr>
 <tr><td>tam_v2</td><td class="n">4.07%</td><td class="n">2.60%</td><td class="n">20.84%</td><td class="n">173 / 1</td><td class="n">86.64%</td><td class="n">+3.9%</td><td class="n"><b class="best">11</b></td></tr>
@@ -351,6 +356,7 @@ dl.measures dd { margin: 0; color: var(--muted); }
   <div class="table-wrap"><table>
 <thead><tr><th>Model</th><th class="n">Easy (109 pages)</th><th class="n">Medium (74)</th><th class="n">Hard (14)</th><th class="n">Word errors, easy pages</th></tr></thead><tbody>
 <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">2.80%</td><td class="n">8.90%</td><td class="n">23.50%</td><td class="n">19.10%</td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">4.94%</td><td class="n">12.65%</td><td class="n">32.70%</td><td class="n">32.82%</td></tr>
 <tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">2.69%</td><td class="n">8.82%</td><td class="n">24.48%</td><td class="n">19.13%</td></tr>
 <tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">2.17%</td><td class="n">7.14%</td><td class="n">21.50%</td><td class="n">15.45%</td></tr>
 <tr><td>tam_v2</td><td class="n">1.63%</td><td class="n">5.28%</td><td class="n">18.12%</td><td class="n">12.57%</td></tr>
@@ -367,6 +373,7 @@ dl.measures dd { margin: 0; color: var(--muted); }
 <thead><tr><th>Model</th><th class="n">CER</th><th class="n">WER</th><th class="n">BLEU</th><th class="n">ANLS</th><th class="n">METEOR</th></tr></thead><tbody>
 <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">3.56%</td><td class="n">21.16%</td><td class="n">0.4320</td><td class="n">0.9593</td><td class="n">0.7373</td></tr>
 <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">4.18%</td><td class="n">22.77%</td><td class="n">0.4280</td><td class="n">0.9493</td><td class="n">0.7280</td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">7.15%</td><td class="n">39.69%</td><td class="n">0.2680</td><td class="n">0.9197</td><td class="n">0.5642</td></tr>
 <tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">3.21%</td><td class="n">19.79%</td><td class="n">0.4879</td><td class="n">0.9631</td><td class="n">0.7706</td></tr>
 <tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">2.30%</td><td class="n">14.65%</td><td class="n">0.5406</td><td class="n">0.9720</td><td class="n">0.8022</td></tr>
 <tr><td>tam_v2</td><td class="n">1.49%</td><td class="n">10.08%</td><td class="n">0.6363</td><td class="n">0.9814</td><td class="n">0.8613</td></tr>
@@ -379,6 +386,7 @@ dl.measures dd { margin: 0; color: var(--muted); }
 <thead><tr><th>Model</th><th class="n">CER</th><th class="n">WER</th><th class="n">BLEU</th><th class="n">ANLS</th><th class="n">METEOR</th></tr></thead><tbody>
 <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">3.21%</td><td class="n">19.53%</td><td class="n">0.4342</td><td class="n">0.9636</td><td class="n">0.7541</td></tr>
 <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">3.60%</td><td class="n">21.15%</td><td class="n">0.4191</td><td class="n">0.9562</td><td class="n">0.7355</td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">3.65%</td><td class="n">25.04%</td><td class="n">0.4119</td><td class="n">0.9505</td><td class="n">0.7094</td></tr>
 <tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">2.65%</td><td class="n">16.68%</td><td class="n">0.4855</td><td class="n">0.9692</td><td class="n">0.7965</td></tr>
 <tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">1.93%</td><td class="n">12.34%</td><td class="n">0.5243</td><td class="n">0.9779</td><td class="n">0.8268</td></tr>
 <tr><td>tam_v2</td><td class="n">1.20%</td><td class="n">8.27%</td><td class="n">0.5979</td><td class="n">0.9866</td><td class="n">0.8687</td></tr>
@@ -402,6 +410,7 @@ dl.measures dd { margin: 0; color: var(--muted); }
 <tr class="paper"><td>Surya, paper</td><td class="n">13.92%</td><td class="n">65.00%</td><td class="n">0.1487</td><td class="n">0.8672</td><td class="n">0.3359</td></tr>
 <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0), measured here</td><td class="n">7.36%</td><td class="n">57.98%</td><td class="n">0.0501</td><td class="n">0.9303</td><td class="n">0.3258</td></tr>
 <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package), measured here</td><td class="n">7.73%</td><td class="n">58.35%</td><td class="n">0.0507</td><td class="n">0.9270</td><td class="n">0.3226</td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span>, measured here</td><td class="n">2.16%</td><td class="n">18.70%</td><td class="n">0.4309</td><td class="n">0.9790</td><td class="n">0.7589</td></tr>
 <tr><td>V1 <span class="small muted">tam_multifont</span>, measured here</td><td class="n">0.97%</td><td class="n">14.15%</td><td class="n">0.5587</td><td class="n">0.9905</td><td class="n">0.8600</td></tr>
 <tr><td>V2-research <span class="small muted">tam_v2_research</span>, measured here</td><td class="n">1.07%</td><td class="n"><b class="best">11.16%</b></td><td class="n">0.5514</td><td class="n">0.9893</td><td class="n">0.8560</td></tr>
 <tr><td>tam_v2, measured here</td><td class="n">1.15%</td><td class="n">17.94%</td><td class="n">0.4994</td><td class="n">0.9887</td><td class="n">0.8214</td></tr>
@@ -415,6 +424,7 @@ dl.measures dd { margin: 0; color: var(--muted); }
 <thead><tr><th>Model</th><th class="n">vowel signs stripped (6,803): CER</th><th class="n">WER</th><th class="n">natural text (197): CER</th><th class="n">WER</th></tr></thead><tbody>
 <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">7.41%</td><td class="n">58.63%</td><td class="n">5.95%</td><td class="n">43.84%</td></tr>
 <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">7.76%</td><td class="n">58.87%</td><td class="n">6.65%</td><td class="n">46.99%</td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">2.20%</td><td class="n">19.31%</td><td class="n">0.80%</td><td class="n">5.44%</td></tr>
 <tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">1.00%</td><td class="n">14.77%</td><td class="n">0.05%</td><td class="n">0.57%</td></tr>
 <tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">1.11%</td><td class="n"><b class="best">11.65%</b></td><td class="n">0.04%</td><td class="n">0.36%</td></tr>
 <tr><td>tam_v2</td><td class="n">1.18%</td><td class="n">18.72%</td><td class="n">0.07%</td><td class="n">0.86%</td></tr>
@@ -432,14 +442,17 @@ dl.measures dd { margin: 0; color: var(--muted); }
 <thead><tr><th>Model</th><th class="n">CER</th><th class="n">WER</th><th class="n">BLEU</th><th class="n">ANLS</th><th class="n">METEOR</th></tr></thead><tbody>
 <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">5.44%</td><td class="n">9.92%</td><td class="n">0.5838</td><td class="n">0.9124</td><td class="n">0.8597</td></tr>
 <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">5.36%</td><td class="n">9.72%</td><td class="n">0.5879</td><td class="n">0.9162</td><td class="n">0.8632</td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n"><b class="best">0.17%</b></td><td class="n"><b class="best">2.01%</b></td><td class="n"><b class="best">0.7558</b></td><td class="n"><b class="best">0.9977</b></td><td class="n"><b class="best">0.9673</b></td></tr>
 <tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">5.43%</td><td class="n">10.69%</td><td class="n">0.5765</td><td class="n">0.9165</td><td class="n">0.8610</td></tr>
 <tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">5.50%</td><td class="n">9.78%</td><td class="n">0.5897</td><td class="n">0.9157</td><td class="n">0.8675</td></tr>
 <tr><td>tam_v2</td><td class="n">3.25%</td><td class="n">10.27%</td><td class="n">0.5772</td><td class="n">0.9489</td><td class="n">0.8598</td></tr>
 <tr><td>tam_v2_fast</td><td class="n">3.24%</td><td class="n">10.27%</td><td class="n">0.5797</td><td class="n">0.9488</td><td class="n">0.8603</td></tr>
-<tr class="ours"><td>tam_v3</td><td class="n">1.54%</td><td class="n"><b class="best">8.40%</b></td><td class="n">0.5951</td><td class="n">0.9761</td><td class="n">0.8775</td></tr>
-<tr><td>tam_v3_fast</td><td class="n"><b class="best">1.50%</b></td><td class="n"><b class="best">8.40%</b></td><td class="n"><b class="best">0.5957</b></td><td class="n"><b class="best">0.9767</b></td><td class="n"><b class="best">0.8776</b></td></tr>
+<tr class="ours"><td>tam_v3</td><td class="n">1.54%</td><td class="n">8.40%</td><td class="n">0.5951</td><td class="n">0.9761</td><td class="n">0.8775</td></tr>
+<tr><td>tam_v3_fast</td><td class="n">1.50%</td><td class="n">8.40%</td><td class="n">0.5957</td><td class="n">0.9767</td><td class="n">0.8776</td></tr>
 </tbody></table></div>
-  <p class="note">tam_v3 makes the fewest character errors and word errors; English words still cost some whole words.</p>
+  <p class="note">Anuvaad <code>tam</code> scores far better here than on any other test, where it is weaker than the stock
+    model; its training data is not published, and the benchmark's lines probably resemble it, so this result says little
+    about other Tamil text. Among our models, tam_v3 makes the fewest errors; English words still cost some whole words.</p>
 </section>
 
 <section id="rendered">
@@ -448,6 +461,7 @@ dl.measures dd { margin: 0; color: var(--muted); }
   <div class="table-wrap"><table>
 <thead><tr><th>Model</th><th class="n">CER</th><th class="n">WER</th></tr></thead><tbody>
 <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">5.82%</td><td class="n">19.94%</td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">7.16%</td><td class="n">26.35%</td></tr>
 <tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">2.74%</td><td class="n">9.52%</td></tr>
 <tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">2.64%</td><td class="n">8.43%</td></tr>
 <tr><td>tam_v2</td><td class="n">2.30%</td><td class="n">7.32%</td></tr>
@@ -468,6 +482,7 @@ dl.measures dd { margin: 0; color: var(--muted); }
 <thead><tr><th>Model</th><th class="n">archive.org scan: CER</th><th class="n">WER</th><th class="n">72 DPI: CER</th><th class="n">WER</th></tr></thead><tbody>
 <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">11.55%</td><td class="n">53.75%</td><td class="n"><b class="best">21.59%</b></td><td class="n">71.41%</td></tr>
 <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">11.46%</td><td class="n">52.88%</td><td class="n">21.98%</td><td class="n">72.63%</td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">13.57%</td><td class="n">66.94%</td><td class="n">37.65%</td><td class="n">101.22%</td></tr>
 <tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">10.63%</td><td class="n">54.11%</td><td class="n">24.02%</td><td class="n">75.47%</td></tr>
 <tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">8.99%</td><td class="n">44.12%</td><td class="n">22.17%</td><td class="n">70.14%</td></tr>
 <tr><td>tam_v2</td><td class="n">7.28%</td><td class="n">35.43%</td><td class="n">22.27%</td><td class="n">67.97%</td></tr>
@@ -480,6 +495,7 @@ dl.measures dd { margin: 0; color: var(--muted); }
 <thead><tr><th>Model</th><th class="n">archive.org scan: CER</th><th class="n">WER</th><th class="n">300 DPI: CER</th><th class="n">WER</th></tr></thead><tbody>
 <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">3.28%</td><td class="n">14.40%</td><td class="n">2.60%</td><td class="n">12.51%</td></tr>
 <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">3.40%</td><td class="n">15.19%</td><td class="n">2.81%</td><td class="n">13.65%</td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">3.28%</td><td class="n">17.60%</td><td class="n">2.73%</td><td class="n">16.26%</td></tr>
 <tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">3.07%</td><td class="n">13.59%</td><td class="n">2.43%</td><td class="n">11.72%</td></tr>
 <tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">2.80%</td><td class="n">11.53%</td><td class="n">2.26%</td><td class="n">10.06%</td></tr>
 <tr><td>tam_v2</td><td class="n">2.52%</td><td class="n">10.74%</td><td class="n">2.02%</td><td class="n">9.70%</td></tr>
@@ -492,6 +508,7 @@ dl.measures dd { margin: 0; color: var(--muted); }
 <thead><tr><th>Model</th><th class="n">archive.org scan: CER</th><th class="n">WER</th><th class="n">96 DPI: CER</th><th class="n">WER</th></tr></thead><tbody>
 <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">5.73%</td><td class="n">20.68%</td><td class="n">19.63%</td><td class="n">34.72%</td></tr>
 <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">5.79%</td><td class="n">20.42%</td><td class="n">19.93%</td><td class="n">34.20%</td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">8.37%</td><td class="n">31.99%</td><td class="n">22.85%</td><td class="n">47.59%</td></tr>
 <tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">5.54%</td><td class="n">18.73%</td><td class="n">19.67%</td><td class="n">33.55%</td></tr>
 <tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">5.32%</td><td class="n">16.38%</td><td class="n">19.23%</td><td class="n">30.17%</td></tr>
 <tr><td>tam_v2</td><td class="n">5.12%</td><td class="n"><b class="best">16.12%</b></td><td class="n">19.18%</td><td class="n">30.17%</td></tr>
@@ -505,7 +522,7 @@ dl.measures dd { margin: 0; color: var(--muted); }
 <section id="speed">
   <h2>Speed and memory</h2>
   <p>One page at a time on one CPU thread, 8 real pages, on the machine that ran all tests. V1 and V2-research have the
-    same network size as tessdata_best and were not timed. Differences under about 0.1 s are within the run-to-run variation.</p>
+    same network size as tessdata_best and were not timed; the Anuvaad model was not timed either. Differences under about 0.1 s are within the run-to-run variation.</p>
   <div class="table-wrap"><table>
 <thead><tr><th>Model</th><th class="n">Seconds per page</th><th class="n">Peak memory</th><th class="n">File size</th></tr></thead><tbody>
 <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">1.50</td><td class="n">95 MB</td><td class="n">6.0 MB</td></tr>
@@ -546,7 +563,7 @@ python3 -m tamtrain lines benchmarks/ranlp2025/lines --name ranlp2025 --raw --ps
 
 <footer>
   <div><a href="/tamil-tess-trainer/">Tamil OCR for Tesseract</a> · <a href="https://github.com/newsbaba24x7/tamil-tess-trainer">github.com/newsbaba24x7/tamil-tess-trainer</a> · Apache-2.0</div>
-  <div>Measured 17–18 November 2026 with Tesseract 5.5.0. Generated by <code>tools/make_benchmark_page.py</code> from the evaluation reports.</div>
+  <div>Measured 17–19 November 2026 with Tesseract 5.5.0. Generated by <code>tools/make_benchmark_page.py</code> from the evaluation reports.</div>
 </footer>
 
 </div>

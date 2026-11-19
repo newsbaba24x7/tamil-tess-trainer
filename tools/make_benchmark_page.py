@@ -5,7 +5,7 @@ Every number on the page comes from the JSON reports that `tamtrain lines` and `
 write, so the page can be rebuilt after new runs (maintainers only; the reports are not published):
 
     python3 tools/make_benchmark_page.py --reports work-v2/report \\
-        --extra-reports work-v3/report work-v3/report-extra --date "17–18 November 2026"
+        --extra-reports work-v3/report work-v3/report-extra work-anuvaad/report --date "17–19 November 2026"
 
 --extra-reports add the models a report in --reports does not have (for example a newer model,
 scored later against the same test sets). The page reuses the stylesheet of docs/index.html, so
@@ -25,10 +25,11 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 from tamtrain.scans import levenshtein, prepare  # noqa: E402
 
-ORDER = ["start (tam, best)", "installed tam", "V1 (188 styles)", "V2-research", "tam_v2 (best)", "tam_v2 (fast)",
-         "tam_v3 (best)", "tam_v3 (fast)"]
+ORDER = ["start (tam, best)", "installed tam", "Anuvaad tam", "V1 (188 styles)", "V2-research", "tam_v2 (best)",
+         "tam_v2 (fast)", "tam_v3 (best)", "tam_v3 (fast)"]
 NAME = {"start (tam, best)": "Stock <code>tam</code> (tessdata_best 4.1.0)",
         "installed tam": "Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)",
+        "Anuvaad tam": "Anuvaad <code>tam</code> <span class=\"small muted\">third party</span>",
         "V1 (188 styles)": "V1 <span class=\"small muted\">tam_multifont</span>",
         "V2-research": "V2-research <span class=\"small muted\">tam_v2_research</span>",
         "tam_v2 (best)": "tam_v2", "tam_v2 (fast)": "tam_v2_fast",
@@ -274,11 +275,11 @@ dl.measures dd { margin: 0; color: var(--muted); }
   <div class="eyebrow">Measured {{DATE}} · Tesseract 5.5.0 · 4 CPU cores</div>
   <h1>Benchmark results <span class="ta" lang="ta">அளவீட்டு முடிவுகள்</span></h1>
   <p class="lede">Every test of <b>tam_v3</b>, the open Tesseract model for printed Tamil, against Tesseract's stock Tamil
-    model, the previous open model tam_v2 and the two research models trained before them. No model was trained on any of
-    these test sets.</p>
+    model, the previous open model tam_v2, the two research models trained before them, and a third-party Tamil model from
+    Project Anuvaad. None of our models was trained on any of these test sets; for the Anuvaad model this cannot be checked.</p>
   <div class="summary" aria-label="What was tested">
     <span class="chip"><b>7</b> test sets</span>
-    <span class="chip"><b>8</b> models compared</span>
+    <span class="chip"><b>9</b> models compared</span>
     <span class="chip"><b>{{N_LINES}}</b> text lines</span>
     <span class="chip"><b>250</b> scanned pages</span>
   </div>
@@ -321,6 +322,9 @@ dl.measures dd { margin: 0; color: var(--muted); }
     <li><b>Weak spot:</b> very low resolution (72–96 DPI), where every model's errors roughly triple; on old books at
       72 DPI tam_v3 is slightly behind tam_v2 and the stock model.</li>
     <li><b>tam_v3_fast</b> scores within about 0.3 points of tam_v3 everywhere and is {{FAST_GAIN}} faster.</li>
+    <li><b>Anuvaad <code>tam</code></b>, a third-party model, is weaker than the stock model on real book pages and lines
+      but better on RANLP 2025. It leads the Tamil OCR Benchmark by a wide margin, which suggests that benchmark resembles its
+      training data (see that section).</li>
   </ul>
 </section>
 
@@ -331,6 +335,7 @@ dl.measures dd { margin: 0; color: var(--muted); }
     <tbody>
       <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td><a href="https://github.com/tesseract-ocr/tessdata_best/tree/4.1.0">tessdata_best 4.1.0</a>; model <code>4.00.00alpha:tam:synth20170629</code></td><td>Tesseract's official Tamil model, the most accurate version; the starting point of all our models</td><td>Apache-2.0</td></tr>
       <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td>Ubuntu 26.04 <code>tesseract-ocr-tam</code> 1:4.1.0-2build1, which is <a href="https://github.com/tesseract-ocr/tessdata_fast/tree/4.1.0">tessdata_fast 4.1.0</a>; model <code>4.00.00alpha:tam:synth20170629</code></td><td>The Tamil model installed by <code>apt install tesseract-ocr-tam</code>: a smaller, faster version</td><td>Apache-2.0</td></tr>
+      <tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td><a href="https://github.com/project-anuvaad/anuvaad-ocr-model">anuvaad-ocr-model</a>, <code>anuvaad_tam.traineddata</code> of 18 May 2024; version tag 4.1.1</td><td>Tamil Tesseract model from Project Anuvaad (EkStep Foundation and Tarento); no dictionary, training data not documented</td><td>MIT</td></tr>
       <tr><td>V1 <span class="small muted">tam_multifont</span></td><td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v1.0.0">1.0.0</a></td><td>Research model: 188 font styles, fonts only</td><td>Apache-2.0</td></tr>
       <tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v2.0.0-research">2.0.0-research</a></td><td>Research model: 276 font styles with fixes for old letters, spacing and digits, fonts only</td><td>CC BY-NC 4.0</td></tr>
       <tr><td>tam_v2</td><td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v2.0.0">2.0.0</a></td><td>The previous open model: 233 openly licensed font styles and 24,445 real scanned lines</td><td>Apache-2.0</td></tr>
@@ -408,7 +413,9 @@ dl.measures dd { margin: 0; color: var(--muted); }
   <h2>Tamil OCR Benchmark</h2>
   <p>200 real lines from <a href="https://huggingface.co/datasets/mvbalaji/tamil-ocr-benchmark">mvbalaji/tamil-ocr-benchmark</a>, many with English words inside Tamil text.</p>
   {{TOB_TBL}}
-  <p class="note">tam_v3 makes the fewest character errors and word errors; English words still cost some whole words.</p>
+  <p class="note">Anuvaad <code>tam</code> scores far better here than on any other test, where it is weaker than the stock
+    model; its training data is not published, and the benchmark's lines probably resemble it, so this result says little
+    about other Tamil text. Among our models, tam_v3 makes the fewest errors; English words still cost some whole words.</p>
 </section>
 
 <section id="rendered">
@@ -430,7 +437,7 @@ dl.measures dd { margin: 0; color: var(--muted); }
 <section id="speed">
   <h2>Speed and memory</h2>
   <p>One page at a time on one CPU thread, 8 real pages, on the machine that ran all tests. V1 and V2-research have the
-    same network size as tessdata_best and were not timed. Differences under about 0.1 s are within the run-to-run variation.</p>
+    same network size as tessdata_best and were not timed; the Anuvaad model was not timed either. Differences under about 0.1 s are within the run-to-run variation.</p>
   {{SPEED_TBL}}
 </section>
 
@@ -485,9 +492,10 @@ for (const btn of document.querySelectorAll("pre .copy")) {
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--reports", type=Path, default=ROOT / "work-v2" / "report")
-    ap.add_argument("--extra-reports", type=Path, nargs="*", default=[ROOT / "work-v3" / "report", ROOT / "work-v3" / "report-extra"])
+    ap.add_argument("--extra-reports", type=Path, nargs="*", default=[ROOT / "work-v3" / "report", ROOT / "work-v3" / "report-extra",
+                                                                     ROOT / "work-anuvaad" / "report"])
     ap.add_argument("--pages", type=Path, default=ROOT / "scans" / "wikisource", help="the real test pages (.gt.txt)")
-    ap.add_argument("--date", default="17–18 November 2026")
+    ap.add_argument("--date", default="17–19 November 2026")
     ap.add_argument("--out", type=Path, default=ROOT / "docs" / "benchmarks" / "index.html")
     args = ap.parse_args()
     args.out.parent.mkdir(parents=True, exist_ok=True)
