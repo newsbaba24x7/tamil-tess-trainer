@@ -34,6 +34,10 @@ NAME = {"start (tam, best)": "Stock <code>tam</code> (tessdata_best 4.1.0)",
         "tam_v2 (best)": "tam_v2", "tam_v2 (fast)": "tam_v2_fast",
         "tam_v3 (best)": "tam_v3", "tam_v3 (fast)": "tam_v3_fast"}
 OURS = "tam_v3 (best)"
+# Labels never taken from --extra-reports: in the reports of 18 November 2026 "installed tam" was
+# tam_v2, because this machine's packaged tam.traineddata had been replaced by it. Only the
+# reports of 17 November have the real Ubuntu package model.
+NOT_FROM_EXTRA = {"installed tam"}
 PAPER = [("Google Document AI (commercial), paper", 0.78, 11.98, 0.5803, 0.9923, 0.8762),
          ("Google Cloud Vision API (commercial), paper", 0.79, 12.04, 0.5790, 0.9922, 0.8751),
          ("Tesseract 5.5.0, paper", 7.80, 61.45, 0.0493, 0.9264, 0.3201),
@@ -125,6 +129,8 @@ def build(reports: Path, extra: list[Path], pages_dir: Path, date: str) -> str:
                 continue
             more = json.loads(f.read_text(encoding="utf-8"))
             for m in ORDER:
+                if m in NOT_FROM_EXTRA:
+                    continue
                 if m in more["models"] and m not in rep["models"]:
                     rep["models"][m] = more["models"][m]
                     for pid, pm in (more.get("per_page") or {}).items():
