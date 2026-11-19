@@ -221,7 +221,7 @@ footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line);
 <div class="wrap">
 
 <header>
-  <div class="eyebrow">Open Tamil OCR · Tesseract 5 · Apache-2.0 · updated 18 Nov 2026</div>
+  <div class="eyebrow">Open Tamil OCR · Tesseract 5 · Apache-2.0 · updated 19 Nov 2026</div>
   <h1>Tamil OCR for Tesseract <span class="ta" lang="ta">தமிழ் எழுத்துணரி</span></h1>
   <p class="lede"><b>tam_v3</b> is an open Tesseract model for printed Tamil. It was fine-tuned from Tesseract's own
     Tamil model with openly licensed fonts and 174,624 lines from 394 real scanned books and periodicals whose text
@@ -353,14 +353,14 @@ tesseract page.png out -l tam_v3 --tessdata-dir .     <span class="c"># writes o
   <p>CER is the character error rate and WER the word error rate: lower is better. BLEU, ANLS and METEOR measure
     text similarity from 0 to 1: higher is better. All scores were measured with Tesseract 5.5.0 on test data that no
     model was trained on. <b><a href="benchmarks/">All benchmark results</a></b> has every model on every test set, with
-    the measures explained and how to reproduce them.</p>
+    the measures explained and how to reproduce them. The stock models are Tesseract's official <code>tam</code> from tessdata_best 4.1.0 and the Ubuntu package <code>tesseract-ocr-tam</code> 1:4.1.0-2build1 (tessdata_fast 4.1.0); both were trained in 2017.</p>
 
   <h3>197 real scanned pages from 186 Tamil Wikisource books</h3>
   <p class="cap">Whole pages read with Tesseract's default page mode. Random proofread pages, from clean modern print to badly damaged old books.</p>
   <div class="table-wrap"><table>
     <thead><tr><th>Model</th><th class="n">CER</th><th class="n">Tamil letters only</th><th class="n">WER</th><th class="n">Pages better / worse than stock</th></tr></thead>
     <tbody>
-      <tr><td>Stock <code>tam</code> (tessdata_best)</td><td class="n">6.33%</td><td class="n">4.34%</td><td class="n">31.10%</td><td class="n">–</td></tr>
+      <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">6.33%</td><td class="n">4.34%</td><td class="n">31.10%</td><td class="n">–</td></tr>
       <tr><td>V1 (research)</td><td class="n">6.34%</td><td class="n">4.19%</td><td class="n">32.01%</td><td class="n">62 / 57</td></tr>
       <tr><td>V2-research (research)</td><td class="n">5.27%</td><td class="n">3.63%</td><td class="n">25.95%</td><td class="n">136 / 5</td></tr>
       <tr><td>tam_v2</td><td class="n">4.07%</td><td class="n">2.60%</td><td class="n">20.84%</td><td class="n">173 / 1</td></tr>
@@ -375,8 +375,8 @@ tesseract page.png out -l tam_v3 --tessdata-dir .     <span class="c"># writes o
   <div class="table-wrap"><table>
     <thead><tr><th>Model</th><th class="n">CER</th><th class="n">WER</th><th class="n">BLEU</th><th class="n">ANLS</th><th class="n">METEOR</th></tr></thead>
     <tbody>
-      <tr><td>Stock <code>tam</code> (tessdata_best)</td><td class="n">3.56%</td><td class="n">21.16%</td><td class="n">0.4320</td><td class="n">0.9593</td><td class="n">0.7373</td></tr>
-      <tr><td>Stock <code>tam</code> (Ubuntu package)</td><td class="n">4.18%</td><td class="n">22.77%</td><td class="n">0.4280</td><td class="n">0.9493</td><td class="n">0.7280</td></tr>
+      <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">3.56%</td><td class="n">21.16%</td><td class="n">0.4320</td><td class="n">0.9593</td><td class="n">0.7373</td></tr>
+      <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">4.18%</td><td class="n">22.77%</td><td class="n">0.4280</td><td class="n">0.9493</td><td class="n">0.7280</td></tr>
       <tr><td>V1 (research)</td><td class="n">3.21%</td><td class="n">19.79%</td><td class="n">0.4879</td><td class="n">0.9631</td><td class="n">0.7706</td></tr>
       <tr><td>V2-research (research)</td><td class="n">2.30%</td><td class="n">14.65%</td><td class="n">0.5406</td><td class="n">0.9720</td><td class="n">0.8022</td></tr>
       <tr><td>tam_v2</td><td class="n">1.49%</td><td class="n">10.08%</td><td class="n">0.6363</td><td class="n">0.9814</td><td class="n">0.8613</td></tr>
@@ -397,7 +397,7 @@ tesseract page.png out -l tam_v3 --tessdata-dir .     <span class="c"># writes o
       <tr class="ours"><td>tam_v3</td><td class="n">0.80%</td><td class="n">12.78%</td><td class="n"><b class="best">0.5825</b></td><td class="n"><b class="best">0.9923</b></td><td class="n">0.8715</td></tr>
       <tr><td>tam_v2</td><td class="n">1.15%</td><td class="n">17.94%</td><td class="n">0.4994</td><td class="n">0.9887</td><td class="n">0.8214</td></tr>
       <tr class="paper"><td>Tesseract 5.5.0, paper</td><td class="n">7.80%</td><td class="n">61.45%</td><td class="n">0.0493</td><td class="n">0.9264</td><td class="n">0.3201</td></tr>
-      <tr><td>Stock <code>tam</code> (Ubuntu package), measured here</td><td class="n">7.73%</td><td class="n">58.35%</td><td class="n">0.0507</td><td class="n">0.9270</td><td class="n">0.3226</td></tr>
+      <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package), measured here</td><td class="n">7.73%</td><td class="n">58.35%</td><td class="n">0.0507</td><td class="n">0.9270</td><td class="n">0.3226</td></tr>
       <tr class="paper"><td>EasyOCR, paper</td><td class="n">11.72%</td><td class="n">28.76%</td><td class="n">0.3461</td><td class="n">0.8828</td><td class="n">0.6744</td></tr>
       <tr class="paper"><td>Surya, paper</td><td class="n">13.92%</td><td class="n">65.00%</td><td class="n">0.1487</td><td class="n">0.8672</td><td class="n">0.3359</td></tr>
     </tbody>
@@ -414,8 +414,8 @@ tesseract page.png out -l tam_v3 --tessdata-dir .     <span class="c"># writes o
   <div class="table-wrap"><table>
     <thead><tr><th>Model</th><th class="n">CER</th><th class="n">WER</th><th class="n">BLEU</th><th class="n">ANLS</th><th class="n">METEOR</th></tr></thead>
     <tbody>
-      <tr><td>Stock <code>tam</code> (tessdata_best)</td><td class="n">5.44%</td><td class="n">9.92%</td><td class="n">0.5838</td><td class="n">0.9124</td><td class="n">0.8597</td></tr>
-      <tr><td>Stock <code>tam</code> (Ubuntu package)</td><td class="n">5.36%</td><td class="n">9.72%</td><td class="n">0.5879</td><td class="n">0.9162</td><td class="n">0.8632</td></tr>
+      <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">5.44%</td><td class="n">9.92%</td><td class="n">0.5838</td><td class="n">0.9124</td><td class="n">0.8597</td></tr>
+      <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">5.36%</td><td class="n">9.72%</td><td class="n">0.5879</td><td class="n">0.9162</td><td class="n">0.8632</td></tr>
       <tr><td>V2-research (research)</td><td class="n">5.50%</td><td class="n">9.78%</td><td class="n">0.5897</td><td class="n">0.9157</td><td class="n">0.8675</td></tr>
       <tr><td>tam_v2</td><td class="n">3.25%</td><td class="n">10.27%</td><td class="n">0.5772</td><td class="n">0.9489</td><td class="n">0.8598</td></tr>
       <tr class="ours"><td>tam_v3</td><td class="n">1.54%</td><td class="n"><b class="best">8.40%</b></td><td class="n">0.5951</td><td class="n">0.9761</td><td class="n">0.8775</td></tr>
@@ -425,7 +425,7 @@ tesseract page.png out -l tam_v3 --tessdata-dir .     <span class="c"># writes o
   <p class="note">tam_v3 halves tam_v2's character errors here and makes the fewest word errors of any model, though English words inside Tamil lines still cost some whole words (see <a href="#limitations">Limitations</a>).</p>
 
   <h3>Scanning resolution</h3>
-  <p class="cap">Each page set at the resolution of its archive.org scan, and rescaled so that 12-pt text matches the stated scanning resolution. CER / WER.</p>
+  <p class="cap">Each page set at the resolution of its archive.org scan, and rescaled so that 12-pt text matches the stated scanning resolution. CER / WER. Stock is tessdata_best 4.1.0.</p>
   <div class="table-wrap"><table>
     <thead><tr><th>Page set</th><th>Resolution</th><th class="n">Stock <code>tam</code></th><th class="n">tam_v2</th><th class="n">tam_v3</th></tr></thead>
     <tbody>
@@ -444,8 +444,8 @@ tesseract page.png out -l tam_v3 --tessdata-dir .     <span class="c"># writes o
   <div class="table-wrap"><table>
     <thead><tr><th>Model</th><th class="n">Seconds per page</th><th class="n">Peak memory</th><th class="n">File size</th></tr></thead>
     <tbody>
-      <tr><td>Stock <code>tam</code> (tessdata_best)</td><td class="n">1.50</td><td class="n">95 MB</td><td class="n">6.0 MB</td></tr>
-      <tr><td>Stock <code>tam</code> (Ubuntu package)</td><td class="n">1.05</td><td class="n">88 MB</td><td class="n">3.2 MB</td></tr>
+      <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">1.50</td><td class="n">95 MB</td><td class="n">6.0 MB</td></tr>
+      <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">1.05</td><td class="n">88 MB</td><td class="n">3.2 MB</td></tr>
       <tr><td>tam_v2</td><td class="n">1.58</td><td class="n">105 MB</td><td class="n">6.5 MB</td></tr>
       <tr><td>tam_v2_fast</td><td class="n">1.16</td><td class="n">97 MB</td><td class="n">3.7 MB</td></tr>
       <tr class="ours"><td>tam_v3</td><td class="n">1.49</td><td class="n">108 MB</td><td class="n">8.5 MB</td></tr>

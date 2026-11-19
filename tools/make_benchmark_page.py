@@ -27,8 +27,8 @@ from tamtrain.scans import levenshtein, prepare  # noqa: E402
 
 ORDER = ["start (tam, best)", "installed tam", "V1 (188 styles)", "V2-research", "tam_v2 (best)", "tam_v2 (fast)",
          "tam_v3 (best)", "tam_v3 (fast)"]
-NAME = {"start (tam, best)": "Stock <code>tam</code> (tessdata_best)",
-        "installed tam": "Stock <code>tam</code> (Ubuntu package)",
+NAME = {"start (tam, best)": "Stock <code>tam</code> (tessdata_best 4.1.0)",
+        "installed tam": "Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)",
         "V1 (188 styles)": "V1 <span class=\"small muted\">tam_multifont</span>",
         "V2-research": "V2-research <span class=\"small muted\">tam_v2_research</span>",
         "tam_v2 (best)": "tam_v2", "tam_v2 (fast)": "tam_v2_fast",
@@ -321,18 +321,19 @@ dl.measures dd { margin: 0; color: var(--muted); }
 <section id="models">
   <h2>Models compared</h2>
   <div class="table-wrap"><table>
-    <thead><tr><th>Model</th><th>What it is</th><th>Licence</th></tr></thead>
+    <thead><tr><th>Model</th><th>Version</th><th>What it is</th><th>Licence</th></tr></thead>
     <tbody>
-      <tr><td>Stock <code>tam</code> (tessdata_best)</td><td>Tesseract's official Tamil model, the most accurate version; the starting point of all our models</td><td>Apache-2.0</td></tr>
-      <tr><td>Stock <code>tam</code> (Ubuntu package)</td><td>The Tamil model installed by <code>apt install tesseract-ocr-tam</code>: a smaller, faster version</td><td>Apache-2.0</td></tr>
-      <tr><td>V1 <span class="small muted">tam_multifont</span></td><td>Research model: 188 font styles, fonts only</td><td>Apache-2.0</td></tr>
-      <tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td>Research model: 276 font styles with fixes for old letters, spacing and digits, fonts only</td><td>CC BY-NC 4.0</td></tr>
-      <tr><td>tam_v2</td><td>The previous open model: 233 openly licensed font styles and 24,445 real scanned lines</td><td>Apache-2.0</td></tr>
-      <tr><td>tam_v2_fast</td><td>Integer version of tam_v2</td><td>Apache-2.0</td></tr>
-      <tr class="ours"><td>tam_v3</td><td>The released model: tam_v2 trained further on 174,624 real scanned lines from 394 books and the same fonts</td><td>Apache-2.0</td></tr>
-      <tr><td>tam_v3_fast</td><td>Integer version of tam_v3</td><td>Apache-2.0</td></tr>
+      <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td><a href="https://github.com/tesseract-ocr/tessdata_best/tree/4.1.0">tessdata_best 4.1.0</a>; model <code>4.00.00alpha:tam:synth20170629</code></td><td>Tesseract's official Tamil model, the most accurate version; the starting point of all our models</td><td>Apache-2.0</td></tr>
+      <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td>Ubuntu 26.04 <code>tesseract-ocr-tam</code> 1:4.1.0-2build1, which is <a href="https://github.com/tesseract-ocr/tessdata_fast/tree/4.1.0">tessdata_fast 4.1.0</a>; model <code>4.00.00alpha:tam:synth20170629</code></td><td>The Tamil model installed by <code>apt install tesseract-ocr-tam</code>: a smaller, faster version</td><td>Apache-2.0</td></tr>
+      <tr><td>V1 <span class="small muted">tam_multifont</span></td><td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v1.0.0">1.0.0</a></td><td>Research model: 188 font styles, fonts only</td><td>Apache-2.0</td></tr>
+      <tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v2.0.0-research">2.0.0-research</a></td><td>Research model: 276 font styles with fixes for old letters, spacing and digits, fonts only</td><td>CC BY-NC 4.0</td></tr>
+      <tr><td>tam_v2</td><td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v2.0.0">2.0.0</a></td><td>The previous open model: 233 openly licensed font styles and 24,445 real scanned lines</td><td>Apache-2.0</td></tr>
+      <tr><td>tam_v2_fast</td><td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v2.0.0">2.0.0</a></td><td>Integer version of tam_v2</td><td>Apache-2.0</td></tr>
+      <tr class="ours"><td>tam_v3</td><td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v3.0.0">3.0.0</a></td><td>The released model: tam_v2 trained further on 174,624 real scanned lines from 394 books and the same fonts</td><td>Apache-2.0</td></tr>
+      <tr><td>tam_v3_fast</td><td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v3.0.0">3.0.0</a></td><td>Integer version of tam_v3</td><td>Apache-2.0</td></tr>
     </tbody>
   </table></div>
+  <p class="note">Every model was run with Tesseract 5.5.0 (Ubuntu package 5.5.0-1build1). Both stock files are unchanged in tessdata_best and tessdata_fast since 2017; the model string records the training date, 29 June 2017.</p>
   <p class="note">The best value in each column is marked in green. The tam_v3 row is highlighted. Downloads and model cards: <a href="/tamil-tess-trainer/#models">Models</a>.</p>
 </section>
 
