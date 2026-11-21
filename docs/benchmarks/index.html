@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tamil OCR benchmark results</title>
-<meta name="description" content="Every benchmark result for the open Tamil Tesseract model tam_v3 and the models it is compared with: real scanned pages and lines, RANLP 2025, the Tamil OCR Benchmark, rendered lines, scanning resolution and speed.">
+<meta name="description" content="Every benchmark result for the open Tamil Tesseract model tam_v3 and the models it is compared with: real scanned pages and lines, RANLP 2025, the Tamil OCR Benchmark, rendered lines, scanning resolution, handwriting, camera photos of documents, and speed.">
 <meta property="og:title" content="Tamil OCR benchmark results">
-<meta property="og:description" content="tam_v3 against stock Tesseract, tam_v2 and earlier models on real scans, RANLP 2025 and more, with CER, WER, BLEU, ANLS and METEOR.">
+<meta property="og:description" content="tam_v3 against stock Tesseract, tam_v2 and earlier models on real scans, RANLP 2025, handwriting, camera photos, with CER, WER, BLEU, ANLS and METEOR.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://newsbaba24x7.github.io/tamil-tess-trainer/benchmarks/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -211,6 +211,9 @@ dl.measures { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18
 dl.measures dt { font-weight: 600; }
 dl.measures dd { margin: 0; color: var(--muted); }
 @media (max-width: 640px) { dl.measures { grid-template-columns: 1fr; } dl.measures dd { margin-bottom: 8px; } }
+thead th.m { text-transform: none; letter-spacing: 0; font-size: 13px; }
+h4 { font-family: var(--display); font-weight: 700; font-size: 16px; line-height: 1.3; margin: 20px 0 6px; }
+tr.group td { font-weight: 600; font-size: 13.5px; color: var(--muted); background: var(--bg); }
 </style>
 </head>
 <body>
@@ -229,16 +232,20 @@ dl.measures dd { margin: 0; color: var(--muted); }
 
 <header>
   <div class="crumbs"><a href="/tamil-tess-trainer/">Tamil OCR for Tesseract</a> › Benchmark results</div>
-  <div class="eyebrow">Measured 17–19 November 2026 · Tesseract 5.5.0 · 4 CPU cores</div>
+  <div class="eyebrow">Measured 17–21 November 2026 · Tesseract 5.5.0 · 4 CPU cores</div>
   <h1>Benchmark results <span class="ta" lang="ta">அளவீட்டு முடிவுகள்</span></h1>
   <p class="lede">Every test of <b>tam_v3</b>, the open Tesseract model for printed Tamil, against Tesseract's stock Tamil
     model, the previous open model tam_v2, the two research models trained before them, and a third-party Tamil model from
-    Project Anuvaad. None of our models was trained on any of these test sets; for the Anuvaad model this cannot be checked.</p>
+    Project Anuvaad. The handwriting, camera-photo tests compare tam_v3 with the stock models and the Anuvaad
+    model. None of our models was trained on any of these test sets; for the Anuvaad model this cannot be checked. Four
+    other OCR systems, two commercial and two open source, appear with the results a published paper reports for them.</p>
   <div class="summary" aria-label="What was tested">
-    <span class="chip"><b>7</b> test sets</span>
-    <span class="chip"><b>9</b> models compared</span>
-    <span class="chip"><b>16,073</b> text lines</span>
-    <span class="chip"><b>250</b> scanned pages</span>
+    <span class="chip"><b>10</b> test sets</span>
+    <span class="chip"><b>9</b> models tested</span>
+    <span class="chip"><b>4</b> other OCR systems, from a paper</span>
+    <span class="chip"><b>20,898</b> text lines</span>
+    <span class="chip"><b>16,184</b> handwritten words</span>
+    <span class="chip"><b>242</b> scanned pages</span>
   </div>
 </header>
 
@@ -247,6 +254,7 @@ dl.measures dd { margin: 0; color: var(--muted); }
     <li><a href="#summary">Summary</a></li>
     <li><a href="#models">Models</a></li>
     <li><a href="#measures">Measures</a></li>
+    <li><a href="#psm">PSM</a></li>
     <li><a href="#test-sets">Test sets</a></li>
     <li><a href="#pages">Real pages</a></li>
     <li><a href="#lines">Real lines</a></li>
@@ -254,6 +262,8 @@ dl.measures dd { margin: 0; color: var(--muted); }
     <li><a href="#tob">Tamil OCR Benchmark</a></li>
     <li><a href="#rendered">Rendered lines</a></li>
     <li><a href="#resolution">Resolution</a></li>
+    <li><a href="#handwriting">Handwriting</a></li>
+    <li><a href="#photos">Camera photos</a></li>
     <li><a href="#speed">Speed</a></li>
     <li><a href="#reproduce">Reproduce</a></li>
   </ul>
@@ -273,15 +283,17 @@ dl.measures dd { margin: 0; color: var(--muted); }
       comes close on CER (0.80% against 0.78%); Document AI still leads on WER and METEOR, and V2-research has the lowest
       WER. The set is mostly Tamil with its vowel signs stripped; on its natural-Tamil lines tam_v3's CER is 0.02%.</li>
     <li><b>English words inside Tamil:</b> on the Tamil OCR Benchmark tam_v3 halves tam_v2's character errors (1.54%
-      against 3.25%).</li>
+      against 3.25%); nearly all of its remaining errors are in the English words.</li>
     <li><b>Our scoring reproduces the paper's:</b> the stock Ubuntu model scores within 0.1 points of the paper's Tesseract
       CER and within 0.003 of its BLEU, ANLS and METEOR.</li>
-    <li><b>Weak spot:</b> very low resolution (72–96 DPI), where every model's errors roughly triple; on old books at
-      72 DPI tam_v3 is slightly behind tam_v2 and the stock model.</li>
-    <li><b>tam_v3_fast</b> scores within about 0.3 points of tam_v3 everywhere and is 25% faster.</li>
+    <li><b>Scanning resolution:</b> tam_v3 keeps its accuracy down to 200 DPI (for 12-pt text); below that every model's errors rise steeply: at 72 DPI tam_v3's CER is 22.64% on the real pages and 43.20% on old books (stock: 15.01% and 36.22%), so at that resolution the stock model is the better choice. tam_v3 was trained on scans at normal resolution; very small text is its weak spot.</li>
+    <li><b>Handwriting:</b> no model here was trained on it, and all read it poorly, but tam_v3 makes the fewest character errors on both handwriting tests: CER 53.45% on handwritten words (stock 59.94%, Anuvaad 75.45%) and 44.82% on handwritten lines (stock 52.75%, Anuvaad 68.28%).</li>
+    <li><b>Camera photos of documents:</b> on 1,255 lines from 55 phone photos tam_v3's CER is 9.17%, against 11.83% for the stock model and 13.20% for Anuvaad. Printed documents read well (trade documents, book pages and papers under 3%); handwritten notes and whiteboards do not.</li>
+    <li><b>tam_v3_fast</b> scores within about 0.4 points of tam_v3 on every test set and is 28% faster.</li>
     <li><b>Anuvaad <code>tam</code></b>, a third-party model, is weaker than the stock model on real book pages and lines
-      but better on RANLP 2025. It leads the Tamil OCR Benchmark by a wide margin, which suggests that benchmark resembles its
-      training data (see that section).</li>
+      but better on RANLP 2025. It leads the Tamil OCR Benchmark because it reads English words far better than any
+      other model here; on that benchmark's Tamil letters it and tam_v3 are almost equal (see that section). It is also
+      the slowest model here, at about 3.0 seconds per page.</li>
   </ul>
 </section>
 
@@ -290,18 +302,27 @@ dl.measures dd { margin: 0; color: var(--muted); }
   <div class="table-wrap"><table>
     <thead><tr><th>Model</th><th>Version</th><th>What it is</th><th>Licence</th></tr></thead>
     <tbody>
-      <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td><a href="https://github.com/tesseract-ocr/tessdata_best/tree/4.1.0">tessdata_best 4.1.0</a>; model <code>4.00.00alpha:tam:synth20170629</code></td><td>Tesseract's official Tamil model, the most accurate version; the starting point of all our models</td><td>Apache-2.0</td></tr>
-      <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td>Ubuntu 26.04 <code>tesseract-ocr-tam</code> 1:4.1.0-2build1, which is <a href="https://github.com/tesseract-ocr/tessdata_fast/tree/4.1.0">tessdata_fast 4.1.0</a>; model <code>4.00.00alpha:tam:synth20170629</code></td><td>The Tamil model installed by <code>apt install tesseract-ocr-tam</code>: a smaller, faster version</td><td>Apache-2.0</td></tr>
-      <tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td><a href="https://github.com/project-anuvaad/anuvaad-ocr-model">anuvaad-ocr-model</a>, <code>anuvaad_tam.traineddata</code> of 18 May 2024; version tag 4.1.1</td><td>Tamil Tesseract model from Project Anuvaad (EkStep Foundation and Tarento); no dictionary, training data not documented</td><td>MIT</td></tr>
+      <tr class="group"><td colspan="4">Run here</td></tr>
+      <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td><a href="https://github.com/tesseract-ocr/tessdata_best/tree/4.1.0">tessdata_best 4.1.0</a>, released 16 February 2021. The Tamil model in it was trained on 29 June 2017 and added on 14 September 2017; it has not changed since. <span class="small muted">Model string <code>4.00.00alpha:tam:synth20170629</code></span></td><td>Tesseract's official Tamil model, the most accurate version; the starting point of all our models</td><td>Apache-2.0</td></tr>
+      <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td>Ubuntu 26.04 package <code>tesseract-ocr-tam</code> 1:4.1.0-2build1 (rebuilt 9 January 2026), which holds <a href="https://github.com/tesseract-ocr/tessdata_fast/tree/4.1.0">tessdata_fast 4.1.0</a>, released 16 February 2021. The Tamil model in it was trained on 29 June 2017 and added on 14 September 2017; it has not changed since.</td><td>The Tamil model installed by <code>apt install tesseract-ocr-tam</code>: a smaller, faster version</td><td>Apache-2.0</td></tr>
+      <tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td><a href="https://github.com/project-anuvaad/anuvaad-ocr-model">anuvaad-ocr-model</a>, <code>anuvaad_tam.traineddata</code> of 18 May 2024; version tag 4.1.1</td><td>Tamil Tesseract model from Project Anuvaad (EkStep Foundation and Tarento), an open document-translation platform for Indian languages whose other models are made for court judgments. Trained for Tamil and English: its character set has the full English alphabet beside the Tamil letters. Its strength is English words inside Tamil text. No dictionary; its training data is not documented.</td><td>MIT</td></tr>
       <tr><td>V1 <span class="small muted">tam_multifont</span></td><td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v1.0.0">1.0.0</a></td><td>Research model: 188 font styles, fonts only</td><td>Apache-2.0</td></tr>
       <tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v2.0.0-research">2.0.0-research</a></td><td>Research model: 276 font styles with fixes for old letters, spacing and digits, fonts only</td><td>CC BY-NC 4.0</td></tr>
       <tr><td>tam_v2</td><td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v2.0.0">2.0.0</a></td><td>The previous open model: 233 openly licensed font styles and 24,445 real scanned lines</td><td>Apache-2.0</td></tr>
       <tr><td>tam_v2_fast</td><td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v2.0.0">2.0.0</a></td><td>Integer version of tam_v2</td><td>Apache-2.0</td></tr>
       <tr class="ours"><td>tam_v3</td><td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v3.0.0">3.0.0</a></td><td>The released model: tam_v2 trained further on 174,624 real scanned lines from 394 books and the same fonts</td><td>Apache-2.0</td></tr>
       <tr><td>tam_v3_fast</td><td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v3.0.0">3.0.0</a></td><td>Integer version of tam_v3</td><td>Apache-2.0</td></tr>
+      <tr class="group"><td colspan="4">Not run here: results quoted from <a href="https://aclanthology.org/2025.ranlp-1.56/">Jayatilleke &amp; de Silva, “Zero-shot OCR Accuracy of Low-Resourced Languages: A Comparative Analysis on Sinhala and Tamil”, RANLP 2025</a>, on that paper's test set only (<a href="#ranlp">RANLP 2025</a>)</td></tr>
+      <tr class="paper"><td>Google Document AI <span class="small muted">commercial</span></td><td>Google Cloud service, as tested for the paper (2025)</td><td>Google's paid document-processing service, which includes OCR</td><td>Commercial cloud service</td></tr>
+      <tr class="paper"><td>Google Cloud Vision API <span class="small muted">commercial</span></td><td>Google Cloud service, as tested for the paper (2025)</td><td>Google's paid image-analysis service, whose OCR has been generally available since May 2017</td><td>Commercial cloud service</td></tr>
+      <tr class="paper"><td>EasyOCR</td><td><a href="https://github.com/JaidedAI/EasyOCR">JaidedAI/EasyOCR</a>; the paper gives no version</td><td>Open-source OCR library for over 80 languages: CRAFT text detection, then a ResNet, LSTM and CTC recogniser</td><td>Apache-2.0</td></tr>
+      <tr class="paper"><td>Surya</td><td><a href="https://github.com/datalab-to/surya">datalab-to/surya</a>; the paper gives no version</td><td>Open-source OCR toolkit for over 90 languages, with a transformer text recogniser</td><td>Code Apache-2.0; model weights under a modified OpenRAIL-M licence</td></tr>
+      <tr class="paper"><td>Tesseract 5.5.0, as run in the paper</td><td>Tesseract 5.5.0 with its stock Tamil model, through pytesseract</td><td>The paper's own run of stock Tesseract; our runs of the same model are the two stock rows above</td><td>Apache-2.0</td></tr>
     </tbody>
   </table></div>
-  <p class="note">Every model was run with Tesseract 5.5.0 (Ubuntu package 5.5.0-1build1). Both stock files are unchanged in tessdata_best and tessdata_fast since 2017; the model string records the training date, 29 June 2017.</p>
+  <p class="note">Every model run here was run with Tesseract 5.5.0 (Ubuntu package 5.5.0-1build1). The four other systems
+    are not Tesseract models and were not run here: their numbers are the paper's, on its synthetic Tamil lines only, and
+    show where Tesseract models stand against them on that one test.</p>
   <p class="note">The best value in each column is marked in green. The tam_v3 row is highlighted. Downloads and model cards: <a href="/tamil-tess-trainer/#models">Models</a>.</p>
 </section>
 
@@ -315,7 +336,32 @@ dl.measures dd { margin: 0; color: var(--muted); }
     <dt>ANLS</dt><dd>Average normalised Levenshtein similarity: per line 1 − normalised edit distance, or 0 when the distance is 0.5 or more (Biten et al. 2019). Higher is better.</dd>
     <dt>METEOR</dt><dd>Word matches weighted towards recall, with a penalty for words out of order (Banerjee &amp; Lavie 2005, as NLTK computes it). Higher is better.</dd>
   </dl>
+  <p class="note"><b>CER and WER are the main measures on this page.</b> BLEU and METEOR were made for machine translation and
+    count whole words, so they miss the letter-level errors that Tamil OCR makes; ANLS comes from document question
+    answering and scores any text with half or more of it wrong as 0. They are given mainly to compare with the RANLP 2025
+    paper, which reports them.</p>
   <p class="note">Unless a section says otherwise, text is compared after Unicode NFC normalisation with invisible zero-width characters removed. RANLP 2025 is compared as is, as in its paper.</p>
+</section>
+
+<section id="psm">
+  <h2>Page segmentation modes (PSM)</h2>
+  <p>Before Tesseract reads any letters, it splits the image into blocks, lines and words. The page segmentation mode
+    (<code>--psm</code>) tells it what kind of image to expect; the model then reads only the pieces this layout step
+    hands it. So the mode decides what gets read at all, and the model decides how well. The modes on this page:</p>
+  <dl class="measures">
+    <dt><code>--psm 3</code></dt><dd>Fully automatic page layout, Tesseract's default. It looks for columns, paragraphs and
+      lines and reads them in order, which suits book pages. Used for the page tests. On a cover or poster it often takes a
+      large or decorated title for a picture and skips it.</dd>
+    <dt><code>--psm 11</code></dt><dd>Sparse text: find as much text as possible, anywhere, in no particular order. It
+      suits covers, posters and signs, but also reads parts of pictures as letters.</dd>
+    <dt><code>--psm 7</code></dt><dd>The whole image is one line of text. Tesseract still checks that it can find a text
+      line; on very faint or damaged lines that check can fail, and the output is empty.</dd>
+    <dt><code>--psm 13</code></dt><dd>A raw line: the whole image is one line, without that check. Used for the real-line,
+      handwriting and camera-photo tests.</dd>
+  </dl>
+  <p class="note">Other modes include 6 (one uniform block of text) and 12 (sparse text with orientation detection);
+    <code>tesseract --help-psm</code> lists them all.</p>
+
 </section>
 
 <section id="test-sets">
@@ -327,9 +373,12 @@ dl.measures dd { margin: 0; color: var(--muted); }
       <tr><td><a href="#lines">Real test lines</a></td><td class="n">3,968 lines</td><td>Lines cut from those pages, matched to the proofread text</td><td><code>--psm 13</code></td></tr>
       <tr><td><a href="#lines">Real check lines</a></td><td class="n">2,854 lines</td><td>Lines from 5 other books; the training of tam_v2 and tam_v3 watched its progress on them</td><td><code>--psm 13</code></td></tr>
       <tr><td><a href="#ranlp">RANLP 2025</a></td><td class="n">7,000 lines</td><td>Synthetic lines from the RANLP 2025 OCR comparison (Jayatilleke &amp; de Silva)</td><td>Default page mode, raw text</td></tr>
-      <tr><td><a href="#tob">Tamil OCR Benchmark</a></td><td class="n">200 lines</td><td>Real lines, many with English words (mvbalaji/tamil-ocr-benchmark)</td><td><code>--psm 7</code></td></tr>
-      <tr><td><a href="#rendered">Rendered lines</a></td><td class="n">2,051 lines</td><td>A fixed set of held-out rendered lines, including three font families never used in training</td><td><code>--psm 7</code></td></tr>
-      <tr><td><a href="#resolution">Scanning resolution</a></td><td class="n">53 pages</td><td>Proofread pages rescaled to 72, 96 and 300 DPI, after an ICON 2024 test design</td><td>Default page mode</td></tr>
+      <tr><td><a href="#tob">Tamil OCR Benchmark</a></td><td class="n">200 lines</td><td>Clean rendered lines of real Tamil sentences in one font, a quarter of them with English words (mvbalaji/tamil-ocr-benchmark)</td><td><code>--psm 7</code></td></tr>
+      <tr><td><a href="#rendered">Rendered lines</a></td><td class="n">2,051 lines</td><td>A fixed set of held-out rendered lines, including three font families never used in training</td><td><code>--psm 7</code> and <code>--psm 13</code></td></tr>
+      <tr><td><a href="#resolution">Scanning resolution</a></td><td class="n">212 pages</td><td>167 of the real test pages (those sharp enough for 300 DPI) and 45 pages from as many other books published before 1960, each as scanned and shrunk to 300, 200, 150, 100 and 72 DPI</td><td>Default page mode</td></tr>
+      <tr><td><a href="#handwriting">Handwritten words</a></td><td class="n">16,184 words</td><td>The Tamil test split of IIIT-INDIC-HW-WORDS, each word cropped to its ink</td><td><code>--psm 13</code></td></tr>
+      <tr><td><a href="#handwriting">Handwritten lines</a></td><td class="n">3,570 lines</td><td>The same handwritten words joined 3–6 to a line</td><td><code>--psm 13</code></td></tr>
+      <tr><td><a href="#photos">Camera photos</a></td><td class="n">1,255 lines</td><td>Lines cut from 55 phone photos of Tamil documents of 11 types (Appen)</td><td><code>--psm 13</code></td></tr>
     </tbody>
   </table></div>
 </section>
@@ -437,7 +486,10 @@ dl.measures dd { margin: 0; color: var(--muted); }
 
 <section id="tob">
   <h2>Tamil OCR Benchmark</h2>
-  <p>200 real lines from <a href="https://huggingface.co/datasets/mvbalaji/tamil-ocr-benchmark">mvbalaji/tamil-ocr-benchmark</a>, many with English words inside Tamil text.</p>
+  <p>The 200 Tamil lines of the "real" set of <a href="https://huggingface.co/datasets/mvbalaji/tamil-ocr-benchmark">mvbalaji/tamil-ocr-benchmark</a>
+    (Venkateswaran 2026; CC BY 4.0). "Real" means real Tamil sentences, as opposed to the set's scrambled text; the images are
+    clean black-on-white renders in Noto Sans Tamil, not scans. 52 of the lines have English words in them, mostly names and
+    terms in brackets.</p>
   <div class="table-wrap"><table>
 <thead><tr><th>Model</th><th class="n">CER</th><th class="n">WER</th><th class="n">BLEU</th><th class="n">ANLS</th><th class="n">METEOR</th></tr></thead><tbody>
 <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">5.44%</td><td class="n">9.92%</td><td class="n">0.5838</td><td class="n">0.9124</td><td class="n">0.8597</td></tr>
@@ -450,87 +502,249 @@ dl.measures dd { margin: 0; color: var(--muted); }
 <tr class="ours"><td>tam_v3</td><td class="n">1.54%</td><td class="n">8.40%</td><td class="n">0.5951</td><td class="n">0.9761</td><td class="n">0.8775</td></tr>
 <tr><td>tam_v3_fast</td><td class="n">1.50%</td><td class="n">8.40%</td><td class="n">0.5957</td><td class="n">0.9767</td><td class="n">0.8776</td></tr>
 </tbody></table></div>
-  <p class="note">Anuvaad <code>tam</code> scores far better here than on any other test, where it is weaker than the stock
-    model; its training data is not published, and the benchmark's lines probably resemble it, so this result says little
-    about other Tamil text. Among our models, tam_v3 makes the fewest errors; English words still cost some whole words.</p>
+  <h3>Where the errors are: Tamil letters or English letters</h3>
+  <p class="cap">CER counted on the Tamil letters alone and on the English letters alone.</p>
+  <div class="table-wrap"><table>
+<thead><tr><th>Model</th><th class="n">Tamil letters only (11,591): CER</th><th class="n">English letters only (686): CER</th></tr></thead><tbody>
+<tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">1.24%</td><td class="n">100.00%</td></tr>
+<tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">1.54%</td><td class="n">100.00%</td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n"><b class="best">0.06%</b></td><td class="n"><b class="best">1.31%</b></td></tr>
+<tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">0.82%</td><td class="n">100.00%</td></tr>
+<tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">0.96%</td><td class="n">100.00%</td></tr>
+<tr><td>tam_v2</td><td class="n">0.50%</td><td class="n">57.00%</td></tr>
+<tr><td>tam_v2_fast</td><td class="n">0.53%</td><td class="n">56.56%</td></tr>
+<tr class="ours"><td>tam_v3</td><td class="n">0.10%</td><td class="n">26.68%</td></tr>
+<tr><td>tam_v3_fast</td><td class="n">0.09%</td><td class="n">25.80%</td></tr>
+</tbody></table></div>
+  <p class="note">Anuvaad <code>tam</code> leads here because it reads the English words: on the 686 English letters (in 52 of the 200 lines) it gets 1.31% wrong, against 26.68% for tam_v3. The stock model cannot write English at all: its character set has no Latin letters, so it turns English words into Tamil letters and digits, and so do V1 and V2-research, which kept that character set; tam_v2 and tam_v3 added Latin letters. On the Tamil letters alone, Anuvaad and tam_v3 are almost equal (0.06% and 0.10%). The lines are clean renders in a single font, Noto Sans Tamil, which is also among the training fonts of our models, so the test says little about real scans, where Anuvaad is weaker than the stock model.</p>
 </section>
 
 <section id="rendered">
   <h2>Rendered lines</h2>
   <p>2,051 held-out rendered lines kept from tam_v2's training: the same kind of scan-like lines the models were trained on, including lines in three font families that none of our models was trained on.</p>
   <div class="table-wrap"><table>
-<thead><tr><th>Model</th><th class="n">CER</th><th class="n">WER</th></tr></thead><tbody>
-<tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">5.82%</td><td class="n">19.94%</td></tr>
-<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">7.16%</td><td class="n">26.35%</td></tr>
-<tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">2.74%</td><td class="n">9.52%</td></tr>
-<tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">2.64%</td><td class="n">8.43%</td></tr>
-<tr><td>tam_v2</td><td class="n">2.30%</td><td class="n">7.32%</td></tr>
-<tr><td>tam_v2_fast</td><td class="n">2.29%</td><td class="n"><b class="best">7.27%</b></td></tr>
-<tr class="ours"><td>tam_v3</td><td class="n"><b class="best">2.25%</b></td><td class="n">7.45%</td></tr>
-<tr><td>tam_v3_fast</td><td class="n">2.27%</td><td class="n">7.61%</td></tr>
+<thead><tr><th>Model</th><th class="n">psm 7: CER</th><th class="n">WER</th><th class="n">psm 13: CER</th><th class="n">WER</th></tr></thead><tbody>
+<tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">5.82%</td><td class="n">19.94%</td><td class="n">5.56%</td><td class="n">23.02%</td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">7.16%</td><td class="n">26.35%</td><td class="n">6.27%</td><td class="n">23.85%</td></tr>
+<tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">2.74%</td><td class="n">9.52%</td><td class="n">1.93%</td><td class="n">8.10%</td></tr>
+<tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">2.64%</td><td class="n">8.43%</td><td class="n">1.76%</td><td class="n">7.17%</td></tr>
+<tr><td>tam_v2</td><td class="n">2.30%</td><td class="n">7.32%</td><td class="n">1.50%</td><td class="n">6.71%</td></tr>
+<tr><td>tam_v2_fast</td><td class="n">2.29%</td><td class="n"><b class="best">7.27%</b></td><td class="n"><b class="best">1.47%</b></td><td class="n"><b class="best">6.67%</b></td></tr>
+<tr class="ours"><td>tam_v3</td><td class="n"><b class="best">2.25%</b></td><td class="n">7.45%</td><td class="n">1.52%</td><td class="n">7.13%</td></tr>
+<tr><td>tam_v3_fast</td><td class="n">2.27%</td><td class="n">7.61%</td><td class="n">1.49%</td><td class="n">7.35%</td></tr>
 </tbody></table></div>
-  <p class="note">Rendered lines are easier than real scans; a model can improve a lot here and not at all on real pages, as V1 did. tam_v3's rendering text includes the books this set's text was drawn from, so for tam_v3 only the three held-out font families are fully unseen.</p>
+  <p class="note">tam_v3 can still improve a lot here, and part of the gain needs no new model. With <code>--psm 7</code>, 50% of its errors come from 23 lines it returns empty, as every model does on nearly the same lines: very thin letters or heavy damage, where Tesseract's own line check finds no text line. <code>--psm 13</code> (raw line) skips that check and reads them, which brings tam_v3 to 1.52%; the real-line tests on this page all use <code>--psm 13</code>. The rest is the model's: on the lines it does read with <code>--psm 7</code> its CER is 1.13%, and in the three font families no model was trained on (63 lines) it is 3.71% with <code>--psm 13</code>. Rendered lines are easier than real scans, and a model can improve here without improving on real pages, as V1 did. tam_v3's rendering text includes the books this set's text was drawn from, so for tam_v3 only the three held-out font families are fully unseen.</p>
 </section>
 
 <section id="resolution">
   <h2>Scanning resolution</h2>
-  <p>The same proofread pages at the resolution of their archive.org scans, and rescaled so that 12-pt text matches a
-    given scanning resolution. Pages whose text belongs to another page are found at full resolution and left out of
-    both; every other page counts, however badly it reads at low resolution.</p>
-  <h3>Old books (23 pages)</h3>
+  <p>How small can the text be? Each page is read as scanned, and again after being shrunk to what a scanner set to 300,
+    200, 150, 100 or 72 DPI would capture of 12-pt print. Scans rarely record their true resolution, so each page's
+    body-text line height is measured first (<code>tools/make_dpi_set.py</code>) and pages printed in larger type are
+    shrunk further: what a model sees is the size of the letters in pixels. At 12 pt a text line is about 57 pixels tall
+    at 300 DPI, 38 at 200, 28 at 150, 19 at 100 and 14 at 72.</p>
+  <p>Pages are only ever made smaller, never enlarged: each new pixel is the average of the source pixels it covers, as
+    in a scanner's sensor. Every column has the same pages, so the columns can be compared; a page whose source text is too
+    small for 300 DPI is left out of all of them. Pages whose text belongs to another page are found as scanned and left
+    out; every other page counts, however badly it reads.</p>
+  <p class="note">CER and WER are given at every resolution. BLEU, ANLS and METEOR follow the same pattern and are given as
+    scanned and at 72 DPI only; each page is scored as one text and the scores are averaged over the pages.</p>
+  <h3 id="resolution-real">All test pages (167 pages)</h3>
+<h4>CER by resolution <span class="muted small">lower is better</span></h4>
 <div class="table-wrap"><table>
-<thead><tr><th>Model</th><th class="n">archive.org scan: CER</th><th class="n">WER</th><th class="n">72 DPI: CER</th><th class="n">WER</th></tr></thead><tbody>
-<tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">11.55%</td><td class="n">53.75%</td><td class="n"><b class="best">21.59%</b></td><td class="n">71.41%</td></tr>
-<tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">11.46%</td><td class="n">52.88%</td><td class="n">21.98%</td><td class="n">72.63%</td></tr>
-<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">13.57%</td><td class="n">66.94%</td><td class="n">37.65%</td><td class="n">101.22%</td></tr>
-<tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">10.63%</td><td class="n">54.11%</td><td class="n">24.02%</td><td class="n">75.47%</td></tr>
-<tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">8.99%</td><td class="n">44.12%</td><td class="n">22.17%</td><td class="n">70.14%</td></tr>
-<tr><td>tam_v2</td><td class="n">7.28%</td><td class="n">35.43%</td><td class="n">22.27%</td><td class="n">67.97%</td></tr>
-<tr><td>tam_v2_fast</td><td class="n">7.30%</td><td class="n">35.47%</td><td class="n">21.83%</td><td class="n"><b class="best">67.14%</b></td></tr>
-<tr class="ours"><td>tam_v3</td><td class="n"><b class="best">6.69%</b></td><td class="n">34.79%</td><td class="n">23.53%</td><td class="n">69.71%</td></tr>
-<tr><td>tam_v3_fast</td><td class="n">6.97%</td><td class="n"><b class="best">34.44%</b></td><td class="n">23.55%</td><td class="n">69.83%</td></tr>
+<thead><tr><th>Model</th><th class="n">As scanned</th><th class="n">300 DPI</th><th class="n">200 DPI</th><th class="n">150 DPI</th><th class="n">100 DPI</th><th class="n">72 DPI</th></tr></thead><tbody>
+<tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">6.44%</td><td class="n">6.13%</td><td class="n">5.85%</td><td class="n">5.90%</td><td class="n">6.65%</td><td class="n"><b class="best">15.01%</b></td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">10.16%</td><td class="n">9.76%</td><td class="n">8.95%</td><td class="n">8.65%</td><td class="n">11.93%</td><td class="n">32.69%</td></tr>
+<tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">6.52%</td><td class="n">6.25%</td><td class="n">5.84%</td><td class="n">5.78%</td><td class="n">6.59%</td><td class="n">19.01%</td></tr>
+<tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">5.27%</td><td class="n">5.06%</td><td class="n">4.81%</td><td class="n">4.94%</td><td class="n">5.76%</td><td class="n">16.33%</td></tr>
+<tr><td>tam_v2</td><td class="n">4.01%</td><td class="n">4.00%</td><td class="n">3.90%</td><td class="n">4.21%</td><td class="n">5.20%</td><td class="n">18.47%</td></tr>
+<tr><td>tam_v2_fast</td><td class="n">4.07%</td><td class="n">4.03%</td><td class="n">3.91%</td><td class="n">4.20%</td><td class="n"><b class="best">5.17%</b></td><td class="n">18.03%</td></tr>
+<tr class="ours"><td>tam_v3</td><td class="n"><b class="best">3.40%</b></td><td class="n"><b class="best">3.48%</b></td><td class="n"><b class="best">3.54%</b></td><td class="n"><b class="best">3.94%</b></td><td class="n">5.51%</td><td class="n">22.64%</td></tr>
+<tr><td>tam_v3_fast</td><td class="n">3.62%</td><td class="n">3.64%</td><td class="n">3.59%</td><td class="n">3.96%</td><td class="n">5.51%</td><td class="n">22.45%</td></tr>
 </tbody></table></div>
-<h3>Contemporary books (24 pages)</h3>
+<h4>WER by resolution <span class="muted small">lower is better</span></h4>
 <div class="table-wrap"><table>
-<thead><tr><th>Model</th><th class="n">archive.org scan: CER</th><th class="n">WER</th><th class="n">300 DPI: CER</th><th class="n">WER</th></tr></thead><tbody>
-<tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">3.28%</td><td class="n">14.40%</td><td class="n">2.60%</td><td class="n">12.51%</td></tr>
-<tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">3.40%</td><td class="n">15.19%</td><td class="n">2.81%</td><td class="n">13.65%</td></tr>
-<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">3.28%</td><td class="n">17.60%</td><td class="n">2.73%</td><td class="n">16.26%</td></tr>
-<tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">3.07%</td><td class="n">13.59%</td><td class="n">2.43%</td><td class="n">11.72%</td></tr>
-<tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">2.80%</td><td class="n">11.53%</td><td class="n">2.26%</td><td class="n">10.06%</td></tr>
-<tr><td>tam_v2</td><td class="n">2.52%</td><td class="n">10.74%</td><td class="n">2.02%</td><td class="n">9.70%</td></tr>
-<tr><td>tam_v2_fast</td><td class="n">2.53%</td><td class="n">11.01%</td><td class="n">2.02%</td><td class="n">9.76%</td></tr>
-<tr class="ours"><td>tam_v3</td><td class="n"><b class="best">2.16%</b></td><td class="n">9.67%</td><td class="n">1.68%</td><td class="n">8.92%</td></tr>
-<tr><td>tam_v3_fast</td><td class="n">2.17%</td><td class="n"><b class="best">9.47%</b></td><td class="n"><b class="best">1.66%</b></td><td class="n"><b class="best">8.82%</b></td></tr>
+<thead><tr><th>Model</th><th class="n">As scanned</th><th class="n">300 DPI</th><th class="n">200 DPI</th><th class="n">150 DPI</th><th class="n">100 DPI</th><th class="n">72 DPI</th></tr></thead><tbody>
+<tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">32.13%</td><td class="n">30.58%</td><td class="n">28.09%</td><td class="n">26.90%</td><td class="n">31.82%</td><td class="n"><b class="best">50.58%</b></td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">50.69%</td><td class="n">48.87%</td><td class="n">44.57%</td><td class="n">42.17%</td><td class="n">51.97%</td><td class="n">84.26%</td></tr>
+<tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">33.57%</td><td class="n">32.08%</td><td class="n">29.52%</td><td class="n">27.82%</td><td class="n">30.99%</td><td class="n">57.17%</td></tr>
+<tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">26.71%</td><td class="n">25.52%</td><td class="n">23.37%</td><td class="n">22.57%</td><td class="n">27.03%</td><td class="n">51.74%</td></tr>
+<tr><td>tam_v2</td><td class="n">21.02%</td><td class="n">20.43%</td><td class="n">18.69%</td><td class="n">18.79%</td><td class="n">23.67%</td><td class="n">51.95%</td></tr>
+<tr><td>tam_v2_fast</td><td class="n">21.11%</td><td class="n">20.47%</td><td class="n">18.73%</td><td class="n">18.76%</td><td class="n"><b class="best">23.57%</b></td><td class="n">51.55%</td></tr>
+<tr class="ours"><td>tam_v3</td><td class="n">19.28%</td><td class="n">18.81%</td><td class="n">17.35%</td><td class="n">17.77%</td><td class="n">25.05%</td><td class="n">58.50%</td></tr>
+<tr><td>tam_v3_fast</td><td class="n"><b class="best">19.16%</b></td><td class="n"><b class="best">18.71%</b></td><td class="n"><b class="best">17.34%</b></td><td class="n"><b class="best">17.73%</b></td><td class="n">24.77%</td><td class="n">58.24%</td></tr>
 </tbody></table></div>
-<h3>Other contemporary books (6 pages)</h3>
+<h4>BLEU, ANLS and METEOR, as scanned and at 72 DPI <span class="muted small">higher is better</span></h4>
 <div class="table-wrap"><table>
-<thead><tr><th>Model</th><th class="n">archive.org scan: CER</th><th class="n">WER</th><th class="n">96 DPI: CER</th><th class="n">WER</th></tr></thead><tbody>
-<tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">5.73%</td><td class="n">20.68%</td><td class="n">19.63%</td><td class="n">34.72%</td></tr>
-<tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">5.79%</td><td class="n">20.42%</td><td class="n">19.93%</td><td class="n">34.20%</td></tr>
-<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">8.37%</td><td class="n">31.99%</td><td class="n">22.85%</td><td class="n">47.59%</td></tr>
-<tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">5.54%</td><td class="n">18.73%</td><td class="n">19.67%</td><td class="n">33.55%</td></tr>
-<tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">5.32%</td><td class="n">16.38%</td><td class="n">19.23%</td><td class="n">30.17%</td></tr>
-<tr><td>tam_v2</td><td class="n">5.12%</td><td class="n"><b class="best">16.12%</b></td><td class="n">19.18%</td><td class="n">30.17%</td></tr>
-<tr><td>tam_v2_fast</td><td class="n">5.17%</td><td class="n">16.38%</td><td class="n"><b class="best">19.17%</b></td><td class="n"><b class="best">30.04%</b></td></tr>
-<tr class="ours"><td>tam_v3</td><td class="n"><b class="best">4.97%</b></td><td class="n">16.91%</td><td class="n">19.31%</td><td class="n">31.60%</td></tr>
-<tr><td>tam_v3_fast</td><td class="n">5.13%</td><td class="n">16.91%</td><td class="n">19.27%</td><td class="n">31.47%</td></tr>
+<thead><tr><th>Model</th><th class="n">As scanned: BLEU</th><th class="n">ANLS</th><th class="n">METEOR</th><th class="n">72 DPI: BLEU</th><th class="n">ANLS</th><th class="n">METEOR</th></tr></thead><tbody>
+<tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">0.5027</td><td class="n">0.9336</td><td class="n">0.7379</td><td class="n">0.2574</td><td class="n"><b class="best">0.8304</b></td><td class="n"><b class="best">0.5024</b></td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">0.3137</td><td class="n">0.8954</td><td class="n">0.5646</td><td class="n">0.0581</td><td class="n">0.6246</td><td class="n">0.2016</td></tr>
+<tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">0.5028</td><td class="n">0.9332</td><td class="n">0.7351</td><td class="n">0.2251</td><td class="n">0.7815</td><td class="n">0.4400</td></tr>
+<tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">0.5726</td><td class="n">0.9455</td><td class="n">0.7795</td><td class="n">0.2739</td><td class="n">0.8123</td><td class="n">0.4936</td></tr>
+<tr><td>tam_v2</td><td class="n">0.6647</td><td class="n">0.9582</td><td class="n">0.8364</td><td class="n">0.2871</td><td class="n">0.7800</td><td class="n">0.4965</td></tr>
+<tr><td>tam_v2_fast</td><td class="n">0.6639</td><td class="n">0.9575</td><td class="n">0.8364</td><td class="n"><b class="best">0.2917</b></td><td class="n">0.7952</td><td class="n">0.5017</td></tr>
+<tr class="ours"><td>tam_v3</td><td class="n">0.6943</td><td class="n"><b class="best">0.9647</b></td><td class="n"><b class="best">0.8539</b></td><td class="n">0.2290</td><td class="n">0.7409</td><td class="n">0.4250</td></tr>
+<tr><td>tam_v3_fast</td><td class="n"><b class="best">0.6952</b></td><td class="n">0.9624</td><td class="n">0.8537</td><td class="n">0.2287</td><td class="n">0.7428</td><td class="n">0.4271</td></tr>
 </tbody></table></div>
-  <p class="note">At 72–96 DPI every model's errors roughly triple, and on old books tam_v3 is slightly behind tam_v2 and stock. Scan at 300 DPI where you can.</p>
+<h3 id="resolution-old">Old books, published before 1960 (45 pages)</h3>
+<h4>CER by resolution <span class="muted small">lower is better</span></h4>
+<div class="table-wrap"><table>
+<thead><tr><th>Model</th><th class="n">As scanned</th><th class="n">300 DPI</th><th class="n">200 DPI</th><th class="n">150 DPI</th><th class="n">100 DPI</th><th class="n">72 DPI</th></tr></thead><tbody>
+<tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">15.79%</td><td class="n">16.25%</td><td class="n">14.28%</td><td class="n">14.69%</td><td class="n">18.76%</td><td class="n">36.22%</td></tr>
+<tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">16.63%</td><td class="n">16.87%</td><td class="n">14.77%</td><td class="n">15.22%</td><td class="n">18.88%</td><td class="n"><b class="best">34.64%</b></td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">20.09%</td><td class="n">20.96%</td><td class="n">19.02%</td><td class="n">19.88%</td><td class="n">29.95%</td><td class="n">53.79%</td></tr>
+<tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">14.62%</td><td class="n">15.37%</td><td class="n">13.18%</td><td class="n">13.56%</td><td class="n">18.80%</td><td class="n">40.69%</td></tr>
+<tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">12.35%</td><td class="n">13.12%</td><td class="n">11.28%</td><td class="n">11.79%</td><td class="n">16.88%</td><td class="n">38.04%</td></tr>
+<tr><td>tam_v2</td><td class="n">9.05%</td><td class="n">10.13%</td><td class="n">8.68%</td><td class="n">9.29%</td><td class="n">15.57%</td><td class="n">40.14%</td></tr>
+<tr><td>tam_v2_fast</td><td class="n">8.99%</td><td class="n">10.11%</td><td class="n">8.63%</td><td class="n">9.34%</td><td class="n"><b class="best">15.29%</b></td><td class="n">39.56%</td></tr>
+<tr class="ours"><td>tam_v3</td><td class="n"><b class="best">7.87%</b></td><td class="n"><b class="best">9.23%</b></td><td class="n"><b class="best">7.98%</b></td><td class="n">8.79%</td><td class="n">16.21%</td><td class="n">43.20%</td></tr>
+<tr><td>tam_v3_fast</td><td class="n">8.21%</td><td class="n">9.43%</td><td class="n">8.04%</td><td class="n"><b class="best">8.77%</b></td><td class="n">16.21%</td><td class="n">43.39%</td></tr>
+</tbody></table></div>
+<h4>WER by resolution <span class="muted small">lower is better</span></h4>
+<div class="table-wrap"><table>
+<thead><tr><th>Model</th><th class="n">As scanned</th><th class="n">300 DPI</th><th class="n">200 DPI</th><th class="n">150 DPI</th><th class="n">100 DPI</th><th class="n">72 DPI</th></tr></thead><tbody>
+<tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">71.37%</td><td class="n">67.05%</td><td class="n">63.27%</td><td class="n">63.32%</td><td class="n">68.77%</td><td class="n">84.46%</td></tr>
+<tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">72.33%</td><td class="n">68.22%</td><td class="n">64.76%</td><td class="n">64.27%</td><td class="n">69.36%</td><td class="n"><b class="best">83.54%</b></td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">87.32%</td><td class="n">85.81%</td><td class="n">81.98%</td><td class="n">82.65%</td><td class="n">96.20%</td><td class="n">105.20%</td></tr>
+<tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">72.67%</td><td class="n">68.85%</td><td class="n">64.36%</td><td class="n">64.25%</td><td class="n">69.28%</td><td class="n">88.61%</td></tr>
+<tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">59.71%</td><td class="n">56.49%</td><td class="n">53.14%</td><td class="n">54.26%</td><td class="n">63.66%</td><td class="n">85.94%</td></tr>
+<tr><td>tam_v2</td><td class="n">46.57%</td><td class="n">43.64%</td><td class="n">41.81%</td><td class="n">43.24%</td><td class="n">56.64%</td><td class="n">84.67%</td></tr>
+<tr><td>tam_v2_fast</td><td class="n">46.16%</td><td class="n">43.64%</td><td class="n">41.84%</td><td class="n">43.34%</td><td class="n">56.17%</td><td class="n">84.65%</td></tr>
+<tr class="ours"><td>tam_v3</td><td class="n">42.94%</td><td class="n"><b class="best">40.42%</b></td><td class="n">39.29%</td><td class="n">40.95%</td><td class="n">56.28%</td><td class="n">86.37%</td></tr>
+<tr><td>tam_v3_fast</td><td class="n"><b class="best">42.83%</b></td><td class="n">40.48%</td><td class="n"><b class="best">39.21%</b></td><td class="n"><b class="best">40.71%</b></td><td class="n"><b class="best">56.07%</b></td><td class="n">86.87%</td></tr>
+</tbody></table></div>
+<h4>BLEU, ANLS and METEOR, as scanned and at 72 DPI <span class="muted small">higher is better</span></h4>
+<div class="table-wrap"><table>
+<thead><tr><th>Model</th><th class="n">As scanned: BLEU</th><th class="n">ANLS</th><th class="n">METEOR</th><th class="n">72 DPI: BLEU</th><th class="n">ANLS</th><th class="n">METEOR</th></tr></thead><tbody>
+<tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">0.1696</td><td class="n">0.8368</td><td class="n">0.4381</td><td class="n">0.0503</td><td class="n">0.5784</td><td class="n">0.1986</td></tr>
+<tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">0.1612</td><td class="n">0.8169</td><td class="n">0.4256</td><td class="n">0.0429</td><td class="n"><b class="best">0.5967</b></td><td class="n">0.1936</td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">0.0765</td><td class="n">0.7937</td><td class="n">0.2788</td><td class="n">0.0049</td><td class="n">0.3667</td><td class="n">0.0519</td></tr>
+<tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">0.1705</td><td class="n">0.8460</td><td class="n">0.4384</td><td class="n">0.0374</td><td class="n">0.5368</td><td class="n">0.1628</td></tr>
+<tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">0.2241</td><td class="n">0.8673</td><td class="n">0.5027</td><td class="n">0.0477</td><td class="n">0.5672</td><td class="n">0.1766</td></tr>
+<tr><td>tam_v2</td><td class="n">0.3555</td><td class="n">0.8981</td><td class="n">0.6254</td><td class="n"><b class="best">0.0675</b></td><td class="n">0.5574</td><td class="n">0.2011</td></tr>
+<tr><td>tam_v2_fast</td><td class="n">0.3561</td><td class="n">0.8978</td><td class="n">0.6279</td><td class="n">0.0647</td><td class="n">0.5619</td><td class="n"><b class="best">0.2050</b></td></tr>
+<tr class="ours"><td>tam_v3</td><td class="n">0.3943</td><td class="n"><b class="best">0.9109</b></td><td class="n">0.6554</td><td class="n">0.0545</td><td class="n">0.5042</td><td class="n">0.1736</td></tr>
+<tr><td>tam_v3_fast</td><td class="n"><b class="best">0.3970</b></td><td class="n">0.9072</td><td class="n"><b class="best">0.6567</b></td><td class="n">0.0550</td><td class="n">0.5137</td><td class="n">0.1730</td></tr>
+</tbody></table></div>
+  <p class="note">tam_v3's CER on the real pages: 3.40% as scanned, 3.48% at 300 DPI, 3.54% at 200 DPI, 3.94% at 150 DPI, 5.51% at 100 DPI, 22.64% at 72 DPI. On the old books: 7.87% as scanned, 9.23% at 300 DPI, 7.98% at 200 DPI, 8.79% at 150 DPI, 16.21% at 100 DPI, 43.20% at 72 DPI. Down to 200 DPI its errors stay within a tenth of the as-scanned figure on both sets; below that they rise steeply for every model. At 72 DPI the most accurate model on the real pages is the stock model (tessdata_best), at 15.01%. At 72 DPI the most accurate model on the old books is the stock model of the Ubuntu package, at 34.64%.</p>
+  <p class="note">This test replaces an earlier one that read each page set at a single resolution, from archive.org page
+    images that did not always match the proofread page. All pages here are the page images the Wikisource volunteers
+    proofread.</p>
 </section>
+
+<section id="handwriting">
+  <h2>Handwriting</h2>
+  <p><b>None of the models on this page should be used to read photographs of handwritten text</b> (notes, letters,
+    forms filled in by hand, whiteboards). The reasons:</p>
+  <ul class="list">
+    <li><b>Most letters come out wrong.</b> In the camera-photo test below, on phone photos of handwritten notes tam_v3
+      gets 37.88% of the letters wrong (stock 46.35%, Anuvaad 55.79%), and on whiteboards and blackboards
+      43.74% (stock 57.65%, Anuvaad 57.22%): more than one letter in three, whichever
+      model reads them.
+      Text like that takes longer to correct than to type again.</li>
+    <li><b>They learnt printed letters only.</b> Every model here was trained on printed fonts, and tam_v3 also on scanned
+      printed books; the Anuvaad model's training data is not published. Handwritten letters change from writer to writer
+      (slant, joined or broken strokes, uneven sizes, loops), and the models never saw those shapes. Even on clean,
+      cut-out handwritten words and lines (the tests below) the character error rate is
+      45–75%, and the best model reads only 4.3% of words exactly.</li>
+    <li><b>A photo adds what the models were not trained for.</b> They learnt from flat, evenly lit scans. A phone photo
+      adds blur, shadows, uneven light, an angled view, paper texture and ruled lines, which make the thin, uneven strokes of
+      handwriting harder still to separate from the background.</li>
+    <li><b>Lines are hard to find.</b> On a whole photo Tesseract must first find the lines of text, and handwritten lines
+      slope, touch and run into each other. The tests on this page cut the lines out first, so a whole photo reads worse.</li>
+    <li><b>Words get split.</b> The gaps in handwriting are uneven, so the models put spaces inside words: on handwritten
+      lines every model writes more words than the lines have (word error rate 143% or more).</li>
+  </ul>
+  <p class="note">Reading handwriting would need a Tesseract model trained on handwritten Tamil lines.</p>
+  <p>The two tests below show how far these printed-text models get on handwritten Tamil. Each image is read as one line
+    (<code>--psm 13</code>).</p>
+  <h3>16,184 handwritten words (IIIT-INDIC-HW-WORDS)</h3>
+  <p class="cap">The Tamil test split of <a href="https://cvit.iiit.ac.in/research/projects/cvit-projects/iiit-indic-hw-words">IIIT-INDIC-HW-WORDS</a>
+    (CVIT, IIIT Hyderabad; CC BY 4.0), each word image cropped to its ink. There is one word per image, so the word error
+    rate is left out: a space put inside a word counts as extra words.</p>
+  <div class="table-wrap"><table>
+<thead><tr><th>Model</th><th class="n">CER</th><th class="n">Words read exactly</th><th class="n">ANLS</th></tr></thead><tbody>
+<tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">59.94%</td><td class="n">3.13%</td><td class="n">0.2312</td></tr>
+<tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">66.27%</td><td class="n">2.57%</td><td class="n">0.1973</td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">75.45%</td><td class="n">0.61%</td><td class="n">0.1265</td></tr>
+<tr class="ours"><td>tam_v3</td><td class="n">53.45%</td><td class="n">4.26%</td><td class="n">0.3567</td></tr>
+<tr><td>tam_v3_fast</td><td class="n"><b class="best">53.07%</b></td><td class="n"><b class="best">4.33%</b></td><td class="n"><b class="best">0.3601</b></td></tr>
+</tbody></table></div>
+  <h3>3,570 handwritten lines made from the same words</h3>
+  <p class="cap">The test words joined 3–6 to a line, side by side with word spaces (<code>tools/join_hw_words.py</code>,
+    seed 42), so a model must also find the gaps between words.</p>
+  <div class="table-wrap"><table>
+<thead><tr><th>Model</th><th class="n">CER</th><th class="n">WER</th><th class="n">ANLS</th></tr></thead><tbody>
+<tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">52.75%</td><td class="n"><b class="best">143.08%</b></td><td class="n">0.2290</td></tr>
+<tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">55.94%</td><td class="n">150.99%</td><td class="n">0.1786</td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">68.28%</td><td class="n">190.69%</td><td class="n">0.0266</td></tr>
+<tr class="ours"><td>tam_v3</td><td class="n">44.82%</td><td class="n">158.23%</td><td class="n">0.4170</td></tr>
+<tr><td>tam_v3_fast</td><td class="n"><b class="best">44.58%</b></td><td class="n">156.56%</td><td class="n"><b class="best">0.4211</b></td></tr>
+</tbody></table></div>
+  <p class="note">No model reads a whole line without an error. A word error rate above 100% means the output has more
+    words than the line: printed-text models put spaces inside handwritten words. tam_v3 does this more often than the
+    stock model here, so its WER is higher although its CER is lower.</p>
+  <p class="note">The joined lines are made of real handwriting but are not written lines: their spacing and baselines are
+    more regular than in a letter or a notebook. Handwritten notes and whiteboards photographed with a phone are in the
+    camera-photo test below.</p>
+</section>
+
+<section id="photos">
+  <h2>Camera photos of documents</h2>
+  <p>1,255 Tamil text lines cut from 55 phone-camera photos of documents of 11 types, from Appen's free Tamil
+    sample (<a href="https://www.kaggle.com/datasets/appenlimited/tamil-language-file-type-ocr-image-data">Kaggle:
+    appenlimited/tamil-language-file-type-ocr-image-data</a>; © Appen Limited, CC BY-SA 4.0). Each line is cut out along
+    its annotated box (<code>tools/labelme_lines.py</code>) and read as one line (<code>--psm 13</code>). Boxes marked
+    unreadable and lines without Tamil letters are left out.</p>
+  <div class="table-wrap"><table>
+<thead><tr><th>Model</th><th class="n">CER</th><th class="n">WER</th><th class="n">Lines read exactly</th><th class="n">ANLS</th></tr></thead><tbody>
+<tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">11.83%</td><td class="n">32.23%</td><td class="n">39.20%</td><td class="n">0.8216</td></tr>
+<tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">12.74%</td><td class="n">36.10%</td><td class="n">33.47%</td><td class="n">0.8134</td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">13.20%</td><td class="n">31.73%</td><td class="n">51.63%</td><td class="n">0.8025</td></tr>
+<tr class="ours"><td>tam_v3</td><td class="n"><b class="best">9.17%</b></td><td class="n"><b class="best">24.45%</b></td><td class="n">60.40%</td><td class="n"><b class="best">0.8700</b></td></tr>
+<tr><td>tam_v3_fast</td><td class="n">9.33%</td><td class="n">24.78%</td><td class="n"><b class="best">60.72%</b></td><td class="n">0.8681</td></tr>
+</tbody></table></div>
+  <p class="note">CER is the main measure here. Tamil words average about 8 letters and many photo lines (identity cards,
+    bills, forms) are only a few words long, so one wrong letter or space makes a whole word wrong and WER swings widely;
+    it still shows what share of words would be usable for search or copying.</p>
+  <h3>CER by document type <span class="muted small">lower is better</span></h3>
+  <p class="cap">The best model in each row is marked.</p>
+  <div class="table-wrap"><table>
+<thead><tr><th>Document type (lines)</th><th class="n m">Stock tam, best</th><th class="n m">Stock tam, Ubuntu fast</th><th class="n m">Anuvaad tam</th><th class="n m">tam_v3</th><th class="n m">tam_v3_fast</th></tr></thead><tbody>
+<tr><td>Newspapers (375)</td><td class="n">7.04%</td><td class="n">7.68%</td><td class="n">8.20%</td><td class="n"><b class="best">6.06%</b></td><td class="n">6.33%</td></tr>
+<tr><td>Book pages and covers (155)</td><td class="n">2.65%</td><td class="n">2.18%</td><td class="n">2.94%</td><td class="n">1.98%</td><td class="n"><b class="best">1.95%</b></td></tr>
+<tr><td>Papers (135)</td><td class="n">5.42%</td><td class="n">6.58%</td><td class="n"><b class="best">0.41%</b></td><td class="n">2.43%</td><td class="n">2.37%</td></tr>
+<tr><td>Trade documents (118)</td><td class="n">2.79%</td><td class="n">3.70%</td><td class="n">1.50%</td><td class="n">1.13%</td><td class="n"><b class="best">1.07%</b></td></tr>
+<tr><td>Handwritten notes (107)</td><td class="n">46.35%</td><td class="n">48.17%</td><td class="n">55.79%</td><td class="n"><b class="best">37.88%</b></td><td class="n">40.04%</td></tr>
+<tr><td>Contracts (100)</td><td class="n">12.87%</td><td class="n">14.65%</td><td class="n">19.44%</td><td class="n"><b class="best">9.43%</b></td><td class="n">9.79%</td></tr>
+<tr><td>Whiteboards and blackboards (80)</td><td class="n">57.65%</td><td class="n">55.29%</td><td class="n">57.22%</td><td class="n">43.74%</td><td class="n"><b class="best">42.03%</b></td></tr>
+<tr><td>Bills (57)</td><td class="n">18.45%</td><td class="n">23.28%</td><td class="n">36.99%</td><td class="n">17.04%</td><td class="n"><b class="best">14.38%</b></td></tr>
+<tr><td>Identity cards (48)</td><td class="n">19.31%</td><td class="n">20.98%</td><td class="n">18.42%</td><td class="n"><b class="best">16.54%</b></td><td class="n">17.20%</td></tr>
+<tr><td>Badges and passes (42)</td><td class="n">17.15%</td><td class="n">19.44%</td><td class="n">25.68%</td><td class="n"><b class="best">15.49%</b></td><td class="n">15.90%</td></tr>
+<tr><td>Forms (38)</td><td class="n">15.41%</td><td class="n">15.97%</td><td class="n">12.37%</td><td class="n">12.37%</td><td class="n"><b class="best">12.15%</b></td></tr>
+</tbody></table></div>
+  <p class="note">Some photos show identity cards, badges, forms and bills with personal details, so the line images and
+    their text are not published here or in the repository; only these totals are.</p>
+</section>
+
 
 <section id="speed">
   <h2>Speed and memory</h2>
-  <p>One page at a time on one CPU thread, 8 real pages, on the machine that ran all tests. V1 and V2-research have the
-    same network size as tessdata_best and were not timed; the Anuvaad model was not timed either. Differences under about 0.1 s are within the run-to-run variation.</p>
+  <p>One page at a time on one CPU thread (<code>OMP_THREAD_LIMIT=1</code>), the same 8 real pages for every model, each
+    page read three times and the middle time kept; all models timed together on 21 November 2026, on the machine that ran
+    all tests. Peak memory is the largest resident size of the <code>tesseract</code> process. Differences under about
+    0.1 s are within the run-to-run variation.</p>
   <div class="table-wrap"><table>
 <thead><tr><th>Model</th><th class="n">Seconds per page</th><th class="n">Peak memory</th><th class="n">File size</th></tr></thead><tbody>
-<tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">1.50</td><td class="n">95 MB</td><td class="n">6.0 MB</td></tr>
-<tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n"><b class="best">1.05</b></td><td class="n"><b class="best">88 MB</b></td><td class="n">3.2 MB</td></tr>
-<tr><td>tam_v2</td><td class="n">1.58</td><td class="n">105 MB</td><td class="n">6.5 MB</td></tr>
-<tr><td>tam_v2_fast</td><td class="n">1.16</td><td class="n">97 MB</td><td class="n">3.7 MB</td></tr>
-<tr class="ours"><td>tam_v3</td><td class="n">1.49</td><td class="n">108 MB</td><td class="n">8.5 MB</td></tr>
-<tr><td>tam_v3_fast</td><td class="n">1.12</td><td class="n">100 MB</td><td class="n">5.7 MB</td></tr>
+<tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">1.50</td><td class="n">61 MB</td><td class="n">6.0 MB</td></tr>
+<tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n"><b class="best">1.06</b></td><td class="n"><b class="best">53 MB</b></td><td class="n">3.2 MB</td></tr>
+<tr><td>Anuvaad <code>tam</code> <span class="small muted">third party</span></td><td class="n">3.04</td><td class="n">71 MB</td><td class="n">12.0 MB</td></tr>
+<tr><td>V1 <span class="small muted">tam_multifont</span></td><td class="n">1.50</td><td class="n">61 MB</td><td class="n">6.0 MB</td></tr>
+<tr><td>V2-research <span class="small muted">tam_v2_research</span></td><td class="n">1.49</td><td class="n">61 MB</td><td class="n">6.0 MB</td></tr>
+<tr><td>tam_v2</td><td class="n">1.57</td><td class="n">68 MB</td><td class="n">6.5 MB</td></tr>
+<tr><td>tam_v2_fast</td><td class="n">1.16</td><td class="n">62 MB</td><td class="n">3.7 MB</td></tr>
+<tr class="ours"><td>tam_v3</td><td class="n">1.59</td><td class="n">70 MB</td><td class="n">8.5 MB</td></tr>
+<tr><td>tam_v3_fast</td><td class="n">1.15</td><td class="n">66 MB</td><td class="n">5.7 MB</td></tr>
 </tbody></table></div>
 </section>
 
@@ -555,7 +769,31 @@ python3 -m tamtrain lines real-lines/test --name real-test-lines --psm 13 $C
 <span class="c"># RANLP 2025, scored as in the paper</span>
 curl -L -o data.arrow https://huggingface.co/datasets/Nevidu/tamil_synthetic_ocr/resolve/main/data/data-00000-of-00001.arrow
 python3 tools/hf_arrow_to_lines.py data.arrow --out benchmarks/ranlp2025/lines
-python3 -m tamtrain lines benchmarks/ranlp2025/lines --name ranlp2025 --raw --psm 3 $C</code></pre>
+python3 -m tamtrain lines benchmarks/ranlp2025/lines --name ranlp2025 --raw --psm 3 $C
+
+<span class="c"># scanning resolution: the real pages and the old-book pages, shrunk to 300, 200, 150, 100 and 72 DPI</span>
+python3 tools/fetch_wikisource.py --from-list benchmarks/resolution/old-books-source/pages.json --out old-books
+python3 -m tamtrain scans old-books --name old-books-source $C
+for s in scans/wikisource:real-pages old-books:old-books; do
+  python3 tools/make_dpi_set.py ${s%%:*} --out res/${s##*:} --dpi 72 100 150 200 300
+done
+for d in 300 200 150 100 072; do
+  python3 -m tamtrain scans res/real-pages/dpi-$d --name real-pages-$d --exclude-from work/report/scans.json $C
+  python3 -m tamtrain scans res/old-books/dpi-$d --name old-books-$d --exclude-from work/report/old-books-source.json $C
+done
+
+<span class="c"># handwriting: IIIT-INDIC-HW-WORDS, Tamil test split, then the same words joined into lines</span>
+python3 tools/iiit_hw_words.py fetch test --out downloads/iiit-hw
+python3 tools/iiit_hw_words.py convert downloads/iiit-hw/test.zip --labels downloads/iiit-hw/test.txt     --vocab downloads/iiit-hw/vocab.txt --out hw-words/test
+python3 -m tamtrain lines hw-words/test --name iiit-hw-test-words --psm 13 $C
+python3 tools/join_hw_words.py hw-words/test --out hw-lines/test
+python3 -m tamtrain lines hw-lines/test --name iiit-hw-test-lines --psm 13 $C
+
+<span class="c"># camera photos: download and unpack the Appen sample from Kaggle into appen-photos/</span>
+python3 tools/labelme_lines.py appen-photos --out appen-lines
+python3 -m tamtrain lines appen-lines --name appen-photo-lines --psm 13 $C
+
+</code></pre>
   <p class="note">Reports go to <code>work/report/</code> and always include the stock <code>tam</code> model. Add more <code>--compare label=path/to/model.traineddata</code> options for more models. Each line report also saves every line's OCR text.</p>
 </section>
 
@@ -563,7 +801,7 @@ python3 -m tamtrain lines benchmarks/ranlp2025/lines --name ranlp2025 --raw --ps
 
 <footer>
   <div><a href="/tamil-tess-trainer/">Tamil OCR for Tesseract</a> · <a href="https://github.com/newsbaba24x7/tamil-tess-trainer">github.com/newsbaba24x7/tamil-tess-trainer</a> · Apache-2.0</div>
-  <div>Measured 17–19 November 2026 with Tesseract 5.5.0. Generated by <code>tools/make_benchmark_page.py</code> from the evaluation reports.</div>
+  <div>Measured 17–21 November 2026 with Tesseract 5.5.0. Generated by <code>tools/make_benchmark_page.py</code> from the evaluation reports.</div>
 </footer>
 
 </div>

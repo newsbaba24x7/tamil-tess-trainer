@@ -352,7 +352,7 @@ tesseract page.png out -l tam_v3 --tessdata-dir .     <span class="c"># writes o
   <h2>Benchmark results</h2>
   <p>CER is the character error rate and WER the word error rate: lower is better. BLEU, ANLS and METEOR measure
     text similarity from 0 to 1: higher is better. All scores were measured with Tesseract 5.5.0 on test data that no
-    model was trained on. <b><a href="benchmarks/">All benchmark results</a></b> has every model on every test set, with
+    model was trained on. <b><a href="benchmarks/">All benchmark results</a></b> has the full tables, with
     the measures explained and how to reproduce them. The stock models are Tesseract's official <code>tam</code> from tessdata_best 4.1.0 and the Ubuntu package <code>tesseract-ocr-tam</code> 1:4.1.0-2build1 (tessdata_fast 4.1.0); both were trained in 2017.</p>
 
   <h3>197 real scanned pages from 186 Tamil Wikisource books</h3>
@@ -409,8 +409,8 @@ tesseract page.png out -l tam_v3 --tessdata-dir .     <span class="c"># writes o
     <li>In 96% of this dataset the vowel signs were stripped from the text before the images were drawn, so it is not natural Tamil. On the natural-Tamil lines tam_v3's CER is 0.02%. Real scans are the harder test.</li>
   </ul>
 
-  <h3>Tamil OCR Benchmark (200 lines with English words)</h3>
-  <p class="cap">Single lines, <code>--psm 7</code>.</p>
+  <h3>Tamil OCR Benchmark (200 rendered lines, a quarter with English words)</h3>
+  <p class="cap">Clean renders of real Tamil sentences in one font (Noto Sans Tamil), read as single lines, <code>--psm 7</code>.</p>
   <div class="table-wrap"><table>
     <thead><tr><th>Model</th><th class="n">CER</th><th class="n">WER</th><th class="n">BLEU</th><th class="n">ANLS</th><th class="n">METEOR</th></tr></thead>
     <tbody>
@@ -422,34 +422,52 @@ tesseract page.png out -l tam_v3 --tessdata-dir .     <span class="c"># writes o
       <tr><td>tam_v3_fast</td><td class="n"><b class="best">1.50%</b></td><td class="n"><b class="best">8.40%</b></td><td class="n"><b class="best">0.5957</b></td><td class="n"><b class="best">0.9767</b></td><td class="n"><b class="best">0.8776</b></td></tr>
     </tbody>
   </table></div>
-  <p class="note">tam_v3 halves tam_v2's character errors here and makes the fewest word errors of any model, though English words inside Tamil lines still cost some whole words (see <a href="#limitations">Limitations</a>).</p>
+  <p class="note">tam_v3 halves tam_v2's character errors here and makes the fewest word errors of these models. Nearly all of its remaining errors are in the English words: on the Tamil letters alone its CER is 0.10% (see <a href="#limitations">Limitations</a>).</p>
 
   <h3>Scanning resolution</h3>
-  <p class="cap">Each page set at the resolution of its archive.org scan, and rescaled so that 12-pt text matches the stated scanning resolution. CER / WER. Stock is tessdata_best 4.1.0.</p>
+  <p class="cap">The same pages as scanned and shrunk to what 300 to 72 DPI would capture of 12-pt print. CER / WER; the best CER in each row is marked. Stock is tessdata_best 4.1.0.</p>
   <div class="table-wrap"><table>
     <thead><tr><th>Page set</th><th>Resolution</th><th class="n">Stock <code>tam</code></th><th class="n">tam_v2</th><th class="n">tam_v3</th></tr></thead>
     <tbody>
-      <tr><td rowspan="2">Old books (23 pages)</td><td>archive.org scan</td><td class="n">11.55% / 53.75%</td><td class="n">7.28% / 35.43%</td><td class="n"><b class="best">6.69% / 34.79%</b></td></tr>
-      <tr><td>72 DPI</td><td class="n"><b class="best">21.59%</b> / 71.41%</td><td class="n">22.27% / <b class="best">67.97%</b></td><td class="n">23.53% / 69.71%</td></tr>
-      <tr><td rowspan="2">Contemporary books (24 pages)</td><td>archive.org scan</td><td class="n">3.28% / 14.40%</td><td class="n">2.52% / 10.74%</td><td class="n"><b class="best">2.16% / 9.67%</b></td></tr>
-      <tr><td>300 DPI</td><td class="n">2.60% / 12.51%</td><td class="n">2.02% / 9.70%</td><td class="n"><b class="best">1.68% / 8.92%</b></td></tr>
-      <tr><td rowspan="2">Other contemporary books (6 pages)</td><td>archive.org scan</td><td class="n">5.73% / 20.68%</td><td class="n">5.12% / <b class="best">16.12%</b></td><td class="n"><b class="best">4.97%</b> / 16.91%</td></tr>
-      <tr><td>96 DPI</td><td class="n">19.63% / 34.72%</td><td class="n"><b class="best">19.18% / 30.17%</b></td><td class="n">19.31% / 31.60%</td></tr>
+      <tr><td rowspan="6">Real test pages (167 pages)</td><td>As scanned</td><td class="n">6.44% / 32.13%</td><td class="n">4.01% / 21.02%</td><td class="n"><b class="best">3.40% / 19.28%</b></td></tr>
+      <tr><td>300 DPI</td><td class="n">6.13% / 30.58%</td><td class="n">4.00% / 20.43%</td><td class="n"><b class="best">3.48% / 18.81%</b></td></tr>
+      <tr><td>200 DPI</td><td class="n">5.85% / 28.09%</td><td class="n">3.90% / 18.69%</td><td class="n"><b class="best">3.54% / 17.35%</b></td></tr>
+      <tr><td>150 DPI</td><td class="n">5.90% / 26.90%</td><td class="n">4.21% / 18.79%</td><td class="n"><b class="best">3.94% / 17.77%</b></td></tr>
+      <tr><td>100 DPI</td><td class="n">6.65% / 31.82%</td><td class="n"><b class="best">5.20% / 23.67%</b></td><td class="n">5.51% / 25.05%</td></tr>
+      <tr><td>72 DPI</td><td class="n"><b class="best">15.01% / 50.58%</b></td><td class="n">18.47% / 51.95%</td><td class="n">22.64% / 58.50%</td></tr>
+      <tr><td rowspan="6">Old books, before 1960 (45 pages)</td><td>As scanned</td><td class="n">15.79% / 71.37%</td><td class="n">9.05% / 46.57%</td><td class="n"><b class="best">7.87% / 42.94%</b></td></tr>
+      <tr><td>300 DPI</td><td class="n">16.25% / 67.05%</td><td class="n">10.13% / 43.64%</td><td class="n"><b class="best">9.23% / 40.42%</b></td></tr>
+      <tr><td>200 DPI</td><td class="n">14.28% / 63.27%</td><td class="n">8.68% / 41.81%</td><td class="n"><b class="best">7.98% / 39.29%</b></td></tr>
+      <tr><td>150 DPI</td><td class="n">14.69% / 63.32%</td><td class="n">9.29% / 43.24%</td><td class="n"><b class="best">8.79% / 40.95%</b></td></tr>
+      <tr><td>100 DPI</td><td class="n">18.76% / 68.77%</td><td class="n"><b class="best">15.57% / 56.64%</b></td><td class="n">16.21% / 56.28%</td></tr>
+      <tr><td>72 DPI</td><td class="n"><b class="best">36.22% / 84.46%</b></td><td class="n">40.14% / 84.67%</td><td class="n">43.20% / 86.37%</td></tr>
     </tbody>
   </table></div>
-  <p class="note">Scan at 300 DPI where you can. At 72–96 DPI every model's errors roughly triple, and on old books at 72 DPI tam_v3 is slightly behind tam_v2 and stock. The test design (old books at 72 DPI, contemporary books at 300 and 96 DPI) follows an ICON 2024 Tamil OCR evaluation.</p>
+  <p class="note">tam_v3 is the most accurate model down to 150 DPI and loses little down to 200 DPI. At 100 DPI tam_v2 is slightly ahead, and at 72 DPI the stock model reads best: very small text is tam_v3's weak spot. Scan at 200 DPI or more. <a href="benchmarks/#resolution">How the test works, and BLEU, ANLS and METEOR</a>.</p>
+
+  <h3>Handwriting and camera photos</h3>
+  <p class="cap">Harder material than any model here was made for, read line by line with <code>--psm 13</code>. Stock is tessdata_best 4.1.0.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Test</th><th>Measure</th><th class="n">Stock <code>tam</code></th><th class="n">tam_v3</th></tr></thead>
+    <tbody>
+      <tr><td>Handwritten words, IIIT-INDIC-HW-WORDS (16,184)</td><td>CER, lower is better</td><td class="n">59.94%</td><td class="n"><b class="best">53.45%</b></td></tr>
+      <tr><td>Handwritten lines made from those words (3,570)</td><td>CER</td><td class="n">52.75%</td><td class="n"><b class="best">44.82%</b></td></tr>
+      <tr><td>Camera photos of documents, Appen (1,255 lines)</td><td>CER</td><td class="n">11.83%</td><td class="n"><b class="best">9.17%</b></td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Neither model was trained on handwriting, and both read it poorly. In photos, printed documents read well (under 3% CER for trade documents, book pages and papers) and handwritten notes and whiteboards do not. <a href="benchmarks/#handwriting">Full tables, with the Anuvaad model</a>.</p>
 
   <h3>Speed and memory</h3>
-  <p class="cap">One page at a time, one CPU thread, 8 real pages.</p>
+  <p class="cap">One page at a time, one CPU thread, the same 8 real pages for every model (middle of three runs).</p>
   <div class="table-wrap"><table>
     <thead><tr><th>Model</th><th class="n">Seconds per page</th><th class="n">Peak memory</th><th class="n">File size</th></tr></thead>
     <tbody>
-      <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">1.50</td><td class="n">95 MB</td><td class="n">6.0 MB</td></tr>
-      <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">1.05</td><td class="n">88 MB</td><td class="n">3.2 MB</td></tr>
-      <tr><td>tam_v2</td><td class="n">1.58</td><td class="n">105 MB</td><td class="n">6.5 MB</td></tr>
-      <tr><td>tam_v2_fast</td><td class="n">1.16</td><td class="n">97 MB</td><td class="n">3.7 MB</td></tr>
-      <tr class="ours"><td>tam_v3</td><td class="n">1.49</td><td class="n">108 MB</td><td class="n">8.5 MB</td></tr>
-      <tr><td>tam_v3_fast</td><td class="n">1.12</td><td class="n">100 MB</td><td class="n">5.7 MB</td></tr>
+      <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">1.50</td><td class="n">61 MB</td><td class="n">6.0 MB</td></tr>
+      <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n"><b class="best">1.06</b></td><td class="n"><b class="best">53 MB</b></td><td class="n">3.2 MB</td></tr>
+      <tr><td>tam_v2</td><td class="n">1.57</td><td class="n">68 MB</td><td class="n">6.5 MB</td></tr>
+      <tr><td>tam_v2_fast</td><td class="n">1.16</td><td class="n">62 MB</td><td class="n">3.7 MB</td></tr>
+      <tr class="ours"><td>tam_v3</td><td class="n">1.59</td><td class="n">70 MB</td><td class="n">8.5 MB</td></tr>
+      <tr><td>tam_v3_fast</td><td class="n">1.15</td><td class="n">66 MB</td><td class="n">5.7 MB</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -464,7 +482,7 @@ tesseract page.png out -l tam_v3 --tessdata-dir .     <span class="c"># writes o
         <td>233 openly licensed font styles and 174,624 real scanned lines from 394 books</td><td>Apache-2.0</td>
         <td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v3.0.0">v3.0.0</a> · <a href="https://github.com/newsbaba24x7/tamil-tess-trainer/blob/main/MODEL_CARD.md">card</a></td></tr>
       <tr><td>tam_v2<br><span class="small muted">and tam_v2_fast</span></td><td><span class="pill quiet">Previous</span></td>
-        <td>233 openly licensed font styles and 24,445 real scanned lines; slightly better at 72–96 DPI</td><td>Apache-2.0</td>
+        <td>233 openly licensed font styles and 24,445 real scanned lines; better than tam_v3 at 72–100 DPI</td><td>Apache-2.0</td>
         <td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v2.0.0">v2.0.0</a> · <a href="https://github.com/newsbaba24x7/tamil-tess-trainer/blob/main/models/tam_v2/README.md">card</a></td></tr>
       <tr><td>tam_v2_research<br><span class="small muted">V2-research</span></td><td><span class="pill warn">Non-commercial only</span></td>
         <td>276 font styles, fonts only; includes C-DAC GIST fonts licensed for non-commercial use</td><td>CC BY-NC 4.0</td>
@@ -484,7 +502,7 @@ tesseract page.png out -l tam_v3 --tessdata-dir .     <span class="c"># writes o
     <li><b>Render scan-like lines</b><span>Book text from 420 proofread Wikisource books, Tesseract's own training text and Tamil Wikipedia sentences, drawn with realistic word spacing and scan damage. Three font families are held out for testing.</span></li>
     <li><b>Cut real scans into lines</b><span>Books with enough proofread pages on Tamil Wikisource were matched with their scans on archive.org (often 600 ppi copies from the Tamil Virtual Academy) or rendered from Wikimedia's copy. Lines are kept only when their first and last words agree with the proofread text. No test book is used, and lines that share text with any test set are dropped.</span></li>
     <li><b>Fine-tune Tesseract's model</b><span>tam_v2 was trained from tessdata_best <code>tam</code> for 100,000 iterations; tam_v3 continued from tam_v2 for 270,000 iterations on 174,624 real and 91,530 rendered lines, in sessions of 20,000, checked on 2,854 real lines from five other books. About 4.5 hours on 2 CPU threads.</span></li>
-    <li><b>Test on what it never saw</b><span>197 real pages, their 3,968 lines, the RANLP 2025 set, the Tamil OCR Benchmark and the scanning-resolution sets, against the stock model and the earlier models.</span></li>
+    <li><b>Test on what it never saw</b><span>197 real pages, their 3,968 lines, the RANLP 2025 set, the Tamil OCR Benchmark and the scanning-resolution sets, against the stock model, the earlier models and a third-party model; then handwriting and camera photos of documents.</span></li>
   </ol>
 </section>
 
@@ -492,11 +510,12 @@ tesseract page.png out -l tam_v3 --tessdata-dir .     <span class="c"># writes o
   <h2>Limitations</h2>
   <ul class="list">
     <li><b>Spurious spaces.</b> On clean pages 11.4% of words are still wrong. The largest cause is a space that splits a word, mostly right after a vowel sign or pulli (<span lang="ta">தரை யோடு</span>), then punctuation, wrong letters and page headers.</li>
-    <li><b>Low resolution:</b> at 72–96 DPI errors roughly triple, and on old books at 72 DPI tam_v3 is slightly behind tam_v2 and the stock model; scan at 300 DPI.</li>
+    <li><b>Low resolution:</b> below 150 DPI (for 12-pt text) every model's errors rise steeply, and tam_v3's most: at 72 DPI its CER is 22.6% on the real pages against 15.0% for the stock model. Scan at 200 DPI or more.</li>
     <li><b>English words inside Tamil lines</b> are read much better than before but still cost some whole words.</li>
     <li><b>Hard pages stay hard:</b> tables, several columns and badly damaged print (16.4% CER).</li>
-    <li><b>Newspapers:</b> 11 issues of one old newspaper were used in training; there is no newspaper test set yet.</li>
-    <li><b>Not for</b> handwriting, or for PDFs whose text layer uses legacy encodings (TSCII, TAB/TAM, Bamini).</li>
+    <li><b>Newspapers:</b> 11 issues of one old newspaper were used in training; there is no test set of scanned newspapers yet. On 375 lines from phone photos of newspapers tam_v3's CER is 6.06%.</li>
+    <li><b>Covers and posters:</b> Tesseract's default page mode often skips large or decorated titles; try <code>--psm 11</code> (sparse text). A test of covers and posters is being prepared.</li>
+    <li><b>Not for</b> handwriting (45% CER on handwritten lines), or for PDFs whose text layer uses legacy encodings (TSCII, TAB/TAM, Bamini).</li>
   </ul>
 </section>
 
@@ -522,7 +541,7 @@ python3 -m tamtrain scans my-scans/ --work work                    <span class="
     <dt>Does it send my documents anywhere?</dt>
     <dd>No. Tesseract runs entirely on your computer.</dd>
     <dt>Will it read old books?</dt>
-    <dd>Yes, including the pre-1978 letter shapes, which it outputs as modern Unicode. Scan at 300 DPI for the best results.</dd>
+    <dd>Yes, including the pre-1978 letter shapes, which it outputs as modern Unicode. Scan at 200 DPI or more for the best results.</dd>
     <dt>Why is word accuracy lower than character accuracy?</dt>
     <dd>Tamil words in these books average about 8 characters, so one wrong letter or one wrong space anywhere makes the whole word wrong.</dd>
     <dt>How can I help?</dt>
@@ -537,9 +556,9 @@ python3 -m tamtrain scans my-scans/ --work work                    <span class="
     <li><b>Text:</b> proofread page text by the Tamil Wikisource contributors and sentences by the Tamil Wikipedia contributors, CC BY-SA 4.0. The released training text, word list and line list contain it and are shared under the same licence.</li>
     <li><b>Page images:</b> from the Internet Archive (mostly copies of the Tamil Virtual Academy / Tamil Digital Library and the Digital Library of India) and the Tamil Wikisource scans on Wikimedia. They are not redistributed; the line list says where each page can be downloaded.</li>
     <li><b>Fonts:</b> every training font and its licence is listed in the repository. Fonts are not redistributed.</li>
-    <li><b>Benchmarks:</b> the RANLP 2025 and Tamil OCR Benchmark datasets were used for testing only.</li>
+    <li><b>Benchmarks:</b> the RANLP 2025 and Tamil OCR Benchmark datasets, IIIT-INDIC-HW-WORDS (CC BY 4.0) and Appen's Tamil document photos (CC BY-SA 4.0) were used for testing only and are not redistributed.</li>
   </ul>
-  <p>Thanks to the Tamil Wikisource volunteers, the Tamil Virtual Academy, the Internet Archive, the Tesseract developers, the designers of the open Tamil fonts, and the authors of the public benchmarks.</p>
+  <p>Thanks to the Tamil Wikisource volunteers, the Tamil Virtual Academy, the Internet Archive, the Tesseract developers, the designers of the open Tamil fonts, CVIT at IIIT Hyderabad, Appen, and the authors of the public benchmarks.</p>
 </section>
 
 <section id="references">
@@ -554,6 +573,9 @@ python3 -m tamtrain scans my-scans/ --work work                    <span class="
     <li>N. Jayatilleke and N. de Silva. 2025. <i>Zero-shot OCR Accuracy of Low-Resourced Languages: A Comparative Analysis on Sinhala and Tamil.</i> RANLP 2025. <a href="https://aclanthology.org/2025.ranlp-1.56/">aclanthology.org/2025.ranlp-1.56</a></li>
     <li>RANLP 2025 Tamil dataset: Nevidu/tamil_synthetic_ocr. <a href="https://huggingface.co/datasets/Nevidu/tamil_synthetic_ocr">huggingface.co/datasets/Nevidu/tamil_synthetic_ocr</a></li>
     <li>Tamil OCR Benchmark: mvbalaji/tamil-ocr-benchmark. <a href="https://huggingface.co/datasets/mvbalaji/tamil-ocr-benchmark">huggingface.co/datasets/mvbalaji/tamil-ocr-benchmark</a></li>
+    <li>S. Gongidi and C. V. Jawahar. 2021. <i>IIIT-INDIC-HW-WORDS: A Dataset for Indic Handwritten Text Recognition.</i> ICDAR 2021. <a href="https://cvit.iiit.ac.in/research/projects/cvit-projects/iiit-indic-hw-words">cvit.iiit.ac.in/research/projects/cvit-projects/iiit-indic-hw-words</a></li>
+    <li>Appen Limited. Tamil language file-type OCR image data (free sample). <a href="https://www.kaggle.com/datasets/appenlimited/tamil-language-file-type-ocr-image-data">kaggle.com/datasets/appenlimited/tamil-language-file-type-ocr-image-data</a></li>
+    <li>Tesseract documentation: improving the quality of the output (page segmentation modes). <a href="https://tesseract-ocr.github.io/tessdoc/ImproveQuality.html">tesseract-ocr.github.io/tessdoc/ImproveQuality.html</a></li>
     <li>K. Papineni, S. Roukos, T. Ward and W.-J. Zhu. 2002. <i>BLEU: a Method for Automatic Evaluation of Machine Translation.</i> ACL. <a href="https://aclanthology.org/P02-1040/">aclanthology.org/P02-1040</a></li>
     <li>S. Banerjee and A. Lavie. 2005. <i>METEOR: An Automatic Metric for MT Evaluation with Improved Correlation with Human Judgments.</i> <a href="https://aclanthology.org/W05-0909/">aclanthology.org/W05-0909</a></li>
     <li>A. F. Biten et al. 2019. <i>Scene Text Visual Question Answering</i> (defines ANLS). ICCV. <a href="https://arxiv.org/abs/1905.13648">arxiv.org/abs/1905.13648</a></li>
@@ -578,7 +600,7 @@ python3 -m tamtrain scans my-scans/ --work work                    <span class="
 
 <footer>
   <div>tam_v3 and tamtrain · Apache-2.0 · <a href="https://github.com/newsbaba24x7/tamil-tess-trainer">github.com/newsbaba24x7/tamil-tess-trainer</a></div>
-  <div>Benchmark figures from <a href="benchmarks/">the benchmark page</a>, measured 17–18 November 2026 with Tesseract 5.5.0.</div>
+  <div>Benchmark figures from <a href="benchmarks/">the benchmark page</a>, measured 17–21 November 2026 with Tesseract 5.5.0.</div>
 </footer>
 
 </div>
