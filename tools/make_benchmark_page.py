@@ -842,7 +842,7 @@ tr.group td { font-weight: 600; font-size: 13.5px; color: var(--muted); backgrou
 
 <section id="handwriting">
   <h2>Handwriting</h2>
-  <p><b>None of the models on this page should be used to read photographs of handwritten text</b> (notes, letters,
+  <p><b>None of the models under this section should be used to read photographs of handwritten text</b> (notes, letters,
     forms filled in by hand, whiteboards). The reasons:</p>
 {{HW_REASONS}}
   <p>The two tests below show how far these printed-text models get on handwritten Tamil. Each image is read as one line
