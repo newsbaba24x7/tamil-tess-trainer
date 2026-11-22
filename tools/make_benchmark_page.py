@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Build the benchmark results page (docs/benchmarks/index.html) from evaluation reports.
+"""Build the archived benchmark page for tam_v3 and earlier models (docs/benchmarks/tam_v3/index.html)
+from evaluation reports. The current page, docs/benchmarks/index.html, is built by
+models/tam_v3.1/19_benchmark_page.py.
 
 Every number on the page comes from the JSON reports that `tamtrain lines` and `tamtrain scans`
 write, so the page can be rebuilt after new runs (maintainers only; the reports are not published):
@@ -577,12 +579,12 @@ TEMPLATE = """<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Tamil OCR benchmark results</title>
+<title>Tamil OCR benchmark results: tam_v3 and earlier models</title>
 <meta name="description" content="Every benchmark result for the open Tamil Tesseract model tam_v3 and the models it is compared with: real scanned pages and lines, RANLP 2025, the Tamil OCR Benchmark, rendered lines, scanning resolution, handwriting, camera photos of documents<!--COVERS-->, book covers and film posters<!--/COVERS-->, and speed.">
-<meta property="og:title" content="Tamil OCR benchmark results">
+<meta property="og:title" content="Tamil OCR benchmark results: tam_v3 and earlier models">
 <meta property="og:description" content="tam_v3 against stock Tesseract, tam_v2 and earlier models on real scans, RANLP 2025, handwriting, camera photos<!--COVERS-->, covers and posters<!--/COVERS-->, with CER, WER, BLEU, ANLS and METEOR.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://newsbaba24x7.github.io/tamil-tess-trainer/benchmarks/">
+<meta property="og:url" content="https://newsbaba24x7.github.io/tamil-tess-trainer/benchmarks/tam_v3/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Catamaran:wght@500;700;800&family=Hind+Madurai:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -613,7 +615,7 @@ tr.group td { font-weight: 600; font-size: 13.5px; color: var(--muted); backgrou
 <div class="wrap">
 
 <header>
-  <div class="crumbs"><a href="/tamil-tess-trainer/">Tamil OCR for Tesseract</a> › Benchmark results</div>
+  <div class="crumbs"><a href="/tamil-tess-trainer/">Tamil OCR for Tesseract</a> › <a href="/tamil-tess-trainer/benchmarks/">Benchmark results</a> › tam_v3 and earlier models</div>
   <div class="eyebrow">Measured {{DATE}} · Tesseract 5.5.0 · 4 CPU cores</div>
   <h1>Benchmark results <span class="ta" lang="ta">அளவீட்டு முடிவுகள்</span></h1>
   <p class="lede">Every test of <b>tam_v3</b>, the open Tesseract model for printed Tamil, against Tesseract's stock Tamil
@@ -621,6 +623,9 @@ tr.group td { font-weight: 600; font-size: 13.5px; color: var(--muted); backgrou
     Project Anuvaad. The handwriting, camera-photo<!--COVERS--> and cover<!--/COVERS--> tests compare tam_v3 with the stock models and the Anuvaad
     model. None of our models was trained on any of these test sets; for the Anuvaad model this cannot be checked. Four
     other OCR systems, two commercial and two open source, appear with the results a published paper reports for them.</p>
+  <p class="note"><b>Archived results.</b> This page keeps every test of tam_v3 (release 3.0.0) and the models before it,
+    as measured 17–21 November 2026. The current model is tam_v3.1: see the
+    <a href="/tamil-tess-trainer/benchmarks/">benchmark page</a>.</p>
   <div class="summary" aria-label="What was tested">
     <span class="chip"><b>{{N_TESTSETS}}</b> test sets</span>
     <span class="chip"><b>9</b> models tested</span>
@@ -1021,7 +1026,7 @@ def main() -> int:
     ap.add_argument("--pages", type=Path, default=ROOT / "scans" / "wikisource", help="the real test pages (.gt.txt)")
     ap.add_argument("--date", default="17–21 November 2026")
     ap.add_argument("--no-covers", action="store_true", help="leave the covers-and-posters test off the page")
-    ap.add_argument("--out", type=Path, default=ROOT / "docs" / "benchmarks" / "index.html")
+    ap.add_argument("--out", type=Path, default=ROOT / "docs" / "benchmarks" / "tam_v3" / "index.html")
     args = ap.parse_args()
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(build(args.reports, args.extra_reports, args.new_reports, args.pages, args.date, args.res_reports,

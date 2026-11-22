@@ -87,6 +87,9 @@ python3 -I bootstrap_ci.py results/real_test_psm13/v3_best.jsonl results/real_te
 python3 -I 13_error_analysis.py results/real_test_psm13 $L v31_best v3_best > analysis/report.md
 # Crash scan with the stock CLI: all 8,211 real test + real dev + synthetic lines
 python3 -I 17_crash_scan.py DIR 7 all_lines.txt results/crash_NAME_psm7.txt
+# Tables and the web page (docs/benchmarks/index.html), both read from results/
+python3 -I 18_report_tables.py results > results/tables.md
+python3 -I 19_benchmark_page.py      # run inside the repository
 ```
 (`03_render_lines.py` runs without `-I` because PyGObject is a system package.)
 

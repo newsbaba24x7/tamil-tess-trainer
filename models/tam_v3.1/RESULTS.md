@@ -277,7 +277,7 @@ Recommended next:
 `english_terms.txt`, `fonts.tsv`, `fonts_audit.py`, `03_render_lines.py`, `04_make_lstmf.sh`, `05_build_starter.sh`,
 `06_train_best.sh`, `select_checkpoint.sh`, `interpolate_lstm.py`, `08_train_fast.sh`, `09_package.sh`,
 `10_evaluate.py`, `11_fetch_real_test.py`, `12_prepare_real_eval.py`, `13_error_analysis.py`,
-`14_fetch_real_lines.py`, `15_train_round4.sh`, `16_quote_patterns.py`, `17_crash_scan.py`, `18_report_tables.py`,
+`14_fetch_real_lines.py`, `15_train_round4.sh`, `16_quote_patterns.py`, `17_crash_scan.py`, `18_report_tables.py`, `19_benchmark_page.py`,
 `select_split.py`, `select_real.py`, `select_dev.py`, `bootstrap_ci.py`. Seeds fixed. Results: `results/`.
 
 ## H. Proposed deployment configurations

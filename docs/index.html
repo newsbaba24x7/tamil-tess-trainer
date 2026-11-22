@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tamil OCR for Tesseract</title>
-<meta name="description" content="tam_v3: an open Tesseract 5 model for printed Tamil, trained on openly licensed fonts and 174,624 real scanned lines proofread on Tamil Wikisource, with the tool that trains and tests it.">
-<meta property="og:title" content="Tamil OCR for Tesseract: the open tam_v3 model">
-<meta property="og:description" content="46% fewer character errors than Tesseract's stock Tamil model on 197 real scanned pages. Apache-2.0, works with standard Tesseract 5.">
+<meta name="description" content="tam_v3.1: open Tesseract 5 models for printed Tamil (best, integer and fast), fine-tuned from tam_v3, with the tool that trained its predecessors. Apache-2.0.">
+<meta property="og:title" content="Tamil OCR for Tesseract: the open tam_v3.1 models">
+<meta property="og:description" content="73% fewer character errors than Tesseract's stock Tamil model on 3,968 real scanned lines. Apache-2.0, works with standard Tesseract 5.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://newsbaba24x7.github.io/tamil-tess-trainer/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -221,22 +221,23 @@ footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line);
 <div class="wrap">
 
 <header>
-  <div class="eyebrow">Open Tamil OCR · Tesseract 5 · Apache-2.0 · updated 19 Nov 2026</div>
+  <div class="eyebrow">Open Tamil OCR · Tesseract 5 · Apache-2.0 · updated 22 Nov 2026</div>
   <h1>Tamil OCR for Tesseract <span class="ta" lang="ta">தமிழ் எழுத்துணரி</span></h1>
-  <p class="lede"><b>tam_v3</b> is an open Tesseract model for printed Tamil. It was fine-tuned from Tesseract's own
-    Tamil model with openly licensed fonts and 174,624 lines from 394 real scanned books and periodicals whose text
-    volunteers proofread on Tamil Wikisource. It works with the Tesseract you already have.</p>
+  <p class="lede"><b>tam_v3.1</b> is a set of three open Tesseract models for printed Tamil, one for each kind of
+    official Tesseract model: best (float), integer and fast. They build on tam_v3, which was trained on 174,624 lines
+    from 394 real scanned books and periodicals whose text volunteers proofread on Tamil Wikisource. They work with the
+    Tesseract you already have.</p>
   <div class="actions">
-    <a class="btn primary" href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/download/v3.0.0/tam_v3.traineddata">Download tam_v3 (8.5 MB)</a>
+    <a class="btn primary" href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/download/v3.1.0/tam_v3.1.traineddata">Download tam_v3.1 (4.6 MB)</a>
     <a class="btn" href="https://github.com/newsbaba24x7/tamil-tess-trainer">Source on GitHub</a>
     <a class="btn" href="benchmarks/">Benchmark results</a>
     <a class="btn" href="https://github.com/newsbaba24x7/tamil-tess-trainer/blob/main/MODEL_CARD.md">Model card</a>
   </div>
-  <div class="summary" aria-label="Results on 197 real scanned pages">
-    <span class="chip"><b>46%</b> fewer character errors</span>
-    <span class="chip"><b>39%</b> fewer word errors</span>
-    <span class="chip"><b>179</b> of 197 pages better, none worse</span>
-    <span class="chip"><b>1</b> file for standard Tesseract 5</span>
+  <div class="summary" aria-label="Results on 3,968 real scanned lines">
+    <span class="chip"><b>73%</b> fewer character errors than stock</span>
+    <span class="chip"><b>67%</b> fewer word errors than stock</span>
+    <span class="chip"><b>14%</b> fewer character errors than tam_v3</span>
+    <span class="chip"><b>3</b> files: best, integer, fast</span>
   </div>
 </header>
 
@@ -268,8 +269,8 @@ footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line);
   <p>This project improves Tamil OCR <em>inside Tesseract</em>, so every program that already uses Tesseract can
     benefit by switching one setting. It has two parts:</p>
   <ul class="list">
-    <li><b>tam_v3</b>, a ready-to-use model file for Tesseract 5, trained only on data that may be shared;</li>
-    <li><b>tamtrain</b>, the open tool that trained it: it renders Tamil fonts as scan-like text lines, adds real
+    <li><b>tam_v3.1</b>, ready-to-use model files for Tesseract 5 (best, integer and fast), fine-tuned from tam_v3;</li>
+    <li><b>tamtrain</b>, the open tool that trained tam_v2 and tam_v3: it renders Tamil fonts as scan-like text lines, adds real
       scanned lines with proofread text, fine-tunes Tesseract's model, and tests models honestly on real pages and
       public benchmarks.</li>
   </ul>
@@ -281,39 +282,43 @@ footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line);
   <h2>Quick start</h2>
   <p>You need Tesseract 5 (for example <code>sudo apt install tesseract-ocr</code> on Debian or Ubuntu). Download the
     model and read a page:</p>
-<pre><button class="copy" type="button">Copy</button><code>curl -LO https://github.com/newsbaba24x7/tamil-tess-trainer/releases/download/v3.0.0/tam_v3.traineddata
-tesseract page.png out -l tam_v3 --tessdata-dir .     <span class="c"># writes out.txt</span></code></pre>
+<pre><button class="copy" type="button">Copy</button><code>curl -LO https://github.com/newsbaba24x7/tamil-tess-trainer/releases/download/v3.1.0/tam_v3.1.traineddata
+tesseract page.png out -l tam_v3.1 --tessdata-dir .     <span class="c"># writes out.txt</span></code></pre>
   <ul class="list">
-    <li><b>Use it everywhere:</b> copy <code>tam_v3.traineddata</code> into Tesseract's tessdata folder
-      (<code>tesseract --list-langs</code> prints where it is). Then <code>-l tam_v3</code> works without
-      <code>--tessdata-dir</code>, including in programs built on Tesseract.</li>
-    <li><b>Faster version:</b> <a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/download/v3.0.0/tam_v3_fast.traineddata">tam_v3_fast.traineddata</a>
-      (5.7 MB) is about 25% faster and scores within 0.3 points of the full model.</li>
+    <li><b>Use it everywhere:</b> copy <code>tam_v3.1.traineddata</code> into Tesseract's tessdata folder
+      (<code>tesseract --list-langs</code> prints where it is). Then <code>-l tam_v3.1</code> works without
+      <code>--tessdata-dir</code>, including in programs built on Tesseract. Saved as <code>tam.traineddata</code>, it
+      replaces Tesseract's Tamil model.</li>
+    <li><b>Other versions:</b> <a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/download/v3.1.0/tam_best_v3.1.traineddata">tam_best_v3.1</a>
+      (7.3 MB, float) is the most accurate and the one to fine-tune; <a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/download/v3.1.0/tam_fast_v3.1.traineddata">tam_fast_v3.1</a>
+      (4.4 MB) is the smallest network and the best of the three on Tamil numerals and English words.</li>
     <li><b>Single text lines:</b> add <code>--psm 13</code>. Whole pages: keep Tesseract's default page mode.</li>
-    <li><b>Tamil with some English:</b> <code>-l tam_v3+eng</code> (needs Tesseract's English model, <code>eng</code>).</li>
+    <li><b>Tamil with some English:</b> <code>-l tam_v3.1</code> alone; it reads Latin letters.</li>
     <li><b>Check the download:</b> <code>sha256sum -c SHA256SUMS</code> with the file from the
-      <a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v3.0.0">release page</a>.</li>
+      <a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v3.1.0">release page</a>.</li>
   </ul>
 </section>
 
 <section id="features">
   <h2>Features</h2>
-  <h3>The tam_v3 model</h3>
+  <h3>The tam_v3.1 models</h3>
   <div class="grid">
-    <div class="card"><h3>Trained on real books</h3><p>174,624 real scanned lines from 394 books and periodical issues,
-      from 1847 to today, each paired with text that Tamil Wikisource volunteers proofread, plus rendered lines in 233
-      font styles with scan-like damage.</p></div>
+    <div class="card"><h3>Trained on real books</h3><p>tam_v3 learned from 174,624 real scanned lines from 394 books and
+      periodical issues, from 1847 to today, each paired with text that Tamil Wikisource volunteers proofread. tam_v3.1
+      trains again on 16,012 of them, mixed with new rendered lines.</p></div>
     <div class="card"><h3>Reads pre-1978 letter shapes</h3><p>Books printed before the 1978 script reform write
-      <span lang="ta">ணா றா னா ணை லை ளை னை</span> differently. tam_v3 reads 87.8% of such words exactly (stock: 80.7%) and
-      writes them in modern Unicode.</p></div>
+      <span lang="ta">ணா றா னா ணை லை ளை னை</span> differently. tam_v3, on which tam_v3.1 builds, reads 87.8% of such words
+      exactly (stock: 80.7%) and writes them in modern Unicode.</p></div>
     <div class="card"><h3>Clean Unicode text</h3><p>No invisible U+200C after pullis, composed vowel signs
       (<span lang="ta">ொ ோ ௌ</span>) and NFC normalisation, so the text searches and sorts correctly.</p></div>
-    <div class="card"><h3>English words in Tamil</h3><p>Trained also on Tamil Wikipedia sentences, which often give an
-      English name after the Tamil one: half the character errors of tam_v2 on the Tamil OCR Benchmark.</p></div>
-    <div class="card"><h3>Book vocabulary</h3><p>Its dictionary of 433,566 words adds the vocabulary of 420 proofread
-      books to Tesseract's own Tamil word list.</p></div>
-    <div class="card"><h3>Drop-in for Tesseract 5</h3><p>One <code>.traineddata</code> file, in a full (float) and a
-      fast (integer) version. Same command line, same API, no other software.</p></div>
+    <div class="card"><h3>English words and numerals</h3><p>tam_v3.1 adds English words, technical terms and all 36
+      Tamil numeral forms to training. On rendered mixed Tamil-English lines, tam_fast_v3.1 makes 40% fewer character
+      errors than tam_v3.</p></div>
+    <div class="card"><h3>Book vocabulary</h3><p>Its dictionary of 366,671 words combines the vocabulary of 420
+      proofread books with Tesseract's own Tamil word list, and its punctuation patterns know straight quotes.</p></div>
+    <div class="card"><h3>Drop-in for Tesseract 5</h3><p>Three <code>.traineddata</code> files in the formats of
+      Tesseract's own repositories: best (float), integer and fast. Same command line, same API, no other
+      software.</p></div>
   </div>
   <h3>The tamtrain tool</h3>
   <div class="grid">
@@ -333,14 +338,15 @@ tesseract page.png out -l tam_v3 --tessdata-dir .     <span class="c"># writes o
 <section id="benefits">
   <h2>Benefits</h2>
   <div class="grid">
-    <div class="card"><span class="big">46%</span><h3>Less proofreading</h3><p>Nearly half the character errors of the
-      stock model on real book pages means less correcting for digitisation projects, libraries and volunteers.</p></div>
+    <div class="card"><span class="big">73%</span><h3>Less proofreading</h3><p>Nearly three quarters fewer character errors
+      than the stock model on real scanned lines means less correcting for digitisation projects, libraries and
+      volunteers.</p></div>
     <div class="card"><span class="big">₹0</span><h3>Free and open</h3><p>Apache-2.0, like Tesseract. Use it in
       personal, institutional and commercial projects. No accounts, no per-page fees.</p></div>
     <div class="card"><span class="big">100%</span><h3>Private and offline</h3><p>Runs on your own computer. Pages
       never leave it, which matters for archives, legal papers and personal documents.</p></div>
     <div class="card"><span class="big">1 flag</span><h3>Easy to adopt</h3><p>Programs that already use Tesseract
-      switch with <code>-l tam_v3</code>. Speed and memory stay close to the stock model.</p></div>
+      switch with <code>-l tam_v3.1</code>. Reading speed stays within 3% of the stock model.</p></div>
     <div class="card"><span class="big">5</span><h3>Trustworthy numbers</h3><p>Five measures, real pages, public
       benchmarks, and scoring that reproduces the published RANLP 2025 results for Tesseract.</p></div>
     <div class="card"><span class="big">+</span><h3>Built to improve</h3><p>The data lists, tools and tests are
@@ -350,139 +356,38 @@ tesseract page.png out -l tam_v3 --tessdata-dir .     <span class="c"># writes o
 
 <section id="results">
   <h2>Benchmark results</h2>
-  <p>CER is the character error rate and WER the word error rate: lower is better. BLEU, ANLS and METEOR measure
-    text similarity from 0 to 1: higher is better. All scores were measured with Tesseract 5.5.0 on test data that no
-    model was trained on. <b><a href="benchmarks/">All benchmark results</a></b> has the full tables, with
-    the measures explained and how to reproduce them. The stock models are Tesseract's official <code>tam</code> from tessdata_best 4.1.0 and the Ubuntu package <code>tesseract-ocr-tam</code> 1:4.1.0-2build1 (tessdata_fast 4.1.0); both were trained in 2017.</p>
-
-  <h3>197 real scanned pages from 186 Tamil Wikisource books</h3>
-  <p class="cap">Whole pages read with Tesseract's default page mode. Random proofread pages, from clean modern print to badly damaged old books.</p>
+  <p>3,968 real scanned lines from 197 pages of Tamil Wikisource books, read one at a time with Tesseract 5.5.0; no model
+    was trained on them. CER is the character error rate and WER the word error rate: lower is better.</p>
   <div class="table-wrap"><table>
-    <thead><tr><th>Model</th><th class="n">CER</th><th class="n">Tamil letters only</th><th class="n">WER</th><th class="n">Pages better / worse than stock</th></tr></thead>
+    <thead><tr><th>Model</th><th class="n">CER</th><th class="n">WER</th></tr></thead>
     <tbody>
-      <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">6.33%</td><td class="n">4.34%</td><td class="n">31.10%</td><td class="n">–</td></tr>
-      <tr><td>V1 (research)</td><td class="n">6.34%</td><td class="n">4.19%</td><td class="n">32.01%</td><td class="n">62 / 57</td></tr>
-      <tr><td>V2-research (research)</td><td class="n">5.27%</td><td class="n">3.63%</td><td class="n">25.95%</td><td class="n">136 / 5</td></tr>
-      <tr><td>tam_v2</td><td class="n">4.07%</td><td class="n">2.60%</td><td class="n">20.84%</td><td class="n">173 / 1</td></tr>
-      <tr class="ours"><td>tam_v3</td><td class="n"><b class="best">3.41%</b></td><td class="n"><b class="best">2.07%</b></td><td class="n">19.10%</td><td class="n"><b class="best">179 / 0</b></td></tr>
-      <tr><td>tam_v3_fast</td><td class="n">3.61%</td><td class="n">2.37%</td><td class="n"><b class="best">18.99%</b></td><td class="n">–</td></tr>
+      <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">3.56%</td><td class="n">21.16%</td></tr>
+      <tr><td>tam_v3</td><td class="n">1.13%</td><td class="n">7.92%</td></tr>
+      <tr class="ours"><td>tam_best_v3.1</td><td class="n"><b class="best">0.97%</b></td><td class="n"><b class="best">6.88%</b></td></tr>
+      <tr class="ours"><td>tam_v3.1</td><td class="n">1.04%</td><td class="n">7.02%</td></tr>
+      <tr class="ours"><td>tam_fast_v3.1</td><td class="n">1.33%</td><td class="n">8.32%</td></tr>
     </tbody>
   </table></div>
-  <p class="note">By difficulty (grouped by the stock model's CER), tam_v3 lowers CER from 2.80% to 1.38% on easy pages, 8.90% to 4.20% on medium pages and 23.5% to 16.4% on hard pages (tables, columns, damaged print). tam_v2 had 1.63%, 5.28% and 18.1%.</p>
-
-  <h3>3,968 real text lines from those pages</h3>
-  <p class="cap">Single lines read with <code>--psm 13</code>.</p>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Model</th><th class="n">CER</th><th class="n">WER</th><th class="n">BLEU</th><th class="n">ANLS</th><th class="n">METEOR</th></tr></thead>
-    <tbody>
-      <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">3.56%</td><td class="n">21.16%</td><td class="n">0.4320</td><td class="n">0.9593</td><td class="n">0.7373</td></tr>
-      <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">4.18%</td><td class="n">22.77%</td><td class="n">0.4280</td><td class="n">0.9493</td><td class="n">0.7280</td></tr>
-      <tr><td>V1 (research)</td><td class="n">3.21%</td><td class="n">19.79%</td><td class="n">0.4879</td><td class="n">0.9631</td><td class="n">0.7706</td></tr>
-      <tr><td>V2-research (research)</td><td class="n">2.30%</td><td class="n">14.65%</td><td class="n">0.5406</td><td class="n">0.9720</td><td class="n">0.8022</td></tr>
-      <tr><td>tam_v2</td><td class="n">1.49%</td><td class="n">10.08%</td><td class="n">0.6363</td><td class="n">0.9814</td><td class="n">0.8613</td></tr>
-      <tr class="ours"><td>tam_v3</td><td class="n"><b class="best">1.13%</b></td><td class="n"><b class="best">7.92%</b></td><td class="n">0.6649</td><td class="n"><b class="best">0.9865</b></td><td class="n"><b class="best">0.8854</b></td></tr>
-      <tr><td>tam_v3_fast</td><td class="n">1.21%</td><td class="n">7.98%</td><td class="n"><b class="best">0.6657</b></td><td class="n">0.9854</td><td class="n">0.8849</td></tr>
-    </tbody>
-  </table></div>
-
-  <h3>RANLP 2025 synthetic Tamil (7,000 lines)</h3>
-  <p class="cap">Scored exactly as in the paper: text compared as is, Tesseract's default page mode. Paper rows are Table 1 of Jayatilleke &amp; de Silva (2025).</p>
-  <div class="table-wrap"><table>
-    <thead><tr><th>System</th><th class="n">CER</th><th class="n">WER</th><th class="n">BLEU</th><th class="n">ANLS</th><th class="n">METEOR</th></tr></thead>
-    <tbody>
-      <tr class="paper"><td>Google Document AI (commercial), paper</td><td class="n"><b class="best">0.78%</b></td><td class="n">11.98%</td><td class="n">0.5803</td><td class="n"><b class="best">0.9923</b></td><td class="n"><b class="best">0.8762</b></td></tr>
-      <tr class="paper"><td>Google Cloud Vision API (commercial), paper</td><td class="n">0.79%</td><td class="n">12.04%</td><td class="n">0.5790</td><td class="n">0.9922</td><td class="n">0.8751</td></tr>
-      <tr><td>V1 (research)</td><td class="n">0.97%</td><td class="n">14.15%</td><td class="n">0.5587</td><td class="n">0.9905</td><td class="n">0.8600</td></tr>
-      <tr><td>V2-research (research)</td><td class="n">1.07%</td><td class="n"><b class="best">11.16%</b></td><td class="n">0.5514</td><td class="n">0.9893</td><td class="n">0.8560</td></tr>
-      <tr class="ours"><td>tam_v3</td><td class="n">0.80%</td><td class="n">12.78%</td><td class="n"><b class="best">0.5825</b></td><td class="n"><b class="best">0.9923</b></td><td class="n">0.8715</td></tr>
-      <tr><td>tam_v2</td><td class="n">1.15%</td><td class="n">17.94%</td><td class="n">0.4994</td><td class="n">0.9887</td><td class="n">0.8214</td></tr>
-      <tr class="paper"><td>Tesseract 5.5.0, paper</td><td class="n">7.80%</td><td class="n">61.45%</td><td class="n">0.0493</td><td class="n">0.9264</td><td class="n">0.3201</td></tr>
-      <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package), measured here</td><td class="n">7.73%</td><td class="n">58.35%</td><td class="n">0.0507</td><td class="n">0.9270</td><td class="n">0.3226</td></tr>
-      <tr class="paper"><td>EasyOCR, paper</td><td class="n">11.72%</td><td class="n">28.76%</td><td class="n">0.3461</td><td class="n">0.8828</td><td class="n">0.6744</td></tr>
-      <tr class="paper"><td>Surya, paper</td><td class="n">13.92%</td><td class="n">65.00%</td><td class="n">0.1487</td><td class="n">0.8672</td><td class="n">0.3359</td></tr>
-    </tbody>
-  </table></div>
-  <ul class="list small muted">
-    <li>Our scoring reproduces the paper's: the stock model scores within 0.1 points of its Tesseract CER and within 0.003 of its BLEU, ANLS and METEOR.</li>
-    <li>The stock model's poor score here is mostly the invisible U+200C it writes after pullis. All our models remove it.</li>
-    <li>tam_v3 beats Google Document AI on BLEU, ties it on ANLS and comes within 0.02 points on CER.</li>
-    <li>In 96% of this dataset the vowel signs were stripped from the text before the images were drawn, so it is not natural Tamil. On the natural-Tamil lines tam_v3's CER is 0.02%. Real scans are the harder test.</li>
-  </ul>
-
-  <h3>Tamil OCR Benchmark (200 rendered lines, a quarter with English words)</h3>
-  <p class="cap">Clean renders of real Tamil sentences in one font (Noto Sans Tamil), read as single lines, <code>--psm 7</code>.</p>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Model</th><th class="n">CER</th><th class="n">WER</th><th class="n">BLEU</th><th class="n">ANLS</th><th class="n">METEOR</th></tr></thead>
-    <tbody>
-      <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">5.44%</td><td class="n">9.92%</td><td class="n">0.5838</td><td class="n">0.9124</td><td class="n">0.8597</td></tr>
-      <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n">5.36%</td><td class="n">9.72%</td><td class="n">0.5879</td><td class="n">0.9162</td><td class="n">0.8632</td></tr>
-      <tr><td>V2-research (research)</td><td class="n">5.50%</td><td class="n">9.78%</td><td class="n">0.5897</td><td class="n">0.9157</td><td class="n">0.8675</td></tr>
-      <tr><td>tam_v2</td><td class="n">3.25%</td><td class="n">10.27%</td><td class="n">0.5772</td><td class="n">0.9489</td><td class="n">0.8598</td></tr>
-      <tr class="ours"><td>tam_v3</td><td class="n">1.54%</td><td class="n"><b class="best">8.40%</b></td><td class="n">0.5951</td><td class="n">0.9761</td><td class="n">0.8775</td></tr>
-      <tr><td>tam_v3_fast</td><td class="n"><b class="best">1.50%</b></td><td class="n"><b class="best">8.40%</b></td><td class="n"><b class="best">0.5957</b></td><td class="n"><b class="best">0.9767</b></td><td class="n"><b class="best">0.8776</b></td></tr>
-    </tbody>
-  </table></div>
-  <p class="note">tam_v3 halves tam_v2's character errors here and makes the fewest word errors of these models. Nearly all of its remaining errors are in the English words: on the Tamil letters alone its CER is 0.10% (see <a href="#limitations">Limitations</a>).</p>
-
-  <h3>Scanning resolution</h3>
-  <p class="cap">The same pages as scanned and shrunk to what 300 to 72 DPI would capture of 12-pt print. CER / WER; the best CER in each row is marked. Stock is tessdata_best 4.1.0.</p>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Page set</th><th>Resolution</th><th class="n">Stock <code>tam</code></th><th class="n">tam_v2</th><th class="n">tam_v3</th></tr></thead>
-    <tbody>
-      <tr><td rowspan="6">Real test pages (167 pages)</td><td>As scanned</td><td class="n">6.44% / 32.13%</td><td class="n">4.01% / 21.02%</td><td class="n"><b class="best">3.40% / 19.28%</b></td></tr>
-      <tr><td>300 DPI</td><td class="n">6.13% / 30.58%</td><td class="n">4.00% / 20.43%</td><td class="n"><b class="best">3.48% / 18.81%</b></td></tr>
-      <tr><td>200 DPI</td><td class="n">5.85% / 28.09%</td><td class="n">3.90% / 18.69%</td><td class="n"><b class="best">3.54% / 17.35%</b></td></tr>
-      <tr><td>150 DPI</td><td class="n">5.90% / 26.90%</td><td class="n">4.21% / 18.79%</td><td class="n"><b class="best">3.94% / 17.77%</b></td></tr>
-      <tr><td>100 DPI</td><td class="n">6.65% / 31.82%</td><td class="n"><b class="best">5.20% / 23.67%</b></td><td class="n">5.51% / 25.05%</td></tr>
-      <tr><td>72 DPI</td><td class="n"><b class="best">15.01% / 50.58%</b></td><td class="n">18.47% / 51.95%</td><td class="n">22.64% / 58.50%</td></tr>
-      <tr><td rowspan="6">Old books, before 1960 (45 pages)</td><td>As scanned</td><td class="n">15.79% / 71.37%</td><td class="n">9.05% / 46.57%</td><td class="n"><b class="best">7.87% / 42.94%</b></td></tr>
-      <tr><td>300 DPI</td><td class="n">16.25% / 67.05%</td><td class="n">10.13% / 43.64%</td><td class="n"><b class="best">9.23% / 40.42%</b></td></tr>
-      <tr><td>200 DPI</td><td class="n">14.28% / 63.27%</td><td class="n">8.68% / 41.81%</td><td class="n"><b class="best">7.98% / 39.29%</b></td></tr>
-      <tr><td>150 DPI</td><td class="n">14.69% / 63.32%</td><td class="n">9.29% / 43.24%</td><td class="n"><b class="best">8.79% / 40.95%</b></td></tr>
-      <tr><td>100 DPI</td><td class="n">18.76% / 68.77%</td><td class="n"><b class="best">15.57% / 56.64%</b></td><td class="n">16.21% / 56.28%</td></tr>
-      <tr><td>72 DPI</td><td class="n"><b class="best">36.22% / 84.46%</b></td><td class="n">40.14% / 84.67%</td><td class="n">43.20% / 86.37%</td></tr>
-    </tbody>
-  </table></div>
-  <p class="note">tam_v3 is the most accurate model down to 150 DPI and loses little down to 200 DPI. At 100 DPI tam_v2 is slightly ahead, and at 72 DPI the stock model reads best: very small text is tam_v3's weak spot. Scan at 200 DPI or more. <a href="benchmarks/#resolution">How the test works, and BLEU, ANLS and METEOR</a>.</p>
-
-  <h3>Handwriting and camera photos</h3>
-  <p class="cap">Harder material than any model here was made for, read line by line with <code>--psm 13</code>. Stock is tessdata_best 4.1.0.</p>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Test</th><th>Measure</th><th class="n">Stock <code>tam</code></th><th class="n">tam_v3</th></tr></thead>
-    <tbody>
-      <tr><td>Handwritten words, IIIT-INDIC-HW-WORDS (16,184)</td><td>CER, lower is better</td><td class="n">59.94%</td><td class="n"><b class="best">53.45%</b></td></tr>
-      <tr><td>Handwritten lines made from those words (3,570)</td><td>CER</td><td class="n">52.75%</td><td class="n"><b class="best">44.82%</b></td></tr>
-      <tr><td>Camera photos of documents, Appen (1,255 lines)</td><td>CER</td><td class="n">11.83%</td><td class="n"><b class="best">9.17%</b></td></tr>
-    </tbody>
-  </table></div>
-  <p class="note">Neither model was trained on handwriting, and both read it poorly. In photos, printed documents read well (under 3% CER for trade documents, book pages and papers) and handwritten notes and whiteboards do not. <a href="benchmarks/#handwriting">Full tables, with the Anuvaad model</a>.</p>
-
-  <h3>Speed and memory</h3>
-  <p class="cap">One page at a time, one CPU thread, the same 8 real pages for every model (middle of three runs).</p>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Model</th><th class="n">Seconds per page</th><th class="n">Peak memory</th><th class="n">File size</th></tr></thead>
-    <tbody>
-      <tr><td>Stock <code>tam</code> (tessdata_best 4.1.0)</td><td class="n">1.50</td><td class="n">61 MB</td><td class="n">6.0 MB</td></tr>
-      <tr><td>Stock <code>tam</code> (tessdata_fast 4.1.0, Ubuntu package)</td><td class="n"><b class="best">1.06</b></td><td class="n"><b class="best">53 MB</b></td><td class="n">3.2 MB</td></tr>
-      <tr><td>tam_v2</td><td class="n">1.57</td><td class="n">68 MB</td><td class="n">6.5 MB</td></tr>
-      <tr><td>tam_v2_fast</td><td class="n">1.16</td><td class="n">62 MB</td><td class="n">3.7 MB</td></tr>
-      <tr class="ours"><td>tam_v3</td><td class="n">1.59</td><td class="n">70 MB</td><td class="n">8.5 MB</td></tr>
-      <tr><td>tam_v3_fast</td><td class="n">1.15</td><td class="n">66 MB</td><td class="n">5.7 MB</td></tr>
-    </tbody>
-  </table></div>
+  <p><b><a href="benchmarks/">All benchmark results</a></b>: every model on these lines and on rendered lines by category,
+    characters, significance, speed, size and how to reproduce them. Results for tam_v3 and the earlier models on whole
+    pages, RANLP 2025, the Tamil OCR Benchmark, scanning resolution, handwriting and camera photos are on the
+    <a href="benchmarks/tam_v3/">tam_v3 benchmark page</a>.</p>
 </section>
 
 <section id="models">
   <h2>Models</h2>
-  <p>Four models have been trained with tamtrain. Use <b>tam_v3</b>; tam_v2 stays available, and the other two are published for research and comparison.</p>
+  <p>Use <b>tam_v3.1</b>. tam_v3 and tam_v2, trained with tamtrain, stay available; the two research models are published for comparison.</p>
   <div class="table-wrap"><table>
     <thead><tr><th>Model</th><th>Status</th><th>Trained on</th><th>Licence</th><th>Download</th></tr></thead>
     <tbody>
-      <tr class="ours"><td>tam_v3<br><span class="small muted">and tam_v3_fast</span></td><td><span class="pill good">Recommended</span></td>
-        <td>233 openly licensed font styles and 174,624 real scanned lines from 394 books</td><td>Apache-2.0</td>
-        <td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v3.0.0">v3.0.0</a> · <a href="https://github.com/newsbaba24x7/tamil-tess-trainer/blob/main/MODEL_CARD.md">card</a></td></tr>
+      <tr class="ours"><td>tam_v3.1<br><span class="small muted">tam_best_v3.1, tam_v3.1, tam_fast_v3.1</span></td><td><span class="pill good">Recommended</span></td>
+        <td>tam_v3, then 16,012 of its real lines and new rendered lines with Tamil numerals, English words and punctuation</td><td>Apache-2.0</td>
+        <td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v3.1.0">v3.1.0</a> · <a href="https://github.com/newsbaba24x7/tamil-tess-trainer/blob/main/MODEL_CARD.md">card</a></td></tr>
+      <tr><td>tam_v3<br><span class="small muted">and tam_v3_fast</span></td><td><span class="pill quiet">Previous</span></td>
+        <td>233 font styles (licences listed in the repository) and 174,624 real scanned lines from 394 books</td><td>Apache-2.0</td>
+        <td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v3.0.0">v3.0.0</a> · <a href="https://github.com/newsbaba24x7/tamil-tess-trainer/blob/main/models/tam_v3/README.md">card</a></td></tr>
       <tr><td>tam_v2<br><span class="small muted">and tam_v2_fast</span></td><td><span class="pill quiet">Previous</span></td>
-        <td>233 openly licensed font styles and 24,445 real scanned lines; better than tam_v3 at 72–100 DPI</td><td>Apache-2.0</td>
+        <td>233 font styles (licences listed in the repository) and 24,445 real scanned lines; better than tam_v3 at 72–100 DPI</td><td>Apache-2.0</td>
         <td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v2.0.0">v2.0.0</a> · <a href="https://github.com/newsbaba24x7/tamil-tess-trainer/blob/main/models/tam_v2/README.md">card</a></td></tr>
       <tr><td>tam_v2_research<br><span class="small muted">V2-research</span></td><td><span class="pill warn">Non-commercial only</span></td>
         <td>276 font styles, fonts only; includes C-DAC GIST fonts licensed for non-commercial use</td><td>CC BY-NC 4.0</td>
@@ -492,7 +397,7 @@ tesseract page.png out -l tam_v3 --tessdata-dir .     <span class="c"># writes o
         <td><a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v1.0.0">v1.0.0</a> · <a href="https://github.com/newsbaba24x7/tamil-tess-trainer/blob/main/models/tam_multifont/README.md">card</a></td></tr>
     </tbody>
   </table></div>
-  <p class="note">What the models taught us: V1 learned its fonts very well (rendered-line CER 6.54% → 2.01%) but did not improve real scans at all. V2-research fixed old letter shapes, word spacing and stray digits and beat the stock model on real pages. tam_v2 added real scanned lines and moved to openly licensed fonts only. tam_v3 added seven times as many real lines, from 394 books and periodicals, and Wikipedia text with English names.</p>
+  <p class="note">What the models taught us: V1 learned its fonts very well (rendered-line CER 6.54% → 2.01%) but did not improve real scans at all. V2-research fixed old letter shapes, word spacing and stray digits and beat the stock model on real pages. tam_v2 added real scanned lines and moved to openly licensed fonts only. tam_v3 added seven times as many real lines, from 394 books and periodicals, and Wikipedia text with English names. tam_v3.1 cleaned the character set, added numerals, English words and punctuation, and made files for all three of Tesseract's model repositories.</p>
 </section>
 
 <section id="how">
@@ -502,6 +407,7 @@ tesseract page.png out -l tam_v3 --tessdata-dir .     <span class="c"># writes o
     <li><b>Render scan-like lines</b><span>Book text from 420 proofread Wikisource books, Tesseract's own training text and Tamil Wikipedia sentences, drawn with realistic word spacing and scan damage. Three font families are held out for testing.</span></li>
     <li><b>Cut real scans into lines</b><span>Books with enough proofread pages on Tamil Wikisource were matched with their scans on archive.org (often 600 ppi copies from the Tamil Virtual Academy) or rendered from Wikimedia's copy. Lines are kept only when their first and last words agree with the proofread text. No test book is used, and lines that share text with any test set are dropped.</span></li>
     <li><b>Fine-tune Tesseract's model</b><span>tam_v2 was trained from tessdata_best <code>tam</code> for 100,000 iterations; tam_v3 continued from tam_v2 for 270,000 iterations on 174,624 real and 91,530 rendered lines, in sessions of 20,000, checked on 2,854 real lines from five other books. About 4.5 hours on 2 CPU threads.</span></li>
+    <li><b>tam_v3.1</b><span>tam_v3 was trained again for 20,000 iterations on 16,012 of its real lines mixed half and half with rendered lines that add Tamil numerals, English words and book punctuation, then blended with tam_v3 (0.5 each). The integer and fast versions were made from that model. Scripts: <a href="https://github.com/newsbaba24x7/tamil-tess-trainer/tree/main/models/tam_v3.1">models/tam_v3.1</a>.</span></li>
     <li><b>Test on what it never saw</b><span>197 real pages, their 3,968 lines, the RANLP 2025 set, the Tamil OCR Benchmark and the scanning-resolution sets, against the stock model, the earlier models and a third-party model; then handwriting and camera photos of documents.</span></li>
   </ol>
 </section>
@@ -509,13 +415,19 @@ tesseract page.png out -l tam_v3 --tessdata-dir .     <span class="c"># writes o
 <section id="limitations">
   <h2>Limitations</h2>
   <ul class="list">
-    <li><b>Spurious spaces.</b> On clean pages 11.4% of words are still wrong. The largest cause is a space that splits a word, mostly right after a vowel sign or pulli (<span lang="ta">தரை யோடு</span>), then punctuation, wrong letters and page headers.</li>
-    <li><b>Low resolution:</b> below 150 DPI (for 12-pt text) every model's errors rise steeply, and tam_v3's most: at 72 DPI its CER is 22.6% on the real pages against 15.0% for the stock model. Scan at 200 DPI or more.</li>
-    <li><b>English words inside Tamil lines</b> are read much better than before but still cost some whole words.</li>
-    <li><b>Hard pages stay hard:</b> tables, several columns and badly damaged print (16.4% CER).</li>
-    <li><b>Newspapers:</b> 11 issues of one old newspaper were used in training; there is no test set of scanned newspapers yet. On 375 lines from phone photos of newspapers tam_v3's CER is 6.06%.</li>
-    <li><b>Covers and posters:</b> Tesseract's default page mode often skips large or decorated titles; try <code>--psm 11</code> (sparse text). A test of covers and posters is being prepared.</li>
-    <li><b>Not for</b> handwriting (45% CER on handwritten lines), or for PDFs whose text layer uses legacy encodings (TSCII, TAB/TAM, Bamini).</li>
+    <li><b>Word errors:</b> 6.9% of words on the real test lines are still wrong with tam_best_v3.1, mostly from
+      punctuation and spacing.</li>
+    <li><b>Tamil numerals:</b> tam_best_v3.1 and tam_v3.1 read 57% of the numerals on rendered lines (stock: 82%,
+      tam_fast_v3.1: 80%); Tamil digits look like letters. The symbols <span lang="ta">௳–௺ ௐ</span> are not read by them.</li>
+    <li><b>Not yet measured for tam_v3.1:</b> whole pages, low-resolution scans, newspapers, handwriting and photos. tam_v3's
+      limits there probably still apply: spurious spaces that split words, errors that rise steeply below 150 DPI (scan
+      at 200 DPI or more), hard pages with tables or damaged print, and handwriting (45% CER). See the
+      <a href="benchmarks/tam_v3/">tam_v3 benchmark page</a>.</li>
+    <li><b>Covers and posters:</b> Tesseract's default page mode often skips large or decorated titles; try <code>--psm 11</code> (sparse text).</li>
+    <li><b>Single-line modes with Tesseract 5.5.0–5.5.3:</b> the command-line program can stop with "Floating point
+      exception" on rare lines (tam_fast_v3.1: 2 of 8,211 test lines with <code>--psm 7</code>). This Tesseract bug is
+      fixed in 5.5.4.</li>
+    <li><b>Not for</b> PDFs whose text layer uses legacy encodings (TSCII, TAB/TAM, Bamini).</li>
   </ul>
 </section>
 
@@ -528,16 +440,16 @@ python3 -m tamtrain fonts --fonts ~/my-tamil-fonts --ocr-check     <span class="
 python3 -m tamtrain all --fonts ~/my-tamil-fonts --name tam_myfonts \
     --lines-per-font 1000 --iterations 10000                       <span class="c"># render, train, evaluate</span>
 python3 -m tamtrain scans my-scans/ --work work                    <span class="c"># test on your own scanned pages</span></code></pre>
-  <p>The <a href="https://github.com/newsbaba24x7/tamil-tess-trainer#readme">README</a> covers every option, the real-line pipeline, and how to rebuild tam_v3's exact training lines from the published line list.</p>
+  <p>The <a href="https://github.com/newsbaba24x7/tamil-tess-trainer#readme">README</a> covers every option, the real-line pipeline, and how to rebuild tam_v3's exact training lines from the published line list. tam_v3.1's scripts are in <a href="https://github.com/newsbaba24x7/tamil-tess-trainer/tree/main/models/tam_v3.1">models/tam_v3.1</a>.</p>
 </section>
 
 <section id="faq">
   <h2>FAQ</h2>
   <dl class="faq">
     <dt>Do I need anything besides Tesseract?</dt>
-    <dd>No. tam_v3 is a model file for Tesseract 5. Download it and use <code>-l tam_v3</code>.</dd>
+    <dd>No. tam_v3.1 is a model file for Tesseract 5. Download it and use <code>-l tam_v3.1</code>.</dd>
     <dt>Can I use it commercially?</dt>
-    <dd>Yes, tam_v3 (like tam_v2) is Apache-2.0. The V2-research model is for non-commercial use only, because some of its training fonts are.</dd>
+    <dd>Yes, tam_v3.1 (like tam_v3 and tam_v2) is Apache-2.0. The V2-research model is for non-commercial use only, because some of its training fonts are.</dd>
     <dt>Does it send my documents anywhere?</dt>
     <dd>No. Tesseract runs entirely on your computer.</dd>
     <dt>Will it read old books?</dt>
@@ -552,10 +464,10 @@ python3 -m tamtrain scans my-scans/ --work work                    <span class="
 <section id="licences">
   <h2>Data, licences and thanks</h2>
   <ul class="list">
-    <li><b>Code, tam_v3 and tam_v2:</b> Apache License 2.0. Both are fine-tuned from Tesseract's <code>tam</code> model (tessdata_best, Apache-2.0); tam_v3 continues from tam_v2.</li>
+    <li><b>Code, tam_v3.1, tam_v3 and tam_v2:</b> Apache License 2.0. All are fine-tuned from Tesseract's <code>tam</code> model (tessdata_best, Apache-2.0); tam_v3 continues from tam_v2, and tam_v3.1 from tam_v3.</li>
     <li><b>Text:</b> proofread page text by the Tamil Wikisource contributors and sentences by the Tamil Wikipedia contributors, CC BY-SA 4.0. The released training text, word list and line list contain it and are shared under the same licence.</li>
     <li><b>Page images:</b> from the Internet Archive (mostly copies of the Tamil Virtual Academy / Tamil Digital Library and the Digital Library of India) and the Tamil Wikisource scans on Wikimedia. They are not redistributed; the line list says where each page can be downloaded.</li>
-    <li><b>Fonts:</b> every training font and its licence is listed in the repository. Fonts are not redistributed.</li>
+    <li><b>Fonts:</b> every training font and its licence is listed in the repository. New tam_v3.1 lines use only fonts under OFL-1.1 or GPL with the font exception; a review made for tam_v3.1 found some licences recorded for earlier fonts unverified (<a href="https://github.com/newsbaba24x7/tamil-tess-trainer/blob/main/models/tam_v3.1/LICENSING.md">LICENSING.md</a>). Fonts are not redistributed.</li>
     <li><b>Benchmarks:</b> the RANLP 2025 and Tamil OCR Benchmark datasets, IIIT-INDIC-HW-WORDS (CC BY 4.0) and Appen's Tamil document photos (CC BY-SA 4.0) were used for testing only and are not redistributed.</li>
   </ul>
   <p>Thanks to the Tamil Wikisource volunteers, the Tamil Virtual Academy, the Internet Archive, the Tesseract developers, the designers of the open Tamil fonts, CVIT at IIIT Hyderabad, Appen, and the authors of the public benchmarks.</p>
@@ -586,12 +498,12 @@ python3 -m tamtrain scans my-scans/ --work work                    <span class="
 
 <section id="cite">
   <h2>Cite</h2>
-  <p>If you use tam_v3 or tamtrain in research, please cite:</p>
-<pre><button class="copy" type="button">Copy</button><code>@misc{tam_v3_2026,
-  title        = {tam\_v3: an open Tesseract model for printed Tamil},
+  <p>If you use tam_v3.1 or tamtrain in research, please cite:</p>
+<pre><button class="copy" type="button">Copy</button><code>@misc{tam_v3_1_2026,
+  title        = {tam\_v3.1: open Tesseract models for printed Tamil},
   author       = {{NewsBaba and contributors}},
   year         = {2026},
-  version      = {3.0.0},
+  version      = {3.1.0},
   howpublished = {\url{https://github.com/newsbaba24x7/tamil-tess-trainer}}
 }</code></pre>
 </section>
@@ -599,8 +511,8 @@ python3 -m tamtrain scans my-scans/ --work work                    <span class="
 </main>
 
 <footer>
-  <div>tam_v3 and tamtrain · Apache-2.0 · <a href="https://github.com/newsbaba24x7/tamil-tess-trainer">github.com/newsbaba24x7/tamil-tess-trainer</a></div>
-  <div>Benchmark figures from <a href="benchmarks/">the benchmark page</a>, measured 17–21 November 2026 with Tesseract 5.5.0.</div>
+  <div>tam_v3.1, tam_v3 and tamtrain · Apache-2.0 · <a href="https://github.com/newsbaba24x7/tamil-tess-trainer">github.com/newsbaba24x7/tamil-tess-trainer</a></div>
+  <div>Benchmark figures from <a href="benchmarks/">the benchmark page</a>, measured 22 November 2026 with Tesseract 5.5.0; earlier models on <a href="benchmarks/tam_v3/">the tam_v3 page</a>.</div>
 </footer>
 
 </div>
