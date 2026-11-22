@@ -1,0 +1,285 @@
+# English technical terms seen in Tamil documents. Written for this project (no external source).
+# 02_make_corpus.py holds out every 5th term for evaluation only.
+OCR
+Tesseract
+Unicode
+UTF-8
+Python
+JavaScript
+Java
+Linux
+Windows
+Android
+iOS
+macOS
+GitHub
+API
+JSON
+XML
+HTML
+CSS
+SQL
+PostgreSQL
+database
+server
+client
+cloud
+software
+hardware
+laptop
+smartphone
+tablet
+internet
+Wi-Fi
+Bluetooth
+USB
+PDF
+JPEG
+PNG
+TIFF
+DPI
+CPU
+GPU
+RAM
+SSD
+GB
+MB
+GHz
+LSTM
+neural network
+machine learning
+deep learning
+dataset
+algorithm
+compiler
+kernel
+browser
+website
+email
+password
+login
+upload
+download
+update
+version
+release
+open source
+licence
+Apache
+GPL
+keyboard
+mouse
+printer
+scanner
+camera
+pixel
+resolution
+font
+encoding
+character
+OpenType
+TrueType
+Docker
+Kubernetes
+container
+microservice
+backend
+frontend
+framework
+library
+module
+function
+variable
+parameter
+array
+string
+integer
+float
+boolean
+loop
+debugging
+testing
+deployment
+pipeline
+repository
+commit
+branch
+merge
+pull request
+issue
+token
+cache
+memory
+storage
+backup
+network
+router
+firewall
+VPN
+HTTP
+HTTPS
+URL
+DNS
+IP address
+bandwidth
+latency
+throughput
+benchmark
+accuracy
+precision
+recall
+F1 score
+CER
+WER
+model
+training
+inference
+quantization
+checkpoint
+epoch
+batch size
+learning rate
+GPU memory
+TensorFlow
+PyTorch
+NumPy
+pandas
+Jupyter
+notebook
+spreadsheet
+Excel
+PowerPoint
+Word
+Google Docs
+YouTube
+WhatsApp
+Facebook
+Instagram
+Twitter
+LinkedIn
+Telegram
+Zoom
+podcast
+blog
+startup
+e-commerce
+UPI
+QR code
+ATM
+OTP
+PIN
+GST
+PAN
+Aadhaar
+IFSC
+NEFT
+RTGS
+KYC
+ISRO
+NASA
+satellite
+GPS
+DNA
+RNA
+COVID-19
+vaccine
+virus
+bacteria
+protein
+molecule
+atom
+electron
+voltage
+current
+resistor
+transistor
+semiconductor
+microprocessor
+Arduino
+Raspberry Pi
+sensor
+robot
+drone
+3D printer
+virtual reality
+augmented reality
+blockchain
+cryptocurrency
+encryption
+decryption
+cybersecurity
+malware
+phishing
+spam
+chatbot
+artificial intelligence
+AI
+NLP
+speech recognition
+text-to-speech
+transliteration
+keyboard layout
+input method
+e-book
+Kindle
+metadata
+XML schema
+regular expression
+command line
+terminal
+shell script
+Bash
+PowerShell
+Makefile
+CMake
+GCC
+Clang
+LLVM
+Rust
+Go
+C++
+C#
+Kotlin
+Swift
+TypeScript
+React
+Node.js
+npm
+pip
+virtualenv
+SDK
+IDE
+VS Code
+Vim
+Emacs
+Git
+SVN
+CI/CD
+DevOps
+SaaS
+PaaS
+IaaS
+AWS
+Azure
+Google Cloud
+Firebase
+MongoDB
+Redis
+MySQL
+SQLite
+REST
+GraphQL
+WebSocket
+OAuth
+JWT
+SSL
+TLS
+SSH
+FTP
+SMTP
+IMAP
+LAN
+WAN
+5G
+4G LTE
+IoT

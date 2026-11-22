@@ -1,0 +1,33 @@
+# role	class	licence	evidence	file
+# role: train = used to render training lines; eval = used only to render evaluation lines on this machine (never trained on, never redistributed)
+# Licence evidence: name = licence field inside the font file (fonts_audit.py); debian = /usr/share/doc/<package>/copyright
+train	sans	OFL-1.1	name+debian(fonts-noto-core)	/usr/share/fonts/truetype/noto/NotoSansTamil-Regular.ttf
+train	sans	OFL-1.1	name+debian(fonts-noto-core)	/usr/share/fonts/truetype/noto/NotoSansTamil-Bold.ttf
+train	sans	OFL-1.1	name	~/.local/share/fonts/NotoSansTamil_Condensed-Bold.ttf
+train	serif	OFL-1.1	name+debian(fonts-noto-core)	/usr/share/fonts/truetype/noto/NotoSerifTamil-Regular.ttf
+train	serif	OFL-1.1	name+debian(fonts-noto-core)	/usr/share/fonts/truetype/noto/NotoSerifTamil-Bold.ttf
+train	serif	OFL-1.1	name+debian(fonts-noto-core)	/usr/share/fonts/truetype/noto/NotoSerifTamilSlanted-Bold.ttf
+train	sans	OFL-1.1	name	~/.local/share/fonts/MuktaMalar-ExtraLight.ttf
+train	sans	OFL-1.1	name	~/.local/share/fonts/MuktaMalar-Light.ttf
+train	sans	OFL-1.1	name	~/.local/share/fonts/MuktaMalar-Regular.ttf
+train	sans	OFL-1.1	name	~/.local/share/fonts/MuktaMalar-Medium.ttf
+train	sans	OFL-1.1	name	~/.local/share/fonts/MuktaMalar-SemiBold.ttf
+train	sans	OFL-1.1	name	~/.local/share/fonts/MuktaMalar-Bold.ttf
+train	sans	OFL-1.1	name	~/.local/share/fonts/MuktaMalar-ExtraBold.ttf
+train	sans	OFL-1.1	name+debian(fonts-lohit-taml)	/usr/share/fonts/truetype/lohit-tamil/Lohit-Tamil.ttf
+train	serif	OFL-1.1	debian(fonts-lohit-taml-classical)	/usr/share/fonts/truetype/lohit-tamil-classical/Lohit-Tamil-Classical.ttf
+train	serif	GPL-3.0-or-later WITH Font-exception-2.0	debian(fonts-samyak-taml)	/usr/share/fonts/truetype/samyak-fonts/Samyak-Tamil.ttf
+latin	sans	OFL-1.1	name+debian(fonts-noto-core)	/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf
+latin	sans	OFL-1.1	name+debian(fonts-noto-core)	/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf
+latin	sans	OFL-1.1	name+debian(fonts-noto-core)	/usr/share/fonts/truetype/noto/NotoSans-Italic.ttf
+latin	sans	OFL-1.1	name+debian(fonts-noto-core)	/usr/share/fonts/truetype/noto/NotoSans-BoldItalic.ttf
+latin	serif	OFL-1.1	name+debian(fonts-noto-core)	/usr/share/fonts/truetype/noto/NotoSerif-Regular.ttf
+latin	serif	OFL-1.1	name+debian(fonts-noto-core)	/usr/share/fonts/truetype/noto/NotoSerif-Bold.ttf
+latin	serif	OFL-1.1	name+debian(fonts-noto-core)	/usr/share/fonts/truetype/noto/NotoSerif-Italic.ttf
+latin	serif	OFL-1.1	name+debian(fonts-noto-core)	/usr/share/fonts/truetype/noto/NotoSerif-BoldItalic.ttf
+eval	sans	OFL-1.1	name	~/.local/share/fonts/NotoSansTamil_Condensed-Regular.ttf
+eval	serif	OFL-1.1	name+debian(fonts-noto-core)	/usr/share/fonts/truetype/noto/NotoSerifTamilSlanted-Regular.ttf
+eval	sans	proprietary (Microsoft)	installed locally; evaluation only	~/.local/share/fonts/Latha.ttf
+eval	serif	unverified (records say OFL-1.1)	evaluation only until verified	~/.local/share/fonts/Uni Ila.Sundaram-19.ttf
+eval	serif	unverified (records say OFL-1.1)	evaluation only until verified	~/.local/share/fonts/Uni Ila.Sundaram-20.ttf
+eval	serif	unverified (records say GPL-2.0+)	evaluation only until verified	~/.local/share/fonts/Neythal.ttf

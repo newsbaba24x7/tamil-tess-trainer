@@ -1,0 +1,8 @@
+recognised 3968 lines with up_best
+recognised 3968 lines with up_std
+recognised 3968 lines with up_fast
+recognised 3968 lines with v3_best
+recognised 3968 lines with v3_int
+recognised 3968 lines with v31_best
+recognised 3968 lines with v31_std
+recognised 3968 lines with v31_fast
