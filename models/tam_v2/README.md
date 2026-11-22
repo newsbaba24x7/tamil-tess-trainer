@@ -4,7 +4,7 @@
 model (tessdata_best). It was trained only on openly licensed fonts and openly licensed text,
 plus real scanned book lines with proofread text. Use it in place of `tam`.
 
-**Superseded by tam_v3** (release [v3.0.0](https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v3.0.0), [model card](../../MODEL_CARD.md)), which is more accurate on every test at normal scanning resolution.
+**Superseded by tam_v3** (release [v3.0.0](https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v3.0.0), [model card](../tam_v3/README.md)), which is more accurate on every test at normal scanning resolution. tam_v3 is in turn superseded by tam_v3.1 ([model card](../../MODEL_CARD.md)).
 
 | | |
 |---|---|

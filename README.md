@@ -1,15 +1,36 @@
-# Tamil OCR for Tesseract: the open tam_v3 model and its trainer
+# Tamil OCR for Tesseract: the open tam_v3.1 models and their trainer
+
+**tam_v3.1** is a set of three open Tesseract models for printed Tamil, one for each kind of
+official Tesseract model: `tam_best_v3.1` (float, most accurate), `tam_v3.1` (integer) and
+`tam_fast_v3.1` (a smaller network). They were fine-tuned from tam_v3 with a cleaned character
+set, 16,012 of tam_v3's own real scanned lines, and new rendered lines with Tamil numerals,
+English words and punctuation. On tam_v3's 3,968 real test lines, the best model makes 14% fewer
+character errors and 13% fewer word errors than tam_v3.
+
+```bash
+curl -LO https://github.com/newsbaba24x7/tamil-tess-trainer/releases/download/v3.1.0/tam_v3.1.traineddata
+tesseract page.png out -l tam_v3.1 --tessdata-dir .
+```
+
+| 3,968 real lines (`--psm 13`): CER / WER | Stock `tam` | tam_v3 | **tam_v3.1** |
+|---|---:|---:|---:|
+| best (float) | 3.56% / 21.2% | 1.13% / 7.9% | **0.97% / 6.9%** |
+| integer | 3.56% / 21.2% | 1.21% / 8.0% | **1.04% / 7.0%** |
+| fast | 4.18% / 22.8% | – | **1.33% / 8.3%** |
+
+Scored as for tam_v3 (zero-width characters dropped, quote and dash variants folded). tam_v3.1
+has not yet been measured on the whole-page, benchmark and low-resolution tests below. The three
+files are proposed as replacements for `tam` in Tesseract's tessdata_best, tessdata and
+tessdata_fast. Details: [model card](MODEL_CARD.md),
+[release v3.1.0](https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v3.1.0).
+
+### Previous model: tam_v3
 
 **tam_v3** is an open Tesseract model for printed Tamil. It was fine-tuned from tam_v2 with
 openly licensed fonts and 174,624 real scanned lines from 394 books and periodical issues whose
 text was proofread on Tamil Wikisource. On 197 real scanned pages it never saw, it makes 46% fewer
 character errors than the stock model and 16% fewer than tam_v2, and it is better than stock on
 179 of the pages and worse on none.
-
-```bash
-curl -LO https://github.com/newsbaba24x7/tamil-tess-trainer/releases/download/v3.0.0/tam_v3.traineddata
-tesseract page.png out -l tam_v3 --tessdata-dir .
-```
 
 | Test | Stock `tam` | tam_v2 | **tam_v3** |
 |---|---:|---:|---:|
@@ -26,11 +47,11 @@ slightly behind both on old books at 72 DPI; scan at 300 DPI where you can.
 **Project page: [newsbaba24x7.github.io/tamil-tess-trainer](https://newsbaba24x7.github.io/tamil-tess-trainer/)**,
 an overview with features, every benchmark result, the models and references.
 
-Downloads, test results, training data and known limits are in the [model card](MODEL_CARD.md).
-`tam_v3_fast.traineddata` is the smaller integer version; it scores within 0.3 points of the
-full one. Licence: Apache-2.0, like Tesseract's own models.
+tam_v3's downloads, test results, training data and known limits are in its
+[model card](models/tam_v3/README.md); `tam_v3_fast.traineddata` is its smaller integer version,
+within 0.3 points of the full one. Licence: Apache-2.0, like Tesseract's own models.
 
-The previous open model, **tam_v2**, stays available: [model card](models/tam_v2/README.md),
+The earlier open model, **tam_v2**, stays available: [model card](models/tam_v2/README.md),
 [release v2.0.0](https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v2.0.0). It is
 slightly better on very low-resolution scans.
 
@@ -46,7 +67,8 @@ comparison. Both were trained on fonts only.
   [release v2.0.0-research](https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v2.0.0-research).
 
 The rest of this page is about **tamtrain**, the tool that trained tam_v2 and tam_v3. Use it to
-train your own Tamil model or to test models on real scans.
+train your own Tamil model or to test models on real scans. tam_v3.1 was made with the separate
+scripts in [models/tam_v3.1](models/tam_v3.1/README.md).
 
 ## tamtrain: train Tesseract's Tamil model
 
@@ -698,6 +720,18 @@ python3 tools/page_lines.py books-more/train/* --out books-lines-more/train \
   everything it started) when the CPU gets hot, plus a short break every hour; creating the off
   file switches it off without touching the job.
 
+## V3.1: models for Tesseract's official repositories
+
+tam_v3.1 makes three files in the formats of Tesseract's official model repositories from tam_v3:
+a float model for tessdata_best, its integer version for tessdata, and a smaller `Lfx128` network
+for tessdata_fast. It cleans the character set (36 entries removed, such as control characters
+and Cyrillic look-alikes; 8 added), trains on 16,012 of tam_v3's real lines mixed half and half
+with rendered lines that add Tamil numerals, English words and book punctuation, blends the
+result with tam_v3 (0.5 each), and adds straight single quotes to the punctuation patterns.
+Everything is in [models/tam_v3.1](models/tam_v3.1/README.md): the scripts, the full report
+([RESULTS.md](models/tam_v3.1/RESULTS.md)) and the licensing notes
+([LICENSING.md](models/tam_v3.1/LICENSING.md)).
+
 ## Getting a model that helps everyone
 
 - **Use many fonts.** Fine-tuning on a few fonts makes the model better at those and slightly
@@ -735,6 +769,9 @@ license of every font and text source. A model should beat the stock one on real
 it is proposed. Leave out fonts with a non-commercial licence (the C-DAC GIST set) unless their
 owner agrees.
 
+tam_v3.1 was proposed as a replacement for `tam` directly in the official repositories:
+tesseract-ocr/tessdata_best#89, tesseract-ocr/tessdata#209 and tesseract-ocr/tessdata_fast#41.
+
 ## Tests
 
 ```bash
@@ -743,7 +780,7 @@ python3 -m unittest discover tests
 
 ## Licence
 
-The code and the tam_v3, tam_v2 and V1 models are licensed under the [Apache License 2.0](LICENSE),
+The code and the tam_v3.1, tam_v3, tam_v2 and V1 models are licensed under the [Apache License 2.0](LICENSE),
 like Tesseract and its `tam` model. The V2-research model files are licensed for non-commercial
 use only, under [CC BY-NC 4.0](models/tam_v2_research/LICENSE.md). Text from Tamil Wikisource and
 Tamil Wikipedia, in the releases' training text, word list and line list, is CC BY-SA 4.0 by

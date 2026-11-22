@@ -5,7 +5,8 @@ files, which are licensed CC BY-NC 4.0 (see Fonts below).
 
 The tam_v2 model is a fine-tuned version of Tesseract's Tamil model "tam" from
 https://github.com/tesseract-ocr/tessdata_best, licensed under the Apache License 2.0. The
-tam_v3 model is a fine-tuned version of tam_v2.
+tam_v3 model is a fine-tuned version of tam_v2. The tam_v3.1 models (tam_best_v3.1,
+tam_v3.1 and tam_fast_v3.1) are fine-tuned versions of tam_v3.
 
 Training text and ground truth
 - Proofread page text from Tamil Wikisource (https://ta.wikisource.org), by the Tamil
@@ -19,6 +20,10 @@ Training text and ground truth
   contributors, licensed CC BY-SA 4.0, part of tam_v3-training-text.txt.gz.
 - tam.training_text from https://github.com/tesseract-ocr/langdata_lstm (Apache License 2.0),
   part of tam_v2-training-text.txt.gz and tam_v3-training-text.txt.gz.
+- The word dictionaries inside the tam_v3 and tam_v3.1 model files contain words from the Tamil
+  Wikisource text above.
+- English words used to render tam_v3.1 training lines come from SCOWL, Copyright 2000-2011 by
+  Kevin Atkinson (Debian package wamerican); the word list is not redistributed.
 
 Scanned page images
 - Training lines were cut from page images held by the Internet Archive (https://archive.org),
@@ -40,6 +45,11 @@ Fonts
   USAGE. For commercial license contact C-DAC, GIST, Pune."). The tam_v2_research model files
   are therefore licensed CC BY-NC 4.0, for non-commercial use only
   (models/tam_v2_research/LICENSE.md), not Apache-2.0.
+- tam_v3.1: new text lines were rendered with 23 font files under OFL-1.1 (Noto Sans Tamil,
+  Noto Serif Tamil, Mukta Malar, Lohit Tamil, and Noto Sans / Noto Serif for Latin) or
+  GPL-3.0-or-later with the font exception (Samyak Tamil), listed in models/tam_v3.1/fonts.tsv.
+  A licence review made for tam_v3.1 found that some licences recorded for the tam_v2 / tam_v3
+  font styles are unverified or differ from the records; see models/tam_v3.1/LICENSING.md.
 - The fonts themselves are not redistributed.
 
 Benchmarks
