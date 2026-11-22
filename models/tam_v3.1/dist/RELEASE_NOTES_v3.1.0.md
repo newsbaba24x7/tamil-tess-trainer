@@ -10,9 +10,10 @@ tesseract page.png out -l tam_v3.1 --tessdata-dir .
 | 3,968 real scanned lines (197 pages), best model: CER / WER | 9.38% / 61.95% | 1.13% / 7.94% | **0.98% / 6.90%** |
 | the same, integer model (tessdata): CER / WER | 9.38% / 62.00% | 1.21% / 8.01% | **1.05% / 7.04%** |
 | the same, fast model: CER / WER | 10.04% / 63.53% | – | **1.34% / 8.36%** |
+| the same lines, best model, scored as in the v3.0 release (zero-width characters dropped, quote and dash variants folded): CER / WER | 3.56% / 21.16% | 1.13% / 7.92% | **0.97% / 6.88%** |
 | 1,389 synthetic lines in 6 unseen fonts, best model: CER / WER | 19.43% / 68.59% | 6.59% / 27.95% | **5.54% / 24.84%** |
 
-Real lines are tam_v3's test split, read one line image at a time with `--psm 13` on Tesseract 5.5.0 and scored strictly (NFC; quote and dash variants not folded). Stock `tam` scores worse partly because it outputs an invisible U+200C after many pulli signs (3.71% / 22.15% with that character removed). Against tam_v3 on the real lines, v3.1 best is better by 0.16 CER points (95% CI 0.11–0.21) and 1.04 WER points (0.71–1.38), resampling whole pages. Full report: [RESULTS.md](https://github.com/newsbaba24x7/tamil-tess-trainer/blob/main/models/tam_v3.1/RESULTS.md).
+Real lines are tam_v3's test split, read one line image at a time with `--psm 13` on Tesseract 5.5.0. The first three rows are scored strictly (NFC; quote and dash variants not folded), which counts the invisible U+200C that stock `tam` outputs after many pulli signs (in 3,697 of the 3,968 lines). The fourth row is scored as in the v3.0 release and is the like-for-like comparison with the stock and tam_v3 figures published there. Against tam_v3 on the real lines, v3.1 best is better by 0.16 CER points (95% CI 0.11–0.21) and 1.04 WER points (0.71–1.38), resampling whole pages. Full report: [RESULTS.md](https://github.com/newsbaba24x7/tamil-tess-trainer/blob/main/models/tam_v3.1/RESULTS.md).
 
 **Files**
 

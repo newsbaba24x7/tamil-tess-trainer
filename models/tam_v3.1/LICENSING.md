@@ -1,6 +1,6 @@
 # tam v3.1 — licensing and redistribution notes (working document, not legal advice)
 
-Status: draft for review. Nothing here has been published.
+Status: published with release v3.1.0 on 2026-11-22. Pull requests to the official repositories are open (see 5).
 
 ## 1. What the v3.1 model files contain
 
@@ -61,8 +61,8 @@ unconfirmed fonts.
 | `tam_v3-training-text.txt.gz` (Tamil Wikisource + Tamil Wikipedia + `langdata_lstm/tam.training_text`) | CC BY-SA 4.0 (Wikimedia text); Apache-2.0 (langdata) | Cleaned, cut into lines and rendered. Not shipped in the model |
 | SCOWL English word list (`/usr/share/dict/american-english`) | SCOWL permissive licence (notice required in supporting docs) | Random English words for Latin lines. Not shipped |
 | `english_terms.txt` | Written for this project | English technical terms |
-| Real scanned pages for training | tam_v3's own training scans (archive.org copies of Tamil Virtual Academy / Digital Library of India books; text from Tamil Wikisource, CC BY-SA 4.0) | 16,012 of tam_v3's 174,624 real training lines (814 pages, 251 books) and its 2,854-line dev split (164 pages) were re-cut from archive.org (680 MB, approved 2026-11-22) with tam_v3's published boxes; no new image source. Page images deleted after cutting; line crops kept only in a temporary work folder and deleted after the release decision; not redistributed |
-| tam_v3 test pages (197 Wikimedia Commons scans of Tamil Wikisource books, 144.4 MB) | Commons file licences (public-domain / nationalised works hosted for Wikisource) | Downloaded 2026-11-22 with approval, **only to test**; lines cut with tam_v3's boxes; page images deleted after cutting; line crops kept only in a temporary work folder and deleted after the release decision; not redistributed. Their proofread text (CC BY-SA 4.0) appears in the line outputs `results/real_*_psm13/*.jsonl` |
+| Real scanned pages for training | tam_v3's own training scans (archive.org copies of Tamil Virtual Academy / Digital Library of India books; text from Tamil Wikisource, CC BY-SA 4.0) | 16,012 of tam_v3's 174,624 real training lines (814 pages, 251 books) and its 2,854-line dev split (164 pages) were re-cut from archive.org (680 MB, approved 2026-11-22) with tam_v3's published boxes; no new image source. Page images deleted after cutting; line crops deleted on 2026-11-22 after the release; not redistributed |
+| tam_v3 test pages (197 Wikimedia Commons scans of Tamil Wikisource books, 144.4 MB) | Commons file licences (public-domain / nationalised works hosted for Wikisource) | Downloaded 2026-11-22 with approval, **only to test**; lines cut with tam_v3's boxes; page images deleted after cutting; line crops deleted on 2026-11-22 after the release; not redistributed. The line-by-line outputs, which contain their proofread text (CC BY-SA 4.0), were not published |
 
 Attribution text for release notes: "Training text includes material from Tamil Wikisource and
 Tamil Wikipedia (https://ta.wikisource.org, https://ta.wikipedia.org) by their contributors,
@@ -74,3 +74,5 @@ licensed CC BY-SA 4.0; and English words from SCOWL by Kevin Atkinson."
   file changes are needed. Attribution belongs in the PR description / README, not a new LICENSE.
 - Maintainers have redirected community models to `tessdata_contrib` (see the v3.0 review). That
   decision is separate from licensing.
+- Pull requests opened 2026-11-22: tesseract-ocr/tessdata_best#89, tesseract-ocr/tessdata#209,
+  tesseract-ocr/tessdata_fast#41.

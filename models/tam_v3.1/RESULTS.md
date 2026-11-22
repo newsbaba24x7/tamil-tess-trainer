@@ -1,6 +1,7 @@
 # tam v3.1 — results and engineering report
 
-Status: release candidate, **not published**. Process: 2026-11-21 22:16 UTC → 2026-11-22 12:51 UTC (final benchmark
+Status: published as release v3.1.0 (2026-11-22 13:06 UTC); pull requests to tessdata_best (#89), tessdata (#209)
+and tessdata_fast (#41) are open. Process: 2026-11-21 22:16 UTC → 2026-11-22 12:51 UTC (final benchmark
 12:13–12:51 UTC).
 Machine: Intel i3-9100 (4 cores, AVX2), 18 GB RAM, Tesseract 5.5.0 (Debian `5.5.0-1build1`), no GPU.
 All numbers were measured on this machine on the exact release files. The tables are generated from
@@ -68,8 +69,12 @@ SIGFPE cannot abort a batch. Outputs are byte-identical to the stock CLI on ever
 | **v3.1 std** | **1.05 / 7.04** | 1.05 / 7.04 | **0.94 / 5.66** | **5.55 / 24.96** |
 | **v3.1 fast** | **1.34 / 8.36** | 1.34 / 8.36 | **1.06 / 6.39** | **4.69 / 22.68** |
 
-Upstream `tam` emits an invisible U+200C after many pulli signs, so its strict scores are much worse than what a reader
-sees. The "invisible chars removed" column shows its scores with that character removed.
+Upstream `tam` emits an invisible U+200C after many pulli signs (3,697 of the 3,968 real test lines), so its strict
+scores are much worse than what a reader sees. The "invisible chars removed" column shows its scores with that character
+removed. Scored as tam_v3's own benchmark does (zero-width characters dropped, quote and dash variants folded), the real
+test gives: upstream best / std / fast 3.56 / 21.16 · 3.56 / 21.24 · 4.18 / 22.77; tam_v3 best / int 1.13 / 7.92 ·
+1.21 / 7.98; **v3.1 best / std / fast 0.97 / 6.88 · 1.04 / 7.02 · 1.33 / 8.32**. This is the like-for-like comparison
+with the figures on the repository's front page (stock 3.56% / 21.2%, tam_v3 1.13% / 7.9%).
 
 ### Significance (difference in points, 95% CI; negative = v3.1 better)
 

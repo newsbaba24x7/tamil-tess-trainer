@@ -85,3 +85,9 @@
 | tam_v3 best vs tam_v3 int | 93.8% | 69.5% |
 | **v3.1 best** vs **v3.1 std** | 94.6% | 73.3% |
 | upstream best vs upstream std | 82.5% | 58.6% |
+
+### Real test, scored as tam_v3's benchmark (zero-width dropped, quotes/dashes folded): CER % / WER %
+
+|  | upstream best | upstream std | upstream fast | tam_v3 best | tam_v3 int | **v3.1 best** | **v3.1 std** | **v3.1 fast** |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| folded | 3.56 / 21.16 | 3.56 / 21.24 | 4.18 / 22.77 | 1.13 / 7.92 | 1.21 / 7.98 | 0.97 / 6.88 | 1.04 / 7.02 | 1.33 / 8.32 |

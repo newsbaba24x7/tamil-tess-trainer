@@ -73,3 +73,20 @@ for a, b in (("v3_best", "v3_int"), ("v31_best", "v31_std"), ("up_best", "up_std
         y = {r["id"]: r["hyp"] for r in map(json.loads, open(R / SETS[k] / f"{b}.jsonl", encoding="utf-8"))}
         row.append(f"{100 * sum(x[i] == y[i] for i in x) / len(x):.1f}%")
     P(f"| {L[a]} vs {L[b]} | " + " | ".join(row) + " |")
+
+# Real test scored as tam_v3's own benchmark does (10_evaluate.py --fold: zero-width characters dropped, quote and
+# dash variants folded), for a like-for-like comparison with the figures published for tam_v3.
+import importlib
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+E = importlib.import_module("10_evaluate")
+E.FOLD["on"] = True
+P("\n### Real test, scored as tam_v3's benchmark (zero-width dropped, quotes/dashes folded): CER % / WER %\n")
+head("", [L[m] for m in M])
+cells = []
+for m in M:
+    ce = cn = we = wn = 0
+    for r in map(json.loads, open(R / SETS["real"] / f"{m}.jsonl", encoding="utf-8")):
+        a, b = E.norm(r["ref"]), E.norm(r["hyp"])
+        ce += E.lev(a, b); cn += len(a); we += E.lev(a.split(), b.split()); wn += len(a.split())
+    cells.append(f"{100 * ce / cn:.2f} / {100 * we / wn:.2f}")
+P("| folded | " + " | ".join(cells) + " |")
