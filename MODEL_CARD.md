@@ -38,7 +38,8 @@ model either. CER = character error rate, WER = word error rate; lower is better
 | the same, integer model | 3.56% / 21.2% | 1.21% / 8.0% | **1.04% / 7.0%** |
 | the same, fast model | 4.18% / 22.8% | – | **1.33% / 8.3%** |
 | the same, best model, strict scoring (invisible characters and quote variants count) | 9.38% / 61.9% | 1.13% / 7.9% | **0.98% / 6.9%** |
-| 1,389 rendered lines in 6 fonts and text never trained on, best model, CER / WER (strict) | 19.4% / 68.6% | 6.59% / 27.9% | **5.54% / 24.8%** |
+| 1,389 rendered lines, text never trained on, in 6 fonts not used to train tam_v3.1 itself (4 of them were used to train tam_v2 and tam_v3), best model, CER / WER (strict) | 19.4% / 68.6% | 6.59% / 27.9% | **5.54% / 24.8%** |
+| the 463 of them in the 2 fonts never used to train tam_v2, tam_v3 or tam_v3.1 (Uni Ila.Sundaram-20, Latha) | 20.7% / 71.0% | 8.51% / 35.9% | **7.24% / 31.2%** |
 
 On the real lines, best and integer are better than tam_v3 by 0.16 and 0.17 CER points and by 1.04
 and 0.97 WER points; the 95% confidence intervals (resampling whole pages) exclude zero.
@@ -65,10 +66,13 @@ RANLP 2025 and low-resolution scans. tam_v3's results there are in its
 
 - **Real scanned lines:** 16,012 of tam_v3's 174,624 real training lines (814 archive.org pages from
   251 books), cut again with tam_v3's line boxes. No test book was used.
-- **Rendered lines:** 16,012 lines, mixed half and half with the real lines, rendered in 23 font files
-  under OFL-1.1 (Noto Sans Tamil, Noto Serif Tamil, Mukta Malar, Lohit Tamil; Noto Sans and Noto Serif
-  for Latin) or GPL-3.0-or-later with the font exception (Samyak Tamil), listed in
-  [models/tam_v3.1/fonts.tsv](models/tam_v3.1/fonts.tsv). The text is tam_v3's training text plus all
+- **Rendered lines:** 16,012 lines, mixed half and half with the real lines, rendered in 20 font files:
+  16 for Tamil under OFL-1.1 (Noto Sans Tamil, Noto Serif Tamil, Mukta Malar, Lohit Tamil) or
+  GPL-3.0-or-later with the font exception (Samyak Tamil), and 4 for English (Noto Sans and Noto Serif,
+  Regular and Bold; OFL-1.1). They are listed in [models/tam_v3.1/fonts.tsv](models/tam_v3.1/fonts.tsv),
+  which also lists 4 italic English files that the renderer never picked. Every font used to train or
+  test tam_multifont, tam_v2, tam_v3 and tam_v3.1 is listed in
+  [models/tam_v3.1/fonts.json](models/tam_v3.1/fonts.json). The text is tam_v3's training text plus all
   36 Tamil numeral forms (௦ … ௫௲), English words (SCOWL) and technical terms, and book-style punctuation.
 - **Character set:** tam_v3's, with 36 entries removed (control characters, Cyrillic and Cherokee
   look-alikes, CJK, Hangul, Malayalam, and a pulli + invisible U+200C entry) and 8 added (`^`, `` ` ``,

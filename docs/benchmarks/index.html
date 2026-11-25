@@ -270,7 +270,7 @@ h4 { font-family: var(--display); font-weight: 700; font-size: 16px; line-height
       tam_v3.1 scores 1.04% / 7.02% and tam_fast_v3.1 1.33% / 8.32%.</li>
     <li><b>The gain over tam_v3 is significant:</b> −0.16 CER points (−0.21 to −0.11) and −1.04 WER points
       (−1.38 to −0.71), 95% confidence intervals resampling whole pages.</li>
-    <li><b>Rendered lines in unseen fonts:</b> tam_best_v3.1 is better than tam_v3 in every category of Tamil text, vowel
+    <li><b>Rendered test lines:</b> tam_best_v3.1 is better than tam_v3 in every category of Tamil text, vowel
       signs, grantha, pulli, numerals, mixed Tamil-English and English terms. tam_fast_v3.1 is the best of all models on
       numerals, mixed text and English terms.</li>
     <li><b>Quotation marks:</b> 93.0% are read on the real lines (tam_v3 88.5%, stock 71.6%).</li>
@@ -351,7 +351,8 @@ h4 { font-family: var(--display); font-weight: 700; font-size: 16px; line-height
 
 <section id="rendered">
   <h2>Rendered lines by category</h2>
-  <p class="cap">1,389 lines rendered from text never trained on, in 6 fonts never used to train tam_v3.1; strict scoring.
+  <p class="cap">1,389 lines rendered from text never trained on, in 6 fonts not used to train tam_v3.1 itself (4 of them were
+    used to train tam_v2 and tam_v3; only Uni Ila.Sundaram-20 and Latha are new to tam_v3 and tam_v3.1); strict scoring.
     Categories A–G cover the parts of Tamil writing that OCR most often gets wrong, plus punctuation.</p>
   <div class="table-wrap"><table>
     <thead><tr><th>Category (CER / WER)</th><th class="n">Stock best</th><th class="n">Stock fast</th><th class="n">tam_v3</th><th class="n">v3.1 best</th><th class="n">v3.1</th><th class="n">v3.1 fast</th></tr></thead>

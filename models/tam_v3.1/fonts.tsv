@@ -1,5 +1,5 @@
 # role	class	licence	evidence	file
-# role: train = used to render training lines; eval = used only to render evaluation lines on this machine (never trained on, never redistributed)
+# role: train = used to render training lines; latin = English runs in those lines (the Italic and BoldItalic files were never picked, because no train font is italic); eval = used only to render v3.1's evaluation lines, never redistributed (4 of them were used to train tam_v2 and tam_v3: see fonts.json)
 # Licence evidence: name = licence field inside the font file (fonts_audit.py); debian = /usr/share/doc/<package>/copyright
 train	sans	OFL-1.1	name+debian(fonts-noto-core)	/usr/share/fonts/truetype/noto/NotoSansTamil-Regular.ttf
 train	sans	OFL-1.1	name+debian(fonts-noto-core)	/usr/share/fonts/truetype/noto/NotoSansTamil-Bold.ttf

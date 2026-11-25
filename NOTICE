@@ -45,9 +45,12 @@ Fonts
   USAGE. For commercial license contact C-DAC, GIST, Pune."). The tam_v2_research model files
   are therefore licensed CC BY-NC 4.0, for non-commercial use only
   (models/tam_v2_research/LICENSE.md), not Apache-2.0.
-- tam_v3.1: new text lines were rendered with 23 font files under OFL-1.1 (Noto Sans Tamil,
-  Noto Serif Tamil, Mukta Malar, Lohit Tamil, and Noto Sans / Noto Serif for Latin) or
-  GPL-3.0-or-later with the font exception (Samyak Tamil), listed in models/tam_v3.1/fonts.tsv.
+- tam_v3.1: new text lines were rendered with 20 font files under OFL-1.1 (Noto Sans Tamil,
+  Noto Serif Tamil, Mukta Malar, Lohit Tamil, and Noto Sans / Noto Serif Regular and Bold for
+  Latin) or GPL-3.0-or-later with the font exception (Samyak Tamil), listed in
+  models/tam_v3.1/fonts.tsv (which also lists 4 italic Latin files that were never used).
+  models/tam_v3.1/fonts.json lists every font used to train or test tam_multifont, tam_v2,
+  tam_v3 and tam_v3.1.
   A licence review made for tam_v3.1 found that some licences recorded for the tam_v2 / tam_v3
   font styles are unverified or differ from the records; see models/tam_v3.1/LICENSING.md.
 - The fonts themselves are not redistributed.

@@ -212,7 +212,7 @@ page = f"""<!doctype html>
       tam_v3.1 scores {pct(FOLD['v31_std'][0])} / {pct(FOLD['v31_std'][1])} and tam_fast_v3.1 {pct(FOLD['v31_fast'][0])} / {pct(FOLD['v31_fast'][1])}.</li>
     <li><b>The gain over tam_v3 is significant:</b> {dash(cb[0])} CER points ({dash(cb[1])} to {dash(cb[2])}) and {dash(cw[0])} WER points
       ({dash(cw[1])} to {dash(cw[2])}), 95% confidence intervals resampling whole pages.</li>
-    <li><b>Rendered lines in unseen fonts:</b> tam_best_v3.1 is better than tam_v3 in every category of Tamil text, vowel
+    <li><b>Rendered test lines:</b> tam_best_v3.1 is better than tam_v3 in every category of Tamil text, vowel
       signs, grantha, pulli, numerals, mixed Tamil-English and English terms. tam_fast_v3.1 is the best of all models on
       numerals, mixed text and English terms.</li>
     <li><b>Quotation marks:</b> {q('v31_best'):.1f}% are read on the real lines (tam_v3 {q('v3_best'):.1f}%, stock {q('up_best'):.1f}%).</li>
@@ -262,7 +262,8 @@ page = f"""<!doctype html>
 
 <section id="rendered">
   <h2>Rendered lines by category</h2>
-  <p class="cap">1,389 lines rendered from text never trained on, in 6 fonts never used to train tam_v3.1; strict scoring.
+  <p class="cap">1,389 lines rendered from text never trained on, in 6 fonts not used to train tam_v3.1 itself (4 of them were
+    used to train tam_v2 and tam_v3; only Uni Ila.Sundaram-20 and Latha are new to tam_v3 and tam_v3.1); strict scoring.
     Categories A–G cover the parts of Tamil writing that OCR most often gets wrong, plus punctuation.</p>
   {t_syn}
 </section>

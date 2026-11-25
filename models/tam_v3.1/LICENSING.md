@@ -25,14 +25,20 @@ No font, image or training text is inside the `.traineddata` files.
 | Lohit Tamil | OFL-1.1 | font file + Debian `fonts-lohit-taml` |
 | Lohit Tamil Classical | OFL-1.1 | Debian `fonts-lohit-taml-classical` |
 | Samyak Tamil | GPL-3.0-or-later with font exception | Debian `fonts-samyak-taml` |
-| Noto Sans, Noto Serif (Latin; Regular, Bold, Italic, Bold Italic) | OFL-1.1 | font file + Debian `fonts-noto-core` |
+| Noto Sans, Noto Serif (Latin; Regular, Bold) | OFL-1.1 | font file + Debian `fonts-noto-core` |
 
 Rendering was locked to exactly these files (a private fontconfig), and the renderer recorded the
-fonts Pango actually used for every line: none outside this list.
+fonts Pango actually used for every line: none outside this list. `fonts.tsv` also lists the Italic
+and Bold Italic files of Noto Sans and Noto Serif; the renderer picks a Latin font with the same slant
+as the Tamil font, and no Tamil training font is italic, so these 4 files were never used.
 
-Fonts used only to render EVALUATION lines on this machine (never trained on, never redistributed):
+Fonts used only to render EVALUATION lines for v3.1 (not used in v3.1's training, never redistributed):
 Noto Sans Tamil Condensed Regular, Noto Serif Tamil Slanted Regular (OFL-1.1); Latha (Microsoft,
 proprietary, installed locally); Uni Ila.Sundaram-19/-20 and TAU-Neythal (licences unconfirmed, see 3).
+Four of them (Noto Sans Tamil Condensed Regular, Noto Serif Tamil Slanted Regular, Uni Ila.Sundaram-19,
+TAU-Neythal; the same files) were used to train tam_v2 and tam_v3, so they are in the v3.1 weights;
+only Uni Ila.Sundaram-20 and Latha are new to v3.1. `fonts.json` lists every font used to train or test
+each model version (tam_multifont, tam_v2, tam_v3, tam_v3.1).
 
 ## 3. Fonts inherited through v3.0 (used to train v3.0, so their influence is in the v3.1 weights)
 

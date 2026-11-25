@@ -45,10 +45,12 @@ ignored, v3.1 best scores 0.68% / 4.75% (tam_v3: 0.83% / 5.69%); on Tamil letter
 | | Real test | Real dev | Synthetic |
 |---|---|---|---|
 | Lines | 3,968 from 197 pages | 2,854 from 164 pages | 1,389 |
-| Source | tam_v3's test split: Wikimedia Commons scans of Tamil Wikisource books, cut with tam_v3's line boxes | tam_v3's dev split: archive.org scans, same cutting | text never trained on, rendered in 6 fonts never used to train v3.1 |
+| Source | tam_v3's test split: Wikimedia Commons scans of Tamil Wikisource books, cut with tam_v3's line boxes | tam_v3's dev split: archive.org scans, same cutting | text never trained on, rendered in 6 fonts not used to train v3.1 itself; 4 of them (Noto Sans Tamil Condensed Regular, Noto Serif Tamil Slanted Regular, Uni Ila.Sundaram-19 and TAU-Neythal) were used to train tam_v2 and tam_v3, so only Uni Ila.Sundaram-20 and Latha (463 lines) are new to v3.1 (`fonts.json`) |
 | Use | **final report only** | choosing checkpoints and candidates (so not an unbiased score for v3.1) | categories A–G of the request, plus punctuation |
 | Mode | `--psm 13` | `--psm 13` | `--psm 7` |
 | Confidence intervals | paired bootstrap resampling **pages** | same | paired bootstrap resampling lines |
+
+On the 463 synthetic lines in the 2 fonts never used to train tam_v2, tam_v3 or v3.1 (Uni Ila.Sundaram-20, Latha), strict CER / WER: stock best 20.75% / 70.96%, tam_v3 best 8.51% / 35.86%, v3.1 best 7.24% / 31.20%, integer 7.29% / 31.55%, fast 6.62% / 30.09%.
 
 Text is compared strictly, after NFC normalisation and space collapsing, without folding quote or dash variants.
 Accuracy runs preload a no-op `feenableexcept` (`analysis/tesseract_sigfpe_repro/`) so that the Tesseract < 5.5.4
