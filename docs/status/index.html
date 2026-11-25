@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>tam_v3.1 in Tesseract: status</title>
+<meta name="description" content="Where the three pull requests that propose tam_v3.1 as Tesseract's Tamil model stand, and why merging them matters.">
+<meta property="og:title" content="Making tam_v3.1 Tesseract's Tamil model">
+<meta property="og:description" content="Three pull requests propose tam_v3.1 as Tesseract's standard Tamil model: 73% fewer character errors on real scanned Tamil books. See where each one stands.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://newsbaba24x7.github.io/tamil-tess-trainer/status/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Catamaran:wght@500;700;800&family=Hind+Madurai:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body { margin: 0; }
+[hidden] { display: none !important; }
+/* Same design language as the Tamil OCR project page. */
+:root {
+  --bg: #f4f6f5;
+  --surface: #ffffff;
+  --ink: #17211f;
+  --muted: #5a6a66;
+  --line: #d9e1de;
+  --accent: #0b6e73;
+  --accent-ink: #ffffff;
+  --accent-soft: #e2f0ef;
+  --good: #1f7a3a;   --good-bg: #e3f3e7;
+  --warn: #a5521a;   --warn-bg: #fbeee2;
+  --quiet: #5f6764;  --quiet-bg: #eceeed;
+  --code-bg: #eef2f1;
+  --shadow: 0 1px 2px rgba(20, 40, 36, .06), 0 4px 14px rgba(20, 40, 36, .06);
+  --display: "Catamaran", "Noto Sans Tamil", "Latha", system-ui, sans-serif;
+  --body: "Hind Madurai", "Noto Sans Tamil", "Latha", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1615; --surface: #162120; --ink: #e4ecea; --muted: #9db0ab; --line: #2a3a37;
+    --accent: #5cc6c0; --accent-ink: #0f1615; --accent-soft: #173533;
+    --good: #7fd39a; --good-bg: #173322;
+    --warn: #f0a96b; --warn-bg: #3a2616;
+    --quiet: #a7b1ae; --quiet-bg: #232d2b;
+    --code-bg: #101a19;
+    --shadow: 0 1px 2px rgba(0,0,0,.4);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1615; --surface: #162120; --ink: #e4ecea; --muted: #9db0ab; --line: #2a3a37;
+  --accent: #5cc6c0; --accent-ink: #0f1615; --accent-soft: #173533;
+  --good: #7fd39a; --good-bg: #173322;
+  --warn: #f0a96b; --warn-bg: #3a2616;
+  --quiet: #a7b1ae; --quiet-bg: #232d2b;
+  --code-bg: #101a19;
+  --shadow: 0 1px 2px rgba(0,0,0,.4);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.6; }
+.wrap {
+  max-width: 1080px; margin: 0 auto; padding-block: 40px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+code { font-family: var(--mono); font-size: .86em; background: var(--code-bg); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
+
+header { display: grid; gap: 14px; padding-bottom: 8px; }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.back { font-size: 15px; text-decoration: none; }
+h1 { font-family: var(--display); font-weight: 800; font-size: clamp(32px, 5vw, 50px); line-height: 1.08; margin: 0; text-wrap: balance; }
+.lede { margin: 0; max-width: 70ch; color: var(--muted); font-size: 17px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 8px;
+  font-weight: 600; text-decoration: none; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+}
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn:hover { text-decoration: none; filter: brightness(1.05); }
+
+section { padding-top: 40px; }
+h2 { font-family: var(--display); font-weight: 800; font-size: clamp(24px, 3.2vw, 32px); line-height: 1.15; margin: 0 0 12px; }
+h3 { font-family: var(--display); font-weight: 700; font-size: 18px; line-height: 1.25; margin: 0 0 6px; }
+section > p { max-width: 75ch; }
+p { margin: 0 0 12px; }
+.muted { color: var(--muted); }
+.small { font-size: 14px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 8px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; box-shadow: var(--shadow); min-width: 0; }
+.card p { margin: 0; color: var(--muted); font-size: 15px; }
+.card .big { font-family: var(--display); font-weight: 800; font-size: 30px; color: var(--accent); line-height: 1.1; display: block; margin-bottom: 4px; }
+ul.list { padding-left: 20px; margin: 8px 0 12px; max-width: 80ch; }
+ul.list li + li { margin-top: 6px; }
+
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); margin: 8px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th, td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+thead th { font-weight: 600; font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+tbody tr:last-child td { border-bottom: 0; }
+td.pr { min-width: 190px; }
+td.pr a { font-weight: 600; white-space: nowrap; }
+td.pr .small { display: block; color: var(--muted); margin-top: 2px; }
+td .new { display: block; margin-top: 6px; color: var(--warn); font-weight: 600; }
+p.cap, .note { color: var(--muted); font-size: 14px; max-width: 85ch; }
+p.cap { margin: 0 0 6px; }
+.note { margin: 6px 0 0; }
+
+.pill { display: inline-block; padding: 1px 9px; border-radius: 999px; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+.pill.good { color: var(--good); background: var(--good-bg); }
+.pill.warn { color: var(--warn); background: var(--warn-bg); }
+.pill.wait { color: var(--accent); background: var(--accent-soft); }
+
+footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13.5px; display: grid; gap: 4px; }
+
+@media (max-width: 640px) {
+  .wrap { padding-block: 24px 40px; }
+  body { font-size: 15.5px; }
+  th, td { padding: 10px; }
+  table { font-size: 14px; }
+}
+
+/* Site menu, shared with newsbaba24x7.github.io */
+.sitebar { background: var(--surface); border-bottom: 1px solid var(--line); }
+.sitebar .bar { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; gap: 8px 20px; min-height: 54px; flex-wrap: wrap;
+  padding: 6px max(16px, env(safe-area-inset-right, 0px)) 6px max(16px, env(safe-area-inset-left, 0px)); }
+.brand { font-family: var(--display); font-weight: 800; font-size: 20px; color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
+.brand span { color: var(--accent); }
+.sitebar ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px 6px; flex-wrap: wrap; }
+.sitebar ul a { display: block; padding: 6px 10px; border-radius: 6px; color: var(--muted); text-decoration: none; font-size: 15px; font-weight: 500; }
+.sitebar ul a:hover { color: var(--ink); background: var(--accent-soft); }
+.sitebar ul a[aria-current="page"] { color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+@media (max-width: 640px) { .sitebar .bar { gap: 2px 12px; } .sitebar ul a { padding: 5px 8px; font-size: 14px; } }
+</style>
+</head>
+<body>
+<nav class="sitebar" aria-label="Site">
+  <div class="bar">
+    <a class="brand" href="/">News<span>Baba</span></a>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/tamil-tess-trainer/" aria-current="page">Tamil OCR</a></li>
+      <li><a href="/artcraft-tamil/">ArtCraft in Tamil</a></li>
+      <li><a href="https://github.com/newsbaba24x7">GitHub ↗</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="wrap">
+
+<header>
+  <a class="back" href="../">← Tamil OCR for Tesseract</a>
+  <div class="eyebrow">Tesseract pull requests · status on 25 Nov 2026</div>
+  <h1>Making tam_v3.1 Tesseract's Tamil model</h1>
+  <p class="lede">Tesseract keeps its official Tamil model, <code>tam</code>, in three repositories: tessdata_best
+    (most accurate), tessdata (integer) and tessdata_fast (smallest and fastest). On 22 November 2026 we opened a pull
+    request in each one to replace <code>tam</code> with the matching tam_v3.1 file. This page explains why that matters
+    and shows where each request stands.</p>
+  <div class="actions">
+    <a class="btn primary" href="#status">See the status</a>
+    <a class="btn" href="../benchmarks/">Benchmark results</a>
+    <a class="btn" href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v3.1.0">Release v3.1.0</a>
+  </div>
+</header>
+
+<main>
+
+<section id="why">
+  <h2>Why merging matters</h2>
+  <p>Tesseract's <code>tam</code> is the Tamil model inside many free OCR programs. Improving it there improves Tamil
+    OCR for all of them at once.</p>
+  <div class="grid">
+    <div class="card"><span class="big">73%</span><h3>Fewer errors</h3><p>On 3,968 lines from real scanned Tamil books,
+      tam_v3.1 makes 73% fewer character errors and 67% fewer word errors than the current <code>tam</code>.</p></div>
+    <div class="card"><span class="big">0</span><h3>Extra steps for users</h3><p>Most people never download a model by
+      hand. They install Tesseract, or a program built on it, and get <code>tam</code> from these repositories. Once
+      merged, tam_v3.1 reaches them with their next update of Tesseract's language files.</p></div>
+    <div class="card"><span class="big">3,697 → 0</span><h3>Invisible characters</h3><p>The current model writes an
+      invisible character (U+200C) after many pullis, in 3,697 of the 3,968 test lines. tam_v3.1 writes none, so its
+      text searches, copies and sorts correctly.</p></div>
+    <div class="card"><span class="big">Apache-2.0</span><h3>Open, and a drop-in</h3><p>The same licence, file name and
+      format as the current model, at nearly the same speed, so no program needs to change. Every training and test
+      step is public.</p></div>
+  </div>
+  <h3 style="margin-top: 24px">Who it helps</h3>
+  <ul class="list">
+    <li>Libraries, archives and volunteers digitising old Tamil books, newspapers and records.</li>
+    <li>Blind and low-vision readers, whose screen readers can read a scanned Tamil page only after it becomes text.</li>
+    <li>Students, researchers and everyday users searching and copying text from Tamil documents, in India, Sri Lanka,
+      Singapore, Malaysia and across the world.</li>
+  </ul>
+</section>
+
+<section id="status">
+  <h2>Status</h2>
+  <p class="cap">Checked on GitHub on 25 November 2026. <span id="live" class="small"></span></p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>PR</th><th>Where it stands</th><th>Next step</th><th>Tag</th></tr></thead>
+    <tbody>
+      <tr data-repo="tessdata_best" data-pr="89" data-seen="2026-11-25T11:24:24Z">
+        <td class="pr"><a href="https://github.com/tesseract-ocr/tessdata_best/pull/89">tessdata_best #89</a>
+          <span class="small">Best (float) model, tam_best_v3.1: 73% fewer character errors</span></td>
+        <td class="where">Open since 22 Nov 2026. It can be merged as it is, with no conflicts. No review or reply from
+          the maintainers yet. A thank-you note with the results is posted on it.</td>
+        <td class="next">A review by Tesseract's maintainers.</td>
+        <td class="tag"><span class="pill wait">Waiting for review</span></td>
+      </tr>
+      <tr data-repo="tessdata" data-pr="209" data-seen="2026-11-22T13:46:35Z">
+        <td class="pr"><a href="https://github.com/tesseract-ocr/tessdata/pull/209">tessdata #209</a>
+          <span class="small">Integer model, tam_v3.1: 71% fewer character errors</span></td>
+        <td class="where">Open since 22 Nov 2026. It can be merged as it is, with no conflicts. No review or reply from
+          the maintainers yet.</td>
+        <td class="next">A review by Tesseract's maintainers.</td>
+        <td class="tag"><span class="pill wait">Waiting for review</span></td>
+      </tr>
+      <tr data-repo="tessdata_fast" data-pr="41" data-seen="2026-11-22T13:46:37Z">
+        <td class="pr"><a href="https://github.com/tesseract-ocr/tessdata_fast/pull/41">tessdata_fast #41</a>
+          <span class="small">Fast model, tam_fast_v3.1: 68% fewer character errors</span></td>
+        <td class="where">Open since 22 Nov 2026. It can be merged as it is, with no conflicts. No review or reply from
+          the maintainers yet.</td>
+        <td class="next">A review by Tesseract's maintainers.</td>
+        <td class="tag"><span class="pill wait">Waiting for review</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+  <p class="note">Error figures compare each file with the current <code>tam</code> in the same repository, on 3,968 real
+    scanned lines that no model was trained on, scored as on the <a href="../benchmarks/">benchmark page</a> (invisible
+    characters dropped, quote and dash variants treated as the same). Word errors: 67%, 67% and 63% fewer.</p>
+</section>
+
+<section id="next">
+  <h2>What happens next</h2>
+  <p>Tesseract's maintainers are volunteers, and a review can take weeks. If they ask for changes, we will make them
+    and update this page.</p>
+  <p>You do not have to wait: <a href="https://github.com/newsbaba24x7/tamil-tess-trainer/releases/tag/v3.1.0">download
+    tam_v3.1</a> and read pages with <code>-l tam_v3.1</code>, as shown in the
+    <a href="../#quick-start">quick start</a>.</p>
+</section>
+
+</main>
+
+<footer>
+  <div>tam_v3.1 · Apache-2.0 · <a href="https://github.com/newsbaba24x7/tamil-tess-trainer">github.com/newsbaba24x7/tamil-tess-trainer</a></div>
+  <div>Benchmark figures from <a href="../benchmarks/">the benchmark page</a>, measured 22 November 2026 with Tesseract 5.5.0.</div>
+</footer>
+
+</div>
+<script>
+// Compare the table with GitHub when the page opens. Only GitHub's public API is called, and the page
+// keeps the status written above if GitHub cannot be reached.
+(() => {
+  const live = document.getElementById("live");
+  const day = (iso) => new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+  const setTag = (row, cls, text) => {
+    const pill = row.querySelector(".tag .pill");
+    pill.className = "pill " + cls;
+    pill.textContent = text;
+  };
+  const rows = [...document.querySelectorAll("tr[data-repo]")];
+  Promise.all(rows.map(async (row) => {
+    const url = `https://api.github.com/repos/tesseract-ocr/${row.dataset.repo}/pulls/${row.dataset.pr}`;
+    const res = await fetch(url, { headers: { Accept: "application/vnd.github+json" } });
+    if (!res.ok) throw new Error(res.status);
+    const pr = await res.json();
+    const where = row.querySelector(".where"), next = row.querySelector(".next");
+    if (pr.merged_at) {
+      where.textContent = `Merged on ${day(pr.merged_at)}.`;
+      next.textContent = `None. tam_v3.1 is now Tesseract's Tamil model in ${row.dataset.repo}.`;
+      setTag(row, "good", "Merged");
+    } else if (pr.state === "closed") {
+      where.textContent = `Closed without merging on ${day(pr.closed_at)}.`;
+      next.textContent = "Read the maintainers' comments on the pull request.";
+      setTag(row, "warn", "Closed");
+    } else if (new Date(pr.updated_at) > new Date(row.dataset.seen)) {
+      const note = document.createElement("span");
+      note.className = "new";
+      note.textContent = `New activity on GitHub on ${day(pr.updated_at)}: open the pull request to see it.`;
+      where.append(note);
+    }
+  })).then(
+    () => { live.textContent = "Checked again on GitHub just now."; },
+    () => { live.textContent = "GitHub could not be reached just now, so the table may show the status on that day."; }
+  );
+})();
+</script>
+</body>
+</html>
